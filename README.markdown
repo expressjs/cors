@@ -1,7 +1,6 @@
 # cors
 
-CORS is a node.js package for providing a middleware that can be used
-with connect/express to enable CORS with various options.
+CORS is a node.js package for providing a [connect](http://www.senchalabs.org/connect/)/[express](http://expressjs.com/) middleware that can be used to enable [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) with various options.
 
 [![build status](https://secure.travis-ci.org/TroyGoode/node-cors.png)](http://travis-ci.org/TroyGoode/node-cors)
 
