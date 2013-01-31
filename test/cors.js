@@ -1,10 +1,13 @@
 var should = require('should'),
     cors = require('../lib'),
     fakeRequest = function(){
+      var _headers = {
+        'origin': 'request.com',
+        'access-control-request-headers': 'requestedHeader1,requestedHeader2'
+      };
       return {
-        headers: {
-          'Origin': 'request.com',
-          'Access-Control-Request-Headers': 'requestedHeader1,requestedHeader2'
+        header: function(key){
+          return _headers[key.toLowerCase()];
         }
       };
     },
