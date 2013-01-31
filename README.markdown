@@ -4,6 +4,15 @@ CORS is a node.js package for providing a [connect](http://www.senchalabs.org/co
 
 [![build status](https://secure.travis-ci.org/TroyGoode/node-cors.png)](http://travis-ci.org/TroyGoode/node-cors)
 
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Simple Usage](#simple-usage-enable-all-cors-requests)
+  * [Configuring CORS](#configuring-cors)
+  * [Configuring CORS Asynchronously](#configuring-cors-asynchronously)
+* [Configuration Options](#configuration-options)
+* [License](#license)
+* [Author](#author)
+
 ## Installation
 
 ```bash
@@ -75,16 +84,16 @@ app.listen(80, function(){
 });
 ```
 
-## Options
+## Configuration Options
+
+* `origin`: Configures the **Access-Control-Allow-Origin** CORS header. Expects a string (ex: "http://example.com"). Set to `true` to reflect the [request origin](http://tools.ietf.org/html/draft-abarth-origin-09), as defined by `req.header('Origin')`. Set to `false` to disable CORS.
+* `methods`: Configures the **Access-Control-Allow-Methods** CORS header. Expects a comma-delimited string (ex: 'GET,PUT,POST') or an array (ex: `['GET', 'PUT', 'POST']`).
+* `headers`: Configures the **Access-Control-Allow-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Type,Authorization') or an array (ex: `['Content-Type', 'Authorization]`). If not specified, defaults to reflecting the headers specified in the request's **Access-Control-Request-Headers** header.
+* `credentials`: Configures the **Access-Control-Allow-Credentials** CORS header. Set to `true` to pass the header, otherwise it is omitted.
+* `maxAge`: Configures the **Access-Control-Allow-Max-Age** CORS header. Set to an integer to pass the header, otherwise it is omitted.
+* `enablePreflight`: By default, a request that runs through this middleware with a method of `OPTIONS` will short-circuit with a `204` response to the client after the CORS headers have been written. Set this option to `false` to disable this feature.
 
 For details on the effect of each CORS header, [read this article on HTML5 Rocks](http://www.html5rocks.com/en/tutorials/cors/).
-
-* `options.origin`: Configures the **Access-Control-Allow-Origin** CORS header. Expects a string (ex: "http://example.com"). Set to `true` to reflect the [request origin](http://tools.ietf.org/html/draft-abarth-origin-09), as defined by `req.header('Origin')`. Set to `false` to disable CORS.
-* `options.methods`: Configures the **Access-Control-Allow-Methods** CORS header. Expects a comma-delimited string (ex: 'GET,PUT,POST') or an array (ex: `['GET', 'PUT', 'POST']`).
-* `options.headers`: Configures the **Access-Control-Allow-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Type,Authorization') or an array (ex: `['Content-Type', 'Authorization]`). If not specified, defaults to reflecting the headers specified in the request's **Access-Control-Request-Headers** header.
-* `options.credentials`: Configures the **Access-Control-Allow-Credentials** CORS header. Set to `true` to pass the header, otherwise it is omitted.
-* `options.maxAge`: Configures the **Access-Control-Allow-Max-Age** CORS header. Set to an integer to pass the header, otherwise it is omitted.
-* `options.enablePreflight`: By default, a request that runs through this middleware with a method of `OPTIONS` will short-circuit with a `204` response to the client after the CORS headers have been written. Set this option to `false` to disable this feature.
 
 ## License
 
