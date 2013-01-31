@@ -67,7 +67,7 @@ var corsOptionsDelegate = function(req, callback){
 };
 
 app.get('/products/:id', cors(corsOptionsDelegate), function(req, res, next){
-  res.json({msg: 'This is CORS-enabled for only example.com.'});
+  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'});
 });
 
 app.listen(80, function(){
