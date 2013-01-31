@@ -37,7 +37,7 @@ var express = require('express')
   , app = express();
 
 var corsOptions = {
-      origin: 'http://example.com'
+  origin: 'http://example.com'
 };
 
 app.get('/products/:id', cors(corsOptions), function(req, res, next){
@@ -57,15 +57,17 @@ var express = require('express')
   , app = express();
 
 var whitelist = ['http://example1.com', 'http://example2.com'];
-var corsOptions = function(req, callback){ // callback expects two parameters: error and options
+var corsOptionsDelegate = function(req, callback){
+  var corsOptions;
   if(whitelist.indexOf(req.header('Origin')) !== -1){
-    callback(null, { origin: true }); // reflect (enable) the requested origin in the CORS response
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
   }else{
-    callback(null, { origin: false }); // disable CORS for this request
+    corsOptions = { origin: false }; // disable CORS for this request
   }
+  callback(null, corsOptions); // callback expects two parameters: error and options
 };
 
-app.get('/products/:id', cors(corsOptions), function(req, res, next){
+app.get('/products/:id', cors(corsOptionsDelegate), function(req, res, next){
   res.json({msg: 'This is CORS-enabled for only example.com.'});
 });
 
