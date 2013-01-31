@@ -1,4 +1,5 @@
 /*jslint nodejs: true*/
+/*global describe: true, it: true*/
 
 var should = require('should'),
     cors = require('../lib'),
@@ -19,8 +20,8 @@ var should = require('should'),
       return {
         header: function(key, value){
           if(value === undefined){
-            var value = _headers[key];
-            return value;
+            var retval = _headers[key];
+            return retval;
           }else{
             _headers[key] = value;
             return;
@@ -32,9 +33,10 @@ var should = require('should'),
 describe('cors', function(){
   it('passes control to next middleware', function(done){
     // arrange
-    var req = fakeRequest();
-    var res = fakeResponse();
-    var next = function(){
+    var req, res, next;
+    req = fakeRequest();
+    res = fakeResponse();
+    next = function(){
       done();
     };
 
@@ -44,15 +46,16 @@ describe('cors', function(){
 
   it('shortcircuits preflight requests', function(done){
     // arrange
-    var req = fakeRequest();
+    var req, res, next;
+    req = fakeRequest();
     req.method = 'OPTIONS';
-    var res = fakeResponse();
+    res = fakeResponse();
     res.send = function(code){
       // assert
       code.should.equal(204);
       done();
     };
-    var next = function(){
+    next = function(){
       // assert
       done('should not be called');
     };
@@ -63,17 +66,18 @@ describe('cors', function(){
 
   it('can disabled shortcircuiting preflight requests', function(done){
     // arrange
-    var options = {
+    var req, res, next, options;
+    options = {
       enablePreflight: false
     };
-    var req = fakeRequest();
+    req = fakeRequest();
     req.method = 'OPTIONS';
-    var res = fakeResponse();
+    res = fakeResponse();
     res.send = function(code){
       // assert
       done('should not be called');
     };
-    var next = function(){
+    next = function(){
       // assert
       done();
     };
@@ -84,9 +88,10 @@ describe('cors', function(){
 
   it('no options enables default CORS to all origins and methods', function(done){
     // arrange
-    var req = fakeRequest();
-    var res = fakeResponse();
-    var next = function(){
+    var req, res, next;
+    req = fakeRequest();
+    res = fakeResponse();
+    next = function(){
       // assert
       res.header('Access-Control-Allow-Origin').should.equal('*');
       res.header('Access-Control-Allow-Methods').should.equal('GET,PUT,POST,DELETE');
@@ -100,16 +105,17 @@ describe('cors', function(){
   describe('passing static options', function(){
     it('overrides defaults', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
         origin: 'example.com',
         methods: ['FOO', 'bar'],
         headers: ['FIZZ', 'buzz'],
         credentials: true,
         maxAge: 123
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         res.header('Access-Control-Allow-Origin').should.equal('example.com');
         res.header('Access-Control-Allow-Methods').should.equal('FOO,bar');
@@ -125,16 +131,17 @@ describe('cors', function(){
 
     it('origin of false disables cors', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
         origin: false,
         methods: ['FOO', 'bar'],
         headers: ['FIZZ', 'buzz'],
         credentials: true,
         maxAge: 123
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         should.not.exist(res.header('Access-Control-Allow-Origin'));
         should.not.exist(res.header('Access-Control-Allow-Methods'));
@@ -150,12 +157,13 @@ describe('cors', function(){
 
     it('can override origin', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
         origin: 'example.com'
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         res.header('Access-Control-Allow-Origin').should.equal('example.com');
         done();
@@ -167,11 +175,12 @@ describe('cors', function(){
 
     it('origin defaults to *', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         res.header('Access-Control-Allow-Origin').should.equal('*');
         done();
@@ -183,12 +192,13 @@ describe('cors', function(){
 
     it('specifying true for origin reflects requesting origin', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
         origin: true
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         res.header('Access-Control-Allow-Origin').should.equal('request.com');
         done();
@@ -200,12 +210,13 @@ describe('cors', function(){
 
     it('can override methods', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
         methods: ['method1', 'method2']
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         res.header('Access-Control-Allow-Methods').should.equal('method1,method2');
         done();
@@ -217,11 +228,12 @@ describe('cors', function(){
 
     it('methods defaults to GET, PUT, POST, DELETE', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         res.header('Access-Control-Allow-Methods').should.equal('GET,PUT,POST,DELETE');
         done();
@@ -233,12 +245,13 @@ describe('cors', function(){
 
     it('can specify headers', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
         headers: ['header1', 'header2']
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         res.header('Access-Control-Allow-Headers').should.equal('header1,header2');
         done();
@@ -250,12 +263,13 @@ describe('cors', function(){
 
     it('specifying an empty list or string of headers will result in no response header for headers', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
         headers: []
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         should.not.exist(res.header('Access-Control-Allow-Headers'));
         done();
@@ -267,11 +281,12 @@ describe('cors', function(){
 
     it('if no headers are specified, defaults to requested headers', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         res.header('Access-Control-Allow-Headers').should.equal('requestedHeader1,requestedHeader2');
         done();
@@ -283,12 +298,13 @@ describe('cors', function(){
 
     it('includes credentials if explicitly enabled', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
         credentials: true
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         res.header('Access-Control-Allow-Credentials').should.equal('true');
         //should.not.exist(res.header('Access-Control-Allow-Credentials'));
@@ -301,11 +317,12 @@ describe('cors', function(){
 
     it('does not includes credentials unless explicitly enabled', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         should.not.exist(res.header('Access-Control-Allow-Credentials'));
         done();
@@ -317,12 +334,13 @@ describe('cors', function(){
 
     it('includes maxAge when specified', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
         maxAge: 456
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         res.header('Access-Control-Allow-Max-Age').should.equal('456');
         done();
@@ -334,11 +352,12 @@ describe('cors', function(){
 
     it('does not includes maxAge unless specified', function(done){
       // arrange
-      var options = {
+      var req, res, next, options;
+      options = {
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         should.not.exist(res.header('Access-Control-Allow-Max-Age'));
         done();
@@ -352,14 +371,15 @@ describe('cors', function(){
   describe('passing a function to build options', function(){
     it('handles options specified via callback', function(done){
       // arrange
-      var delegate = function(req, cb){
+      var req, res, next, delegate;
+      delegate = function(req, cb){
         cb(null, {
           origin: 'delegate.com'
         });
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
         // assert
         res.header('Access-Control-Allow-Origin').should.equal('delegate.com');
         done();
@@ -371,12 +391,13 @@ describe('cors', function(){
 
     it('handles error specified via callback', function(done){
       // arrange
-      var delegate = function(req, cb){
+      var req, res, next, delegate;
+      delegate = function(req, cb){
         cb('some error');
       };
-      var req = fakeRequest();
-      var res = fakeResponse();
-      var next = function(err){
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(err){
         // assert
         err.should.equal('some error');
         done();
