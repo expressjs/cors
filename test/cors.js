@@ -1,3 +1,5 @@
+/*jslint nodejs: true*/
+
 var should = require('should'),
     cors = require('../lib'),
     fakeRequest = function(){
@@ -7,7 +9,8 @@ var should = require('should'),
       };
       return {
         header: function(key){
-          return _headers[key.toLowerCase()];
+          var value = _headers[key.toLowerCase()];
+          return value;
         }
       };
     },
@@ -16,9 +19,11 @@ var should = require('should'),
       return {
         header: function(key, value){
           if(value === undefined){
-            return _headers[key];
+            var value = _headers[key];
+            return value;
           }else{
-            return _headers[key] = value;
+            _headers[key] = value;
+            return;
           }
         }
       };
