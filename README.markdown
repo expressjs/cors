@@ -58,7 +58,7 @@ var express = require('express')
 
 var whitelist = ['http://example1.com', 'http://example2.com'];
 var corsOptions = function(req, callback){ // callback expects two parameters: error and options
-  if(whitelist.indexOf(req.headers.origin) !== -1){
+  if(whitelist.indexOf(req.header('Origin')) !== -1){
     callback(null, { origin: true }); // reflect (enable) the requested origin in the CORS response
   }else{
     callback(null, { origin: false }); // disable CORS for this request
@@ -78,7 +78,7 @@ app.listen(80, function(){
 
 For details on the effect of each CORS header, [read this article on HTML5 Rocks](http://www.html5rocks.com/en/tutorials/cors/).
 
-* `options.origin`: Configures the **Access-Control-Allow-Origin** CORS header. Expects a string (ex: "http://example.com"). Set to `true` to reflect the [request origin](http://tools.ietf.org/html/draft-abarth-origin-09), as defined by `req.headers.origin`. Set to `false` to disable CORS.
+* `options.origin`: Configures the **Access-Control-Allow-Origin** CORS header. Expects a string (ex: "http://example.com"). Set to `true` to reflect the [request origin](http://tools.ietf.org/html/draft-abarth-origin-09), as defined by `req.header('Origin')`. Set to `false` to disable CORS.
 * `options.methods`: Configures the **Access-Control-Allow-Methods** CORS header. Expects a comma-delimited string (ex: 'GET,PUT,POST') or an array (ex: `['GET', 'PUT', 'POST']`).
 * `options.headers`: Configures the **Access-Control-Allow-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Type,Authorization') or an array (ex: `['Content-Type', 'Authorization]`). If not specified, defaults to reflecting the headers specified in the request's **Access-Control-Request-Headers** header.
 * `options.credentials`: Configures the **Access-Control-Allow-Credentials** CORS header. Set to `true` to pass the header, otherwise it is omitted.
