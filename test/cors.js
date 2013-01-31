@@ -118,6 +118,31 @@ describe('cors', function(){
       cors(options)(req, res, next);
     });
 
+    it('origin of false disables cors', function(done){
+      // arrange
+      var options = {
+        origin: false,
+        methods: ['FOO', 'bar'],
+        headers: ['FIZZ', 'buzz'],
+        credentials: true,
+        maxAge: 123
+      };
+      var req = fakeRequest();
+      var res = fakeResponse();
+      var next = function(){
+        // assert
+        should.not.exist(res.header('Access-Control-Allow-Origin'));
+        should.not.exist(res.header('Access-Control-Allow-Methods'));
+        should.not.exist(res.header('Access-Control-Allow-Headers'));
+        should.not.exist(res.header('Access-Control-Allow-Credentials'));
+        should.not.exist(res.header('Access-Control-Allow-Max-Age'));
+        done();
+      };
+
+      // act
+      cors(options)(req, res, next);
+    });
+
     it('can override origin', function(done){
       // arrange
       var options = {
