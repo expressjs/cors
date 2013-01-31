@@ -1,0 +1,35 @@
+{
+    "name": "cors"
+  , "version": "0.0.1"
+  , "author": "Troy Goode <troygoode@gmail.com> (https://github.com/troygoode/)"
+  , "description": "middleware for dynamically or statically enabling CORS in express/connect applications"
+  , "keywords": ["cors", "express", "connect", "middleware"]
+  , "homepage": "https://github.com/troygoode/node-cors/"
+  , "repository": {
+      "type": "git"
+    , "url": "git://github.com/troygoode/node-cors.git"
+  }
+  , "contributors": [
+    {
+        "name": "Troy Goode"
+      , "email": "troygoode@gmail.com"
+      , "web": "https://github.com/troygoode/"
+    }
+  ]
+  , "licenses": [
+    {"type": "MIT", "url": "http://www.opensource.org/licenses/mit-license.php"}
+  ]
+  , "bugs": {"url": "https://github.com/troygoode/troygoode/node-cors/issues"}
+  , "main": "./lib/index.js"
+  , "engines": {
+      "node": ">=0.8.0"
+  }
+  , "dependencies": {}
+  , "devDependencies": {
+      "mocha": "latest"
+    , "should": "latest"
+  }
+  , "scripts": {
+      "test": "mocha"
+  }
+}
