@@ -13,7 +13,7 @@ CORS is a node.js package for providing a [connect](http://www.senchalabs.org/co
 * [License](#license)
 * [Author](#author)
 
-## Installation
+## Installation (via [npm](https://npmjs.org/package/cors))
 
 ```bash
 $ npm install cors
