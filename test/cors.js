@@ -12,7 +12,9 @@ var should = require('should'),
         header: function(key){
           var value = _headers[key.toLowerCase()];
           return value;
-        }
+        },
+        pause: function(){},
+        resume: function(){}
       };
     },
     fakeResponse = function(){
