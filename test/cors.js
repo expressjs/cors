@@ -88,11 +88,33 @@ describe('cors', function(){
     cors(options)(req, res, next);
   });
 
-  it('no options enables default CORS to all origins and methods', function(done){
+  it('no options enables default CORS to all origins', function(done){
     // arrange
     var req, res, next;
     req = fakeRequest();
     res = fakeResponse();
+    next = function(){
+      // assert
+      res.header('Access-Control-Allow-Origin').should.equal('*');
+      should.not.exist(res.header('Access-Control-Allow-Methods'));
+      done();
+    };
+
+    // act
+    cors()(req, res, next);
+  });
+
+  it('OPTION call with no options enables default CORS to all origins and methods', function(done){
+    // arrange
+    var req, res, next;
+    req = fakeRequest();
+    req.method = 'OPTIONS';
+    res = fakeResponse();
+    res.send = function(code){
+      // assert
+      code.should.equal(204);
+      done();
+    };
     next = function(){
       // assert
       res.header('Access-Control-Allow-Origin').should.equal('*');
@@ -116,7 +138,13 @@ describe('cors', function(){
         maxAge: 123
       };
       req = fakeRequest();
+      req.method = 'OPTIONS';
       res = fakeResponse();
+      res.send = function(code){
+        // assert
+        code.should.equal(204);
+        done();
+      };
       next = function(){
         // assert
         res.header('Access-Control-Allow-Origin').should.equal('example.com');
@@ -217,7 +245,13 @@ describe('cors', function(){
         methods: ['method1', 'method2']
       };
       req = fakeRequest();
+      req.method = 'OPTIONS';
       res = fakeResponse();
+      res.send = function(code){
+        // assert
+        code.should.equal(204);
+        done();
+      };
       next = function(){
         // assert
         res.header('Access-Control-Allow-Methods').should.equal('method1,method2');
@@ -234,7 +268,13 @@ describe('cors', function(){
       options = {
       };
       req = fakeRequest();
+      req.method = 'OPTIONS';
       res = fakeResponse();
+      res.send = function(code){
+        // assert
+        code.should.equal(204);
+        done();
+      };
       next = function(){
         // assert
         res.header('Access-Control-Allow-Methods').should.equal('GET,PUT,POST,DELETE');
