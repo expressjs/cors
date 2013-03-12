@@ -292,15 +292,16 @@ describe('cors', function(){
         headers: ['header1', 'header2']
       };
       req = fakeRequest();
+      req.method = 'OPTIONS';
       res = fakeResponse();
-      next = function(){
+      res.send = function(){
         // assert
         res.header('Access-Control-Allow-Headers').should.equal('header1,header2');
         done();
       };
 
       // act
-      cors(options)(req, res, next);
+      cors(options)(req, res, null);
     });
 
     it('specifying an empty list or string of headers will result in no response header for headers', function(done){
@@ -327,15 +328,16 @@ describe('cors', function(){
       options = {
       };
       req = fakeRequest();
+      req.method = 'OPTIONS';
       res = fakeResponse();
-      next = function(){
+      res.send = function(){
         // assert
         res.header('Access-Control-Allow-Headers').should.equal('requestedHeader1,requestedHeader2');
         done();
       };
 
       // act
-      cors(options)(req, res, next);
+      cors(options)(req, res, null);
     });
 
     it('includes credentials if explicitly enabled', function(done){
@@ -345,16 +347,16 @@ describe('cors', function(){
         credentials: true
       };
       req = fakeRequest();
+      req.method = 'OPTIONS';
       res = fakeResponse();
-      next = function(){
+      res.send = function(){
         // assert
         res.header('Access-Control-Allow-Credentials').should.equal('true');
-        //should.not.exist(res.header('Access-Control-Allow-Credentials'));
         done();
       };
 
       // act
-      cors(options)(req, res, next);
+      cors(options)(req, res, null);
     });
 
     it('does not includes credentials unless explicitly enabled', function(done){
@@ -381,15 +383,16 @@ describe('cors', function(){
         maxAge: 456
       };
       req = fakeRequest();
+      req.method = 'OPTIONS';
       res = fakeResponse();
-      next = function(){
+      res.send = function(code){
         // assert
         res.header('Access-Control-Allow-Max-Age').should.equal('456');
         done();
       };
 
       // act
-      cors(options)(req, res, next);
+      cors(options)(req, res, null);
     });
 
     it('does not includes maxAge unless specified', function(done){
