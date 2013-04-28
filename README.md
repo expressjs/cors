@@ -28,7 +28,7 @@ var express = require('express')
   , cors = require('cors')
   , app = express();
 
-app.options('/products/:id', cors.preflight()); // enable preflight request
+app.options('/products/:id', cors()); // enable preflight request
 app.get('/products/:id', cors(), function(req, res, next){
   res.json({msg: 'This is CORS-enabled for all origins!'});
 });
@@ -49,7 +49,7 @@ var corsOptions = {
   origin: 'http://example.com'
 };
 
-app.options('/products/:id', cors.preflight(corsOptions)); // enable preflight request
+app.options('/products/:id', cors(corsOptions)); // enable preflight request
 app.get('/products/:id', cors(corsOptions), function(req, res, next){
   res.json({msg: 'This is CORS-enabled for only example.com.'});
 });
@@ -77,7 +77,7 @@ var corsOptionsDelegate = function(req, callback){
   callback(null, corsOptions); // callback expects two parameters: error and options
 };
 
-app.options('/products/:id', cors.preflight(corsOptionsDelegate)); // enable preflight request
+app.options('/products/:id', cors(corsOptionsDelegate)); // enable preflight request
 app.get('/products/:id', cors(corsOptionsDelegate), function(req, res, next){
   res.json({msg: 'This is CORS-enabled for a whitelisted domain.'});
 });

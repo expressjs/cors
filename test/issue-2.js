@@ -17,7 +17,7 @@ var app = express(),
       credentials: true,
       maxAge: 3600
     };
-app.options('/api/login', cors.preflight(corsOptions));
+app.options('/api/login', cors(corsOptions));
 app.post('/api/login', cors(corsOptions), function(req, res){
   res.send('LOGIN');
 });
