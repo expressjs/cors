@@ -33,7 +33,7 @@
     , "supertest": "*"
   }
   , "scripts": {
-      "test": "mocha"
+      "test": "./node_modules/mocha/bin/mocha"
     , "lint": "./node_modules/lint/bin/node-lint lib test"
   }
 }

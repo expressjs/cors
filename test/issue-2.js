@@ -32,7 +32,6 @@ describe('issue  #2', function(){
       .set('Origin', 'http://example.com')
       .end(function(err, res){
         should.not.exist(err);
-        console.log(res.headers);
         res.headers['access-control-allow-origin'].should.eql('http://example.com');
         res.text.should.eql('LOGIN');
         done();
