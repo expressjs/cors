@@ -10,6 +10,7 @@ CORS is a node.js package for providing a [connect](http://www.senchalabs.org/co
   * [Configuring CORS](#configuring-cors)
   * [Configuring CORS Asynchronously](#configuring-cors-asynchronously)
   * [Enabling CORS Pre-Flight](#enabling-cors-pre-flight)
+  * [Enabling CORS Application-wide](#enabling-cors-application-wide)
 * [Configuration Options](#configuration-options)
 * [License](#license)
 * [Author](#author)
@@ -101,6 +102,27 @@ var express = require('express')
 
 app.options('/products/:id', cors()); // enable preflight request for DELETE request
 app.del('/products/:id', cors(), function(req, res, next){
+  res.json({msg: 'This is CORS-enabled for all origins!'});
+});
+
+app.listen(80, function(){
+  console.log('CORS-enabled web server listening on port 80');
+});
+```
+
+### Enabling CORS Application-wide
+
+Rather than turning-on/configuring CORS on a per-resource/route basis, you can do so across your entire application if desired:
+
+```javascript
+var express = require('express')
+  , cors = require('cors')
+  , app = express();
+
+app.use(cors()); // automatically supports pre-flighting
+app.use(app.router);
+
+app.get('/products/:id', function(req, res, next){ // didn't have to specify the cors() middleware here this time
   res.json({msg: 'This is CORS-enabled for all origins!'});
 });
 
