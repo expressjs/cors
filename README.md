@@ -28,7 +28,6 @@ var express = require('express')
   , cors = require('cors')
   , app = express();
 
-app.options('/products/:id', cors()); // enable preflight request
 app.get('/products/:id', cors(), function(req, res, next){
   res.json({msg: 'This is CORS-enabled for all origins!'});
 });
@@ -49,7 +48,6 @@ var corsOptions = {
   origin: 'http://example.com'
 };
 
-app.options('/products/:id', cors(corsOptions)); // enable preflight request
 app.get('/products/:id', cors(corsOptions), function(req, res, next){
   res.json({msg: 'This is CORS-enabled for only example.com.'});
 });
@@ -77,9 +75,32 @@ var corsOptionsDelegate = function(req, callback){
   callback(null, corsOptions); // callback expects two parameters: error and options
 };
 
-app.options('/products/:id', cors(corsOptionsDelegate)); // enable preflight request
 app.get('/products/:id', cors(corsOptionsDelegate), function(req, res, next){
   res.json({msg: 'This is CORS-enabled for a whitelisted domain.'});
+});
+
+app.listen(80, function(){
+  console.log('CORS-enabled web server listening on port 80');
+});
+```
+
+### Enabling CORS Pre-Flight
+
+Certain CORS requests are considered 'complex' and require an initial
+`OPTIONS` request (called the "pre-flight request"). An example of a
+'complex' CORS request is one that uses an HTTP verb other than
+GET/HEAD/POST (such as DELETE) or that uses custom headers. To enable
+preflighting, you must add a new OPTIONS handler for the route you want
+to support:
+
+```javascript
+var express = require('express')
+  , cors = require('cors')
+  , app = express();
+
+app.options('/products/:id', cors()); // enable preflight request for DELETE request
+app.del('/products/:id', cors(), function(req, res, next){
+  res.json({msg: 'This is CORS-enabled for all origins!'});
 });
 
 app.listen(80, function(){

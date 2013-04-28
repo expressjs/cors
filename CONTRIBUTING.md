@@ -22,6 +22,15 @@ $ npm test
 $ npm run lint
 ```
 
+## Interactive Testing Harness
+
+[http://node-cors-client.herokuapp.com](http://node-cors-client.herokuapp.com)
+
+Related git repositories:
+
+* [https://github.com/TroyGoode/node-cors-server](https://github.com/TroyGoode/node-cors-server)
+* [https://github.com/TroyGoode/node-cors-client](https://github.com/TroyGoode/node-cors-client)
+
 ## License
 
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
