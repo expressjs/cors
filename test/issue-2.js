@@ -29,10 +29,11 @@ describe('issue  #2', function(){
     supertest(app)
       .post('/api/login')
       .expect(200)
+      .set('Origin', 'http://example.com')
       .end(function(err, res){
         should.not.exist(err);
         console.log(res.headers);
-        res.headers['access-control-allow-origin'].should.eql('*');
+        res.headers['access-control-allow-origin'].should.eql('http://example.com');
         res.text.should.eql('LOGIN');
         done();
       });
