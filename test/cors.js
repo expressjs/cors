@@ -68,28 +68,6 @@ describe('cors', function(){
     cors()(req, res, next);
   });
 
-  it('can disabled shortcircuiting preflight requests', function(done){
-    // arrange
-    var req, res, next, options;
-    options = {
-      enablePreflight: false
-    };
-    req = fakeRequest();
-    req.method = 'OPTIONS';
-    res = fakeResponse();
-    res.send = function(code){
-      // assert
-      done('should not be called');
-    };
-    next = function(){
-      // assert
-      done();
-    };
-
-    // act
-    cors(options)(req, res, next);
-  });
-
   it('no options enables default CORS to all origins', function(done){
     // arrange
     var req, res, next;

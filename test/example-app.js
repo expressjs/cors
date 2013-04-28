@@ -24,9 +24,7 @@ simpleApp.post('/', cors(), function(req, res){
 /* -------------------------------------------------------------------------- */
 
 var complexApp = express();
-complexApp.all('/', cors(), function(req, res, next){
-  next();
-});
+complexApp.options('/', cors.preflight());
 complexApp.del('/', cors(), function(req, res){
   res.send('Hello World (Delete)');
 });

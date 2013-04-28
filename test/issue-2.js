@@ -15,9 +15,9 @@ var app = express(),
       origin: true,
       methods: ['POST'],
       credentials: true,
-      maxAge: 3600,
-      enablePreflight: true
+      maxAge: 3600
     };
+app.options('/api/login', cors.preflight(corsOptions));
 app.post('/api/login', cors(corsOptions), function(req, res){
   res.send('LOGIN');
 });
@@ -25,7 +25,18 @@ app.post('/api/login', cors(corsOptions), function(req, res){
 /* -------------------------------------------------------------------------- */
 
 describe('issue  #2', function(){
-  it('is fixed', function(done){
+  it('OPTIONS works', function(done){
+    supertest(app)
+      .options('/api/login')
+      .expect(204)
+      .set('Origin', 'http://example.com')
+      .end(function(err, res){
+        should.not.exist(err);
+        res.headers['access-control-allow-origin'].should.eql('http://example.com');
+        done();
+      });
+  });
+  it('POST works', function(done){
     supertest(app)
       .post('/api/login')
       .expect(200)
