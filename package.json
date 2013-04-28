@@ -26,11 +26,14 @@
   }
   , "dependencies": {}
   , "devDependencies": {
-      "mocha": "latest"
-    , "should": "latest"
+      "express": "*"
+    , "lint": "*"
+    , "mocha": "*"
+    , "should": "*"
+    , "supertest": "*"
   }
   , "scripts": {
       "test": "mocha"
-    , "lint": "node-lint lib test"
+    , "lint": "./node_modules/lint/bin/node-lint lib test"
   }
 }
