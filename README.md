@@ -9,6 +9,7 @@ CORS is a node.js package for providing a [connect](http://www.senchalabs.org/co
   * [Simple Usage](#simple-usage-enable-all-cors-requests)
   * [Configuring CORS](#configuring-cors)
   * [Configuring CORS Asynchronously](#configuring-cors-asynchronously)
+  * [Enabling CORS Pre-Flight](#enabling-cors-pre-flight)
 * [Configuration Options](#configuration-options)
 * [License](#license)
 * [Author](#author)
