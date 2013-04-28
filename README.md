@@ -28,6 +28,7 @@ var express = require('express')
   , cors = require('cors')
   , app = express();
 
+app.options('/products/:id', cors.preflight()); // enable preflight request
 app.get('/products/:id', cors(), function(req, res, next){
   res.json({msg: 'This is CORS-enabled for all origins!'});
 });
@@ -48,6 +49,7 @@ var corsOptions = {
   origin: 'http://example.com'
 };
 
+app.options('/products/:id', cors.preflight(corsOptions)); // enable preflight request
 app.get('/products/:id', cors(corsOptions), function(req, res, next){
   res.json({msg: 'This is CORS-enabled for only example.com.'});
 });
@@ -75,6 +77,7 @@ var corsOptionsDelegate = function(req, callback){
   callback(null, corsOptions); // callback expects two parameters: error and options
 };
 
+app.options('/products/:id', cors.preflight(corsOptionsDelegate)); // enable preflight request
 app.get('/products/:id', cors(corsOptionsDelegate), function(req, res, next){
   res.json({msg: 'This is CORS-enabled for a whitelisted domain.'});
 });
@@ -91,7 +94,6 @@ app.listen(80, function(){
 * `headers`: Configures the **Access-Control-Allow-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Type,Authorization') or an array (ex: `['Content-Type', 'Authorization]`). If not specified, defaults to reflecting the headers specified in the request's **Access-Control-Request-Headers** header.
 * `credentials`: Configures the **Access-Control-Allow-Credentials** CORS header. Set to `true` to pass the header, otherwise it is omitted.
 * `maxAge`: Configures the **Access-Control-Allow-Max-Age** CORS header. Set to an integer to pass the header, otherwise it is omitted.
-* `enablePreflight`: By default, a request that runs through this middleware with a method of `OPTIONS` will short-circuit with a `204` response to the client after the CORS headers have been written. Set this option to `false` to disable this feature.
 
 For details on the effect of each CORS header, [read this article on HTML5 Rocks](http://www.html5rocks.com/en/tutorials/cors/).
 
