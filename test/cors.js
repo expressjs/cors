@@ -1,6 +1,8 @@
 /*jslint nodejs: true*/
 /*global describe: true, it: true*/
 
+'use strict';
+
 var should = require('should'),
     cors = require('../lib'),
     fakeRequest = function(){
