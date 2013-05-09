@@ -4,6 +4,8 @@ CORS is a node.js package for providing a [connect](http://www.senchalabs.org/co
 
 [![build status](https://secure.travis-ci.org/TroyGoode/node-cors.png)](http://travis-ci.org/TroyGoode/node-cors)
 
+[Tips are welcome, but not expected.](https://www.gittip.com/TroyGoode/)
+
 * [Installation](#installation)
 * [Usage](#usage)
   * [Simple Usage](#simple-usage-enable-all-cors-requests)
