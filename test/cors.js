@@ -218,6 +218,45 @@ describe('cors', function(){
       cors(options)(req, res, next);
     });
 
+    it('should allow origin when callback returns true', function(done) {
+      var req, res, next, options;
+      options = {
+        origin: function(sentOrigin) {
+          sentOrigin.should.equal('request.com');
+          return true;
+        }
+      };
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
+        res.header('Access-Control-Allow-Origin').should.equal('request.com');
+        done();
+      };
+
+      cors(options)(req, res, next);
+    });
+
+    it('should not allow origin when callback returns false', function(done) {
+      var req, res, next, options;
+      options = {
+        origin: function(sentOrigin) {
+          sentOrigin.should.equal('request.com');
+          return false;
+        }
+      };
+      req = fakeRequest();
+      res = fakeResponse();
+      next = function(){
+        should.not.exist(res.header('Access-Control-Allow-Origin'));
+        should.not.exist(res.header('Access-Control-Allow-Methods'));
+        should.not.exist(res.header('Access-Control-Allow-Headers'));
+        should.not.exist(res.header('Access-Control-Allow-Credentials'));
+        should.not.exist(res.header('Access-Control-Allow-Max-Age'));
+        done();
+      };
+
+      cors(options)(req, res, next);
+    });
     it('can override methods', function(done){
       // arrange
       var req, res, next, options;
