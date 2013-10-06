@@ -218,25 +218,25 @@ describe('cors', function(){
       cors(options)(req, res, next);
     });
 
-    it('should allow origin when callback returns true', function(done) {
+    it('should set origin to the value returned by the callback', function(done) {
       var req, res, next, options;
       options = {
         origin: function(sentOrigin) {
           sentOrigin.should.equal('request.com');
-          return true;
+          return 'somethingelse.com';
         }
       };
       req = fakeRequest();
       res = fakeResponse();
       next = function(){
-        res.header('Access-Control-Allow-Origin').should.equal('request.com');
+        res.header('Access-Control-Allow-Origin').should.equal('somethingelse.com');
         done();
       };
 
       cors(options)(req, res, next);
     });
 
-    it('should not allow origin when callback returns false', function(done) {
+    it('should disable CORS when callback returns false', function(done) {
       var req, res, next, options;
       options = {
         origin: function(sentOrigin) {
@@ -257,6 +257,7 @@ describe('cors', function(){
 
       cors(options)(req, res, next);
     });
+
     it('can override methods', function(done){
       // arrange
       var req, res, next, options;
