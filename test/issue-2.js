@@ -1,16 +1,16 @@
-/*jslint nodejs: true*/
-/*global describe: true, it: true, require: true, module: true*/
+/*jslint indent: 2*/
+/*global require: true, module: true, describe: true, it: true*/
 
-(function(){
+(function () {
 
   'use strict';
 
   var should = require('should'),
-      express = require('express'),
-      supertest = require('supertest'),
-      cors = require('../lib'),
-      app,
-      corsOptions;
+    express = require('express'),
+    supertest = require('supertest'),
+    cors = require('../lib'),
+    app,
+    corsOptions;
 
   /* -------------------------------------------------------------------------- */
 
@@ -22,30 +22,32 @@
     maxAge: 3600
   };
   app.options('/api/login', cors(corsOptions));
-  app.post('/api/login', cors(corsOptions), function(req, res){
+  /*jslint unparam: true*/ // `req` is part of the signature, but not used in this route
+  app.post('/api/login', cors(corsOptions), function (req, res) {
     res.send('LOGIN');
   });
+  /*jslint unparam: false*/
 
   /* -------------------------------------------------------------------------- */
 
-  describe('issue  #2', function(){
-    it('OPTIONS works', function(done){
+  describe('issue  #2', function () {
+    it('OPTIONS works', function (done) {
       supertest(app)
         .options('/api/login')
         .expect(204)
         .set('Origin', 'http://example.com')
-        .end(function(err, res){
+        .end(function (err, res) {
           should.not.exist(err);
           res.headers['access-control-allow-origin'].should.eql('http://example.com');
           done();
         });
     });
-    it('POST works', function(done){
+    it('POST works', function (done) {
       supertest(app)
         .post('/api/login')
         .expect(200)
         .set('Origin', 'http://example.com')
-        .end(function(err, res){
+        .end(function (err, res) {
           should.not.exist(err);
           res.headers['access-control-allow-origin'].should.eql('http://example.com');
           res.text.should.eql('LOGIN');
@@ -55,3 +57,4 @@
   });
 
 }());
+
