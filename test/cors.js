@@ -221,9 +221,9 @@ describe('cors', function(){
     it('should allow origin when callback returns true', function(done) {
       var req, res, next, options;
       options = {
-        origin: function(sentOrigin) {
+        origin: function(sentOrigin, cb) {
           sentOrigin.should.equal('request.com');
-          return true;
+          cb(null, true);
         }
       };
       req = fakeRequest();
@@ -239,9 +239,9 @@ describe('cors', function(){
     it('should not allow origin when callback returns false', function(done) {
       var req, res, next, options;
       options = {
-        origin: function(sentOrigin) {
+        origin: function(sentOrigin, cb) {
           sentOrigin.should.equal('request.com');
-          return false;
+          cb(null, false);
         }
       };
       req = fakeRequest();
