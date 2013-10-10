@@ -6,7 +6,7 @@
 var should = require('should'),
     express = require('express'),
     supertest = require('supertest'),
-    cors = require('../lib');
+    cors = require('../lib/index2');
 
 /* -------------------------------------------------------------------------- */
 

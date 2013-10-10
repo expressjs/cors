@@ -4,7 +4,7 @@
 'use strict';
 
 var should = require('should'),
-    cors = require('../lib'),
+    cors = require('../lib/index2'),
     fakeRequest = function(){
       var _headers = {
         'origin': 'request.com',
