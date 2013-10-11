@@ -19,7 +19,7 @@
   , "licenses": [
     {"type": "MIT", "url": "http://www.opensource.org/licenses/mit-license.php"}
   ]
-  , "bugs": {"url": "https://github.com/troygoode/troygoode/node-cors/issues"}
+  , "bugs": {"url": "https://github.com/troygoode/node-cors/issues"}
   , "main": "./lib/index.js"
   , "engines": {
       "node": ">=0.8.0"
