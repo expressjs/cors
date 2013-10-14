@@ -13,6 +13,7 @@ CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/co
   * [Enabling CORS Pre-Flight](#enabling-cors-pre-flight)
   * [Enabling CORS Application-wide](#enabling-cors-application-wide)
 * [Configuration Options](#configuration-options)
+* [Demo](#demo)
 * [License](#license)
 * [Author](#author)
 
