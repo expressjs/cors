@@ -109,6 +109,12 @@ app.listen(80, function(){
 });
 ```
 
+You can also enable Pre-Flight across-the-board like so:
+
+```
+app.options('*', cors()); // include before other routes
+```
+
 ### Enabling CORS Application-wide
 
 Rather than turning-on/configuring CORS on a per-resource/route basis, you can do so across your entire application if desired:
