@@ -60,7 +60,7 @@ app.listen(80, function(){
 });
 ```
 
-### Configuring CORS Asynchronously
+### Configuring CORS w/ Dynamic Origin
 
 ```javascript
 var express = require('express')
@@ -68,17 +68,17 @@ var express = require('express')
   , app = express();
 
 var whitelist = ['http://example1.com', 'http://example2.com'];
-var corsOptionsDelegate = function(req, callback){
-  var corsOptions;
-  if(whitelist.indexOf(req.header('Origin')) !== -1){
-    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
-  }else{
-    corsOptions = { origin: false }; // disable CORS for this request
+var corsOptions = {
+  origin: function(origin, callback){
+    if(whitelist.indexOf(origin) !== -1){
+      cb(null, true);
+    }else{
+      cb(null, false);
+    }
   }
-  callback(null, corsOptions); // callback expects two parameters: error and options
 };
 
-app.get('/products/:id', cors(corsOptionsDelegate), function(req, res, next){
+app.get('/products/:id', cors(corsOptions), function(req, res, next){
   res.json({msg: 'This is CORS-enabled for a whitelisted domain.'});
 });
 
@@ -125,6 +125,33 @@ app.use(app.router);
 
 app.get('/products/:id', function(req, res, next){ // didn't have to specify the cors() middleware here this time
   res.json({msg: 'This is CORS-enabled for all origins!'});
+});
+
+app.listen(80, function(){
+  console.log('CORS-enabled web server listening on port 80');
+});
+```
+
+### Configuring CORS Asynchronously
+
+```javascript
+var express = require('express')
+  , cors = require('cors')
+  , app = express();
+
+var whitelist = ['http://example1.com', 'http://example2.com'];
+var corsOptionsDelegate = function(req, callback){
+  var corsOptions;
+  if(whitelist.indexOf(req.header('Origin')) !== -1){
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  }else{
+    corsOptions = { origin: false }; // disable CORS for this request
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
+};
+
+app.get('/products/:id', cors(corsOptionsDelegate), function(req, res, next){
+  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'});
 });
 
 app.listen(80, function(){
