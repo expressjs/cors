@@ -13,9 +13,7 @@
         'access-control-request-headers': 'requestedHeader1,requestedHeader2'
       };
       return {
-        header: function (key) {
-          return headers[key.toLowerCase()];
-        },
+        headers:headers,
         pause: function () {
           // do nothing
           return;
@@ -29,10 +27,10 @@
     fakeResponse = function () {
       var headers = {};
       return {
-        header: function (key, value) {
-          if (value === undefined) {
-            return headers[key];
-          }
+        getHeader: function(key) {
+          return headers[key];
+        },
+        setHeader: function (key, value) {
           headers[key] = value;
           return;
         }
@@ -59,9 +57,9 @@
       req = fakeRequest();
       req.method = 'OPTIONS';
       res = fakeResponse();
-      res.send = function (code) {
+      res.end = function () {
         // assert
-        code.should.equal(204);
+        res.statusCode.should.equal(204);
         done();
       };
       next = function () {
@@ -80,8 +78,8 @@
       res = fakeResponse();
       next = function () {
         // assert
-        res.header('Access-Control-Allow-Origin').should.equal('*');
-        should.not.exist(res.header('Access-Control-Allow-Methods'));
+        res.getHeader('Access-Control-Allow-Origin').should.equal('*');
+        should.not.exist(res.getHeader('Access-Control-Allow-Methods'));
         done();
       };
 
@@ -95,15 +93,15 @@
       req = fakeRequest();
       req.method = 'OPTIONS';
       res = fakeResponse();
-      res.send = function (code) {
+      res.end = function () {
         // assert
-        code.should.equal(204);
+        res.statusCode.should.equal(204);
         done();
       };
       next = function () {
         // assert
-        res.header('Access-Control-Allow-Origin').should.equal('*');
-        res.header('Access-Control-Allow-Methods').should.equal('GET,PUT,POST,DELETE');
+        res.getHeader('Access-Control-Allow-Origin').should.equal('*');
+        res.getHeader('Access-Control-Allow-Methods').should.equal('GET,PUT,POST,DELETE');
         done();
       };
 
@@ -125,18 +123,18 @@
         req = fakeRequest();
         req.method = 'OPTIONS';
         res = fakeResponse();
-        res.send = function (code) {
+        res.end = function () {
           // assert
-          code.should.equal(204);
+          res.statusCode.should.equal(204);
           done();
         };
         next = function () {
           // assert
-          res.header('Access-Control-Allow-Origin').should.equal('example.com');
-          res.header('Access-Control-Allow-Methods').should.equal('FOO,bar');
-          res.header('Access-Control-Allow-Headers').should.equal('FIZZ,buzz');
-          res.header('Access-Control-Allow-Credentials').should.equal('true');
-          res.header('Access-Control-Allow-Max-Age').should.equal('123');
+          res.getHeader('Access-Control-Allow-Origin').should.equal('example.com');
+          res.getHeader('Access-Control-Allow-Methods').should.equal('FOO,bar');
+          res.getHeader('Access-Control-Allow-Headers').should.equal('FIZZ,buzz');
+          res.getHeader('Access-Control-Allow-Credentials').should.equal('true');
+          res.getHeader('Access-Control-Allow-Max-Age').should.equal('123');
           done();
         };
 
@@ -158,11 +156,11 @@
         res = fakeResponse();
         next = function () {
           // assert
-          should.not.exist(res.header('Access-Control-Allow-Origin'));
-          should.not.exist(res.header('Access-Control-Allow-Methods'));
-          should.not.exist(res.header('Access-Control-Allow-Headers'));
-          should.not.exist(res.header('Access-Control-Allow-Credentials'));
-          should.not.exist(res.header('Access-Control-Allow-Max-Age'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Origin'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Methods'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Headers'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Credentials'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Max-Age'));
           done();
         };
 
@@ -180,7 +178,7 @@
         res = fakeResponse();
         next = function () {
           // assert
-          res.header('Access-Control-Allow-Origin').should.equal('example.com');
+          res.getHeader('Access-Control-Allow-Origin').should.equal('example.com');
           done();
         };
 
@@ -197,7 +195,7 @@
         res = fakeResponse();
         next = function () {
           // assert
-          res.header('Access-Control-Allow-Origin').should.equal('*');
+          res.getHeader('Access-Control-Allow-Origin').should.equal('*');
           done();
         };
 
@@ -215,7 +213,7 @@
         res = fakeResponse();
         next = function () {
           // assert
-          res.header('Access-Control-Allow-Origin').should.equal('request.com');
+          res.getHeader('Access-Control-Allow-Origin').should.equal('request.com');
           done();
         };
 
@@ -234,7 +232,7 @@
         req = fakeRequest();
         res = fakeResponse();
         next = function () {
-          res.header('Access-Control-Allow-Origin').should.equal('request.com');
+          res.getHeader('Access-Control-Allow-Origin').should.equal('request.com');
           done();
         };
 
@@ -252,11 +250,11 @@
         req = fakeRequest();
         res = fakeResponse();
         next = function () {
-          should.not.exist(res.header('Access-Control-Allow-Origin'));
-          should.not.exist(res.header('Access-Control-Allow-Methods'));
-          should.not.exist(res.header('Access-Control-Allow-Headers'));
-          should.not.exist(res.header('Access-Control-Allow-Credentials'));
-          should.not.exist(res.header('Access-Control-Allow-Max-Age'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Origin'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Methods'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Headers'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Credentials'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Max-Age'));
           done();
         };
 
@@ -272,14 +270,14 @@
         req = fakeRequest();
         req.method = 'OPTIONS';
         res = fakeResponse();
-        res.send = function (code) {
+        res.end = function () {
           // assert
-          code.should.equal(204);
+          res.statusCode.should.equal(204);
           done();
         };
         next = function () {
           // assert
-          res.header('Access-Control-Allow-Methods').should.equal('method1,method2');
+          res.getHeader('Access-Control-Allow-Methods').should.equal('method1,method2');
           done();
         };
 
@@ -295,14 +293,14 @@
         req = fakeRequest();
         req.method = 'OPTIONS';
         res = fakeResponse();
-        res.send = function (code) {
+        res.end = function () {
           // assert
-          code.should.equal(204);
+          res.statusCode.should.equal(204);
           done();
         };
         next = function () {
           // assert
-          res.header('Access-Control-Allow-Methods').should.equal('GET,PUT,POST,DELETE');
+          res.getHeader('Access-Control-Allow-Methods').should.equal('GET,PUT,POST,DELETE');
           done();
         };
 
@@ -319,9 +317,9 @@
         req = fakeRequest();
         req.method = 'OPTIONS';
         res = fakeResponse();
-        res.send = function () {
+        res.end = function () {
           // assert
-          res.header('Access-Control-Allow-Headers').should.equal('header1,header2');
+          res.getHeader('Access-Control-Allow-Headers').should.equal('header1,header2');
           done();
         };
 
@@ -339,7 +337,7 @@
         res = fakeResponse();
         next = function () {
           // assert
-          should.not.exist(res.header('Access-Control-Allow-Headers'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Headers'));
           done();
         };
 
@@ -355,9 +353,9 @@
         req = fakeRequest();
         req.method = 'OPTIONS';
         res = fakeResponse();
-        res.send = function () {
+        res.end = function () {
           // assert
-          res.header('Access-Control-Allow-Headers').should.equal('requestedHeader1,requestedHeader2');
+          res.getHeader('Access-Control-Allow-Headers').should.equal('requestedHeader1,requestedHeader2');
           done();
         };
 
@@ -374,9 +372,9 @@
         req = fakeRequest();
         req.method = 'OPTIONS';
         res = fakeResponse();
-        res.send = function () {
+        res.end = function () {
           // assert
-          res.header('Access-Control-Allow-Credentials').should.equal('true');
+          res.getHeader('Access-Control-Allow-Credentials').should.equal('true');
           done();
         };
 
@@ -393,7 +391,7 @@
         res = fakeResponse();
         next = function () {
           // assert
-          should.not.exist(res.header('Access-Control-Allow-Credentials'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Credentials'));
           done();
         };
 
@@ -410,9 +408,9 @@
         req = fakeRequest();
         req.method = 'OPTIONS';
         res = fakeResponse();
-        res.send = function () {
+        res.end = function () {
           // assert
-          res.header('Access-Control-Allow-Max-Age').should.equal('456');
+          res.getHeader('Access-Control-Allow-Max-Age').should.equal('456');
           done();
         };
 
@@ -429,7 +427,7 @@
         res = fakeResponse();
         next = function () {
           // assert
-          should.not.exist(res.header('Access-Control-Allow-Max-Age'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Max-Age'));
           done();
         };
 
@@ -453,7 +451,7 @@
         res = fakeResponse();
         next = function () {
           // assert
-          res.header('Access-Control-Allow-Origin').should.equal('delegate.com');
+          res.getHeader('Access-Control-Allow-Origin').should.equal('delegate.com');
           done();
         };
 
