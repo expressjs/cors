@@ -91,7 +91,7 @@ Certain CORS requests are considered 'complex' and require an initial
 `OPTIONS` request (called the "pre-flight request"). An example of a
 'complex' CORS request is one that uses an HTTP verb other than
 GET/HEAD/POST (such as DELETE) or that uses custom headers. To enable
-preflighting, you must add a new OPTIONS handler for the route you want
+pre-flighting, you must add a new OPTIONS handler for the route you want
 to support:
 
 ```javascript
@@ -99,7 +99,7 @@ var express = require('express')
   , cors = require('cors')
   , app = express();
 
-app.options('/products/:id', cors()); // enable preflight request for DELETE request
+app.options('/products/:id', cors()); // enable pre-flight request for DELETE request
 app.del('/products/:id', cors(), function(req, res, next){
   res.json({msg: 'This is CORS-enabled for all origins!'});
 });
@@ -109,7 +109,7 @@ app.listen(80, function(){
 });
 ```
 
-You can also enable Pre-Flight across-the-board like so:
+You can also enable pre-flight across-the-board like so:
 
 ```
 app.options('*', cors()); // include before other routes
@@ -124,7 +124,7 @@ var express = require('express')
   , cors = require('cors')
   , app = express();
 
-app.use(cors()); // automatically supports pre-flighting
+app.use(cors()); // automatically supports pre-flighting as well
 app.use(app.router);
 
 app.get('/products/:id', function(req, res, next){ // didn't have to specify the cors() middleware here this time
