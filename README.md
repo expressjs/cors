@@ -8,10 +8,10 @@ CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/co
 * [Installation](#installation)
 * [Usage](#usage)
   * [Simple Usage](#simple-usage-enable-all-cors-requests)
+  * [Enable CORS for a Single Route](#enable-cors-for-a-single-route)
   * [Configuring CORS](#configuring-cors)
   * [Configuring CORS Asynchronously](#configuring-cors-asynchronously)
   * [Enabling CORS Pre-Flight](#enabling-cors-pre-flight)
-  * [Enabling CORS Application-wide](#enabling-cors-application-wide)
 * [Configuration Options](#configuration-options)
 * [Demo](#demo)
 * [License](#license)
@@ -26,6 +26,25 @@ $ npm install cors
 ## Usage
 
 ### Simple Usage (Enable *All* CORS Requests)
+
+```javascript
+var express = require('express')
+  , cors = require('cors')
+  , app = express();
+
+app.use(cors()); // automatically supports pre-flighting as well
+app.use(app.router);
+
+app.get('/products/:id', function(req, res, next){ // didn't have to specify the cors() middleware here this time
+  res.json({msg: 'This is CORS-enabled for all origins!'});
+});
+
+app.listen(80, function(){
+  console.log('CORS-enabled web server listening on port 80');
+});
+```
+
+### Enable CORS for a Single Route
 
 ```javascript
 var express = require('express')
@@ -113,27 +132,6 @@ You can also enable pre-flight across-the-board like so:
 
 ```
 app.options('*', cors()); // include before other routes
-```
-
-### Enabling CORS Application-wide
-
-Rather than turning-on/configuring CORS on a per-resource/route basis, you can do so across your entire application if desired:
-
-```javascript
-var express = require('express')
-  , cors = require('cors')
-  , app = express();
-
-app.use(cors()); // automatically supports pre-flighting as well
-app.use(app.router);
-
-app.get('/products/:id', function(req, res, next){ // didn't have to specify the cors() middleware here this time
-  res.json({msg: 'This is CORS-enabled for all origins!'});
-});
-
-app.listen(80, function(){
-  console.log('CORS-enabled web server listening on port 80');
-});
 ```
 
 ### Configuring CORS Asynchronously
