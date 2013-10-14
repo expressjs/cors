@@ -32,10 +32,10 @@ var express = require('express')
   , cors = require('cors')
   , app = express();
 
-app.use(cors()); // automatically supports pre-flighting as well
+app.use(cors());
 app.use(app.router);
 
-app.get('/products/:id', function(req, res, next){ // didn't have to specify the cors() middleware here this time
+app.get('/products/:id', function(req, res, next){
   res.json({msg: 'This is CORS-enabled for all origins!'});
 });
 
