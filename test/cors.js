@@ -410,7 +410,7 @@
         res = fakeResponse();
         res.end = function () {
           // assert
-          res.getHeader('Access-Control-Allow-Max-Age').should.equal('456');
+          res.getHeader('Access-Control-Max-Age').should.equal('456');
           done();
         };
 
