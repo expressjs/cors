@@ -13,7 +13,7 @@
         'access-control-request-headers': 'requestedHeader1,requestedHeader2'
       };
       return {
-        headers:headers,
+        headers: headers,
         pause: function () {
           // do nothing
           return;
@@ -27,7 +27,10 @@
     fakeResponse = function () {
       var headers = {};
       return {
-        getHeader: function(key) {
+        allHeaders: function () {
+          return headers;
+        },
+        getHeader: function (key) {
           return headers[key];
         },
         setHeader: function (key, value) {
@@ -308,11 +311,11 @@
         cors(options)(req, res, next);
       });
 
-      it('can specify headers', function (done) {
+      it('can specify allowed headers', function (done) {
         // arrange
         var req, res, options;
         options = {
-          headers: ['header1', 'header2']
+          allowedHeaders: ['header1', 'header2']
         };
         req = fakeRequest();
         req.method = 'OPTIONS';
@@ -327,11 +330,11 @@
         cors(options)(req, res, null);
       });
 
-      it('specifying an empty list or string of headers will result in no response header for headers', function (done) {
+      it('specifying an empty list or string of allowed headers will result in no response header for allowed headers', function (done) {
         // arrange
         var req, res, next, options;
         options = {
-          headers: []
+          allowedHeaders: []
         };
         req = fakeRequest();
         res = fakeResponse();
@@ -345,7 +348,7 @@
         cors(options)(req, res, next);
       });
 
-      it('if no headers are specified, defaults to requested headers', function (done) {
+      it('if no allowed headers are specified, defaults to requested allowed headers', function (done) {
         // arrange
         var req, res, options;
         options = {
@@ -361,6 +364,24 @@
 
         // act
         cors(options)(req, res, null);
+      });
+
+      it('can specify exposed headers', function (done) {
+        // arrange
+        var req, res, options, next;
+        options = {
+          exposedHeaders: ['custom-header1', 'custom-header2']
+        };
+        req = fakeRequest();
+        res = fakeResponse();
+        next = function () {
+          // assert
+          res.getHeader('Access-Control-Expose-Headers').should.equal('custom-header1,custom-header2');
+          done();
+        };
+
+        // act
+        cors(options)(req, res, next);
       });
 
       it('includes credentials if explicitly enabled', function (done) {
