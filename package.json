@@ -23,7 +23,7 @@
   , "main": "./lib/index.js"
   , "engines": {
       "node": ">=0.8.0",
-      "npm": "^1.2"
+      "npm": "^1.3"
   }
   , "dependencies": {}
   , "devDependencies": {
