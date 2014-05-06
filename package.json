@@ -1,6 +1,6 @@
 {
     "name": "cors"
-  , "version": "2.2.0"
+  , "version": "2.3.0"
   , "author": "Troy Goode <troygoode@gmail.com> (https://github.com/troygoode/)"
   , "description": "middleware for dynamically or statically enabling CORS in express/connect applications"
   , "keywords": ["cors", "express", "connect", "middleware"]
@@ -26,11 +26,11 @@
   }
   , "dependencies": {}
   , "devDependencies": {
-      "express": "*"
-    , "lint": "*"
-    , "mocha": "*"
-    , "should": "*"
-    , "supertest": "*"
+      "express": "^3"
+    , "lint": "^1.1.2"
+    , "mocha": "^1.18.2"
+    , "should": "^3.3.1"
+    , "supertest": "^0.12.0"
   }
   , "scripts": {
       "test": "./node_modules/mocha/bin/mocha"
