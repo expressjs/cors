@@ -7,8 +7,8 @@
 
   var should = require('should'),
     cors = require('../lib'),
-    fakeRequest = function () {
-      var headers = {
+    fakeRequest = function (headers) {
+      var headers = headers || {
         'origin': 'request.com',
         'access-control-request-headers': 'requestedHeader1,requestedHeader2'
       };
@@ -263,6 +263,41 @@
 
         cors(options)(req, res, next);
       });
+
+      it('should not override options.origin callback', function (done) {
+        var req, res, next, options;
+        options = {
+          origin: function (sentOrigin, cb) {
+            var isValid = sentOrigin === 'request.com';
+            cb(null, isValid);
+          }
+        };
+
+        req = fakeRequest();
+        res = fakeResponse();
+        next = function () {
+          res.getHeader('Access-Control-Allow-Origin').should.equal('request.com');
+        };
+
+        cors(options)(req, res, next);
+
+        req = fakeRequest({
+        'origin': 'invalid-request.com'
+        });
+        res = fakeResponse();
+
+        next = function () {
+          should.not.exist(res.getHeader('Access-Control-Allow-Origin'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Methods'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Headers'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Credentials'));
+          should.not.exist(res.getHeader('Access-Control-Allow-Max-Age'));
+          done();
+        };
+
+        cors(options)(req, res, next);
+      });
+
 
       it('can override methods', function (done) {
         // arrange
