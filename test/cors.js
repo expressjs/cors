@@ -74,6 +74,26 @@
       cors()(req, res, next);
     });
 
+    it('normalizes method names', function (done) {
+      // arrange
+      var req, res, next;
+      req = fakeRequest();
+      req.method = 'options';
+      res = fakeResponse();
+      res.end = function () {
+        // assert
+        res.statusCode.should.equal(204);
+        done();
+      };
+      next = function () {
+        // assert
+        done('should not be called');
+      };
+
+      // act
+      cors()(req, res, next);
+    });
+
     it('no options enables default CORS to all origins', function (done) {
       // arrange
       var req, res, next;
