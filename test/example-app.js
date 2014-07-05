@@ -16,11 +16,11 @@
 
   simpleApp = express();
   /*jslint unparam: true*/ // `req` is part of the signature, but not used in these routes
-  simpleApp.get('/', cors(), function (req, res) {
-    res.send('Hello World (Get)');
-  });
   simpleApp.head('/', cors(), function (req, res) {
     res.send(204);
+  });
+  simpleApp.get('/', cors(), function (req, res) {
+    res.send('Hello World (Get)');
   });
   simpleApp.post('/', cors(), function (req, res) {
     res.send('Hello World (Post)');
