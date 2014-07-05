@@ -8,12 +8,11 @@
   var should = require('should'),
     cors = require('../lib'),
     fakeRequest = function (headers) {
-      var headers = headers || {
-        'origin': 'request.com',
-        'access-control-request-headers': 'requestedHeader1,requestedHeader2'
-      };
       return {
-        headers: headers,
+        headers: headers || {
+          'origin': 'request.com',
+          'access-control-request-headers': 'requestedHeader1,requestedHeader2'
+        },
         pause: function () {
           // do nothing
           return;
@@ -302,7 +301,7 @@
         cors(options)(req, res, next);
 
         req = fakeRequest({
-        'origin': 'invalid-request.com'
+          'origin': 'invalid-request.com'
         });
         res = fakeResponse();
 
