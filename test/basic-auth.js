@@ -26,19 +26,17 @@
   /* -------------------------------------------------------------------------- */
 
   describe('basic auth', function () {
-    describe('', function () {
-      it('POST works', function (done) {
-        supertest(app)
-          .post('/')
-          .auth('username', 'password')
-          .expect(200)
-          .end(function (err, res) {
-            should.not.exist(err);
-            res.headers['access-control-allow-origin'].should.eql('*');
-            res.text.should.eql('hello world');
-            done();
-          });
-      });
+    it('POST works', function (done) {
+      supertest(app)
+        .post('/')
+        .auth('username', 'password')
+        .expect(200)
+        .end(function (err, res) {
+          should.not.exist(err);
+          res.headers['access-control-allow-origin'].should.eql('*');
+          res.text.should.eql('hello world');
+          done();
+        });
     });
   });
 
