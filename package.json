@@ -1,6 +1,6 @@
 {
     "name": "cors"
-  , "version": "2.4.1"
+  , "version": "2.4.2"
   , "author": "Troy Goode <troygoode@gmail.com> (https://github.com/troygoode/)"
   , "description": "middleware for dynamically or statically enabling CORS in express/connect applications"
   , "keywords": ["cors", "express", "connect", "middleware"]
