@@ -22,8 +22,7 @@
   , "bugs": {"url": "https://github.com/troygoode/node-cors/issues"}
   , "main": "./lib/index.js"
   , "engines": {
-      "node": ">=0.10.0",
-      "npm": "^1.4"
+      "node": ">=0.10.0"
   }
   , "dependencies": {}
   , "devDependencies": {
