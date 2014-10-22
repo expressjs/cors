@@ -208,6 +208,24 @@
         cors(options)(req, res, next);
       });
 
+      it('includes vary origin header for specific origins', function (done) {
+        // arrange
+        var req, res, next, options;
+        options = {
+          origin: 'example.com'
+        };
+        req = fakeRequest();
+        res = fakeResponse();
+        next = function () {
+          // assert
+          res.getHeader('Vary').should.equal('Origin');
+          done();
+        };
+
+        // act
+        cors(options)(req, res, next);
+      });
+
       it('origin defaults to *', function (done) {
         // arrange
         var req, res, next, options;
