@@ -17,7 +17,7 @@
   simpleApp = express();
   /*jslint unparam: true*/ // `req` is part of the signature, but not used in these routes
   simpleApp.head('/', cors(), function (req, res) {
-    res.send(204);
+    res.status(204).send();
   });
   simpleApp.get('/', cors(), function (req, res) {
     res.send('Hello World (Get)');
@@ -32,7 +32,7 @@
   complexApp = express();
   complexApp.options('/', cors());
   /*jslint unparam: true*/ // `req` is part of the signature, but not used in this route
-  complexApp.del('/', cors(), function (req, res) {
+  complexApp.delete('/', cors(), function (req, res) {
     res.send('Hello World (Delete)');
   });
   /*jslint unparam: false*/

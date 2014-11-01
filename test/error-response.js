@@ -37,7 +37,7 @@
   /*jslint unparam: true*/ // `req` is part of the signature, but not used in these routes
   app.use(function (err, req, res, next) {
     if (err.message === '401') {
-      res.send(401, 'unauthorized');
+      res.status(401).send('unauthorized');
     } else {
       next(err);
     }
