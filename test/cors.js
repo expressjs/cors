@@ -35,6 +35,9 @@
         setHeader: function (key, value) {
           headers[key] = value;
           return;
+        },
+        get: function (key) {
+          return headers[key];
         }
       };
     };
@@ -208,7 +211,7 @@
         cors(options)(req, res, next);
       });
 
-      it('includes vary origin header for specific origins', function (done) {
+      it('includes Vary header for specific origins', function (done) {
         // arrange
         var req, res, next, options;
         options = {
@@ -219,6 +222,25 @@
         next = function () {
           // assert
           res.getHeader('Vary').should.equal('Origin');
+          done();
+        };
+
+        // act
+        cors(options)(req, res, next);
+      });
+
+      it('appends to an existing Vary header', function (done) {
+        // arrange
+        var req, res, next, options;
+        options = {
+          origin: 'example.com'
+        };
+        req = fakeRequest();
+        res = fakeResponse();
+        res.setHeader('Vary', 'Foo');
+        next = function () {
+          // assert
+          res.getHeader('Vary').should.equal('Foo, Origin');
           done();
         };
 
