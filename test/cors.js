@@ -76,6 +76,25 @@
       cors()(req, res, next);
     });
 
+    it('don\'t shortcircuits preflight requests with preflightContinue option', function (done) {
+      // arrange
+      var req, res, next;
+      req = fakeRequest();
+      req.method = 'OPTIONS';
+      res = fakeResponse();
+      res.end = function () {
+        // assert
+        done('should not be called');
+      };
+      next = function () {
+        // assert
+        done();
+      };
+
+      // act
+      cors({preflightContinue: true})(req, res, next);
+    });
+
     it('normalizes method names', function (done) {
       // arrange
       var req, res, next;
