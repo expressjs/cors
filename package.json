@@ -1,6 +1,6 @@
 {
   "name": "cors",
-  "version": "2.6.1",
+  "version": "2.7.0",
   "author": "Troy Goode <troygoode@gmail.com> (https://github.com/troygoode/)",
   "description": "middleware for dynamically or statically enabling CORS in express/connect applications",
   "keywords": ["cors", "express", "connect", "middleware"],
@@ -26,16 +26,16 @@
     "vary": "^1"
   },
   "devDependencies": {
-    "basic-auth-connect": "^1",
-    "body-parser": "^1.4.3",
-    "express": "^4",
-    "lint": "^1.1.2",
-    "mocha": "^1.18.2",
-    "should": "^3.3.1",
-    "supertest": "^0.12"
+    "basic-auth-connect": "^1.0.0",
+    "body-parser": "^1.12.4",
+    "eslint": "^0.21.2",
+    "express": "^4.12.4",
+    "mocha": "^2.2.5",
+    "should": "^6.0.3",
+    "supertest": "^1.0.1"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
-    "lint": "./node_modules/lint/bin/node-lint lib test"
+    "test": "npm run lint && ./node_modules/mocha/bin/mocha",
+    "lint": "./node_modules/eslint/bin/eslint.js lib test"
   }
 }

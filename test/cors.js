@@ -1,13 +1,12 @@
-/*jslint indent: 2*/
-/*global require: true, module: true, describe: true, it: true*/
-
 (function () {
+  /*global describe, it*/
 
   'use strict';
 
   var should = require('should'),
-    cors = require('../lib'),
-    fakeRequest = function (headers) {
+    cors = require('../lib');
+
+  var fakeRequest = function (headers) {
       return {
         headers: headers || {
           'origin': 'request.com',
@@ -197,7 +196,7 @@
           return done();
         });
       });
-      
+
       it('matches request origin against array of origin checks', function(done) {
         var req = fakeRequest();
         var res = fakeResponse();
@@ -598,13 +597,11 @@
       it('handles options specified via callback', function (done) {
         // arrange
         var req, res, next, delegate;
-        /*jslint unparam: true*/ // `req` is part of the signature, but not used in this route
-        delegate = function (req, cb) {
+        delegate = function (req2, cb) {
           cb(null, {
             origin: 'delegate.com'
           });
         };
-        /*jslint unparam: false*/
         req = fakeRequest();
         res = fakeResponse();
         next = function () {
@@ -620,11 +617,9 @@
       it('handles error specified via callback', function (done) {
         // arrange
         var req, res, next, delegate;
-        /*jslint unparam: true*/ // `req` is part of the signature, but not used in this route
-        delegate = function (req, cb) {
+        delegate = function (req2, cb) {
           cb('some error');
         };
-        /*jslint unparam: false*/
         req = fakeRequest();
         res = fakeResponse();
         next = function (err) {
@@ -640,4 +635,3 @@
   });
 
 }());
-

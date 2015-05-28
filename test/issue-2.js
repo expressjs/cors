@@ -1,15 +1,14 @@
-/*jslint indent: 2*/
-/*global require: true, module: true, describe: true, it: true*/
-
 (function () {
+  /*global describe, it*/
 
   'use strict';
 
   var should = require('should'),
     express = require('express'),
     supertest = require('supertest'),
-    cors = require('../lib'),
-    app,
+    cors = require('../lib');
+
+  var app,
     corsOptions;
 
   /* -------------------------------------------------------------------------- */
@@ -22,11 +21,9 @@
     maxAge: 3600
   };
   app.options('/api/login', cors(corsOptions));
-  /*jslint unparam: true*/ // `req` is part of the signature, but not used in this route
   app.post('/api/login', cors(corsOptions), function (req, res) {
     res.send('LOGIN');
   });
-  /*jslint unparam: false*/
 
   /* -------------------------------------------------------------------------- */
 
@@ -57,4 +54,3 @@
   });
 
 }());
-

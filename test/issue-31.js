@@ -1,26 +1,25 @@
-/*jslint indent: 2*/
-/*global require: true, module: true, describe: true, it: true*/
-
 (function () {
+  /*global describe, it*/
 
   'use strict';
 
   var should = require('should'),
     express = require('express'),
     supertest = require('supertest'),
-    cors = require('../lib'),
-    app,
+    cors = require('../lib');
+
+  var app,
     mainRouter,
     itemsRouter;
 
   /* -------------------------------------------------------------------------- */
 
-  itemsRouter = express.Router();
+  itemsRouter = new express.Router();
   itemsRouter.get('/', function (req, res) {
     res.send('hello world');
   });
 
-  mainRouter = express.Router();
+  mainRouter = new express.Router();
   mainRouter.use('/items', itemsRouter);
 
   app = express();
@@ -57,4 +56,3 @@
   });
 
 }());
-
