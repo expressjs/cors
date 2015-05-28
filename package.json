@@ -16,9 +16,7 @@
       "web": "https://github.com/troygoode/"
     }
   ],
-  "licenses": [
-    {"type": "MIT", "url": "http://www.opensource.org/licenses/mit-license.php"}
-  ],
+  "license": "MIT",
   "bugs": {"url": "https://github.com/troygoode/node-cors/issues"},
   "main": "./lib/index.js",
   "engines": {
