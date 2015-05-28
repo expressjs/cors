@@ -193,6 +193,19 @@
         cors(options)(req, res, function(err) {
           should.not.exist(err);
           res.getHeader('Access-Control-Allow-Origin').should.equal(req.headers.origin);
+          res.getHeader('Vary').should.equal('Origin');
+          return done();
+        });
+      });
+      
+      it('matches request origin against array of origin checks', function(done) {
+        var req = fakeRequest();
+        var res = fakeResponse();
+        var options = { origin: [ /foo\.com$/, 'request.com' ] };
+        cors(options)(req, res, function(err) {
+          should.not.exist(err);
+          res.getHeader('Access-Control-Allow-Origin').should.equal(req.headers.origin);
+          res.getHeader('Vary').should.equal('Origin');
           return done();
         });
       });
