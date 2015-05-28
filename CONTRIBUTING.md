@@ -19,7 +19,6 @@ CORS is a node.js package for providing a [connect](http://www.senchalabs.org/co
 ```bash
 $ npm install
 $ npm test
-$ npm run lint
 ```
 
 ## Interactive Testing Harness
