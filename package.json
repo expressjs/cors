@@ -1,13 +1,13 @@
 {
   "name": "cors",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "author": "Troy Goode <troygoode@gmail.com> (https://github.com/troygoode/)",
   "description": "middleware for dynamically or statically enabling CORS in express/connect applications",
   "keywords": ["cors", "express", "connect", "middleware"],
-  "homepage": "https://github.com/troygoode/node-cors/",
+  "homepage": "https://github.com/expressjs/cors/",
   "repository": {
     "type": "git",
-    "url": "git://github.com/troygoode/node-cors.git"
+    "url": "git://github.com/expressjs/cors.git"
   },
   "contributors": [
     {
@@ -17,7 +17,7 @@
     }
   ],
   "license": "MIT",
-  "bugs": {"url": "https://github.com/troygoode/node-cors/issues"},
+  "bugs": {"url": "https://github.com/expressjs/cors/issues"},
   "main": "./lib/index.js",
   "engines": {
     "node": ">=0.10.0"
