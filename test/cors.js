@@ -76,7 +76,7 @@
       cors()(req, res, next);
     });
 
-    it('don\'t shortcircuits preflight requests with preflightContinue option', function (done) {
+    it('doesn\'t shortcircuit preflight requests with preflightContinue option', function (done) {
       // arrange
       var req, res, next;
       req = fakeRequest();
@@ -184,6 +184,30 @@
 
         // act
         cors(options)(req, res, next);
+      });
+
+      it('matches request origin against regexp', function(done) {
+        var req = fakeRequest();
+        var res = fakeResponse();
+        var options = { origin: /^(.+\.)?request.com$/ };
+        cors(options)(req, res, function(err) {
+          should.not.exist(err);
+          res.getHeader('Access-Control-Allow-Origin').should.equal(req.headers.origin);
+          res.getHeader('Vary').should.equal('Origin');
+          return done();
+        });
+      });
+      
+      it('matches request origin against array of origin checks', function(done) {
+        var req = fakeRequest();
+        var res = fakeResponse();
+        var options = { origin: [ /foo\.com$/, 'request.com' ] };
+        cors(options)(req, res, function(err) {
+          should.not.exist(err);
+          res.getHeader('Access-Control-Allow-Origin').should.equal(req.headers.origin);
+          res.getHeader('Vary').should.equal('Origin');
+          return done();
+        });
       });
 
       it('origin of false disables cors', function (done) {
