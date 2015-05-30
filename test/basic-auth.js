@@ -1,7 +1,5 @@
-/*jslint indent: 2*/
-/*global require: true, module: true, describe: true, it: true, setTimeout: true*/
-
 (function () {
+  /*global describe, it*/
 
   'use strict';
 
@@ -9,19 +7,18 @@
     express = require('express'),
     supertest = require('supertest'),
     basicAuth = require('basic-auth-connect'),
-    cors = require('../lib'),
-    app;
+    cors = require('../lib');
+
+  var app;
 
   /* -------------------------------------------------------------------------- */
 
   app = express();
   app.use(basicAuth('username', 'password'));
   app.use(cors());
-  /*jslint unparam: true*/ // `req` is part of the signature, but not used in these routes
   app.post('/', function (req, res) {
     res.send('hello world');
   });
-  /*jslint unparam: false*/
 
   /* -------------------------------------------------------------------------- */
 
@@ -41,4 +38,3 @@
   });
 
 }());
-

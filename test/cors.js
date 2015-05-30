@@ -1,13 +1,12 @@
-/*jslint indent: 2*/
-/*global require: true, module: true, describe: true, it: true*/
-
 (function () {
+  /*global describe, it*/
 
   'use strict';
 
   var should = require('should'),
-    cors = require('../lib'),
-    fakeRequest = function (headers) {
+    cors = require('../lib');
+
+  var fakeRequest = function (headers) {
       return {
         headers: headers || {
           'origin': 'request.com',
@@ -74,6 +73,25 @@
 
       // act
       cors()(req, res, next);
+    });
+
+    it('doesn\'t shortcircuit preflight requests with preflightContinue option', function (done) {
+      // arrange
+      var req, res, next;
+      req = fakeRequest();
+      req.method = 'OPTIONS';
+      res = fakeResponse();
+      res.end = function () {
+        // assert
+        done('should not be called');
+      };
+      next = function () {
+        // assert
+        done();
+      };
+
+      // act
+      cors({preflightContinue: true})(req, res, next);
     });
 
     it('normalizes method names', function (done) {
@@ -167,6 +185,44 @@
         cors(options)(req, res, next);
       });
 
+      it('matches request origin against regexp', function(done) {
+        var req = fakeRequest();
+        var res = fakeResponse();
+        var options = { origin: /^(.+\.)?request.com$/ };
+        cors(options)(req, res, function(err) {
+          should.not.exist(err);
+          res.getHeader('Access-Control-Allow-Origin').should.equal(req.headers.origin);
+          should.exist(res.getHeader('Vary'));
+          res.getHeader('Vary').should.equal('Origin');
+          return done();
+        });
+      });
+
+      it('matches request origin against array of origin checks', function(done) {
+        var req = fakeRequest();
+        var res = fakeResponse();
+        var options = { origin: [ /foo\.com$/, 'request.com' ] };
+        cors(options)(req, res, function(err) {
+          should.not.exist(err);
+          res.getHeader('Access-Control-Allow-Origin').should.equal(req.headers.origin);
+          should.exist(res.getHeader('Vary'));
+          res.getHeader('Vary').should.equal('Origin');
+          return done();
+        });
+      });
+
+      it('doesn\'t match request origin against array of invalid origin checks', function(done) {
+        var req = fakeRequest();
+        var res = fakeResponse();
+        var options = { origin: [ /foo\.com$/, 'bar.com' ] };
+        cors(options)(req, res, function(err) {
+          should.not.exist(err);
+          should.not.exist(res.getHeader('Access-Control-Allow-Origin'));
+          should.not.exist(res.getHeader('Vary'));
+          return done();
+        });
+      });
+
       it('origin of false disables cors', function (done) {
         // arrange
         var req, res, next, options;
@@ -221,6 +277,7 @@
         res = fakeResponse();
         next = function () {
           // assert
+          should.exist(res.getHeader('Vary'));
           res.getHeader('Vary').should.equal('Origin');
           done();
         };
@@ -555,13 +612,11 @@
       it('handles options specified via callback', function (done) {
         // arrange
         var req, res, next, delegate;
-        /*jslint unparam: true*/ // `req` is part of the signature, but not used in this route
-        delegate = function (req, cb) {
+        delegate = function (req2, cb) {
           cb(null, {
             origin: 'delegate.com'
           });
         };
-        /*jslint unparam: false*/
         req = fakeRequest();
         res = fakeResponse();
         next = function () {
@@ -577,11 +632,9 @@
       it('handles error specified via callback', function (done) {
         // arrange
         var req, res, next, delegate;
-        /*jslint unparam: true*/ // `req` is part of the signature, but not used in this route
-        delegate = function (req, cb) {
+        delegate = function (req2, cb) {
           cb('some error');
         };
-        /*jslint unparam: false*/
         req = fakeRequest();
         res = fakeResponse();
         next = function (err) {
@@ -597,4 +650,3 @@
   });
 
 }());
-

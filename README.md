@@ -6,7 +6,7 @@ CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/co
 
 [![NPM](https://nodei.co/npm/cors.png?downloads=true&stars=true)](https://nodei.co/npm/cors/)
 
-[![build status](https://secure.travis-ci.org/troygoode/node-cors.png)](http://travis-ci.org/troygoode/node-cors)
+[![build status](https://secure.travis-ci.org/expressjs/cors.png)](http://travis-ci.org/expressjs/cors)
 * [Installation](#installation)
 * [Usage](#usage)
   * [Simple Usage](#simple-usage-enable-all-cors-requests)
@@ -164,12 +164,13 @@ app.listen(80, function(){
 
 ## Configuration Options
 
-* `origin`: Configures the **Access-Control-Allow-Origin** CORS header. Expects a string (ex: "http://example.com"). Set to `true` to reflect the [request origin](http://tools.ietf.org/html/draft-abarth-origin-09), as defined by `req.header('Origin')`. Set to `false` to disable CORS. Can also be set to a function, which takes the request origin as the first parameter and a callback (which expects the signature `err [object], allow [bool]`) as the second.
+* `origin`: Configures the **Access-Control-Allow-Origin** CORS header. Expects a string (ex: "http://example.com"). Set to `true` to reflect the [request origin](http://tools.ietf.org/html/draft-abarth-origin-09), as defined by `req.header('Origin')`. Set to `false` to disable CORS. Can also be set to a function, which takes the request origin as the first parameter and a callback (which expects the signature `err [object], allow [bool]`) as the second. Finally, it can also be a regular expression (`/example\.com$/`) or an array of regular expressions and/or strings to match against.
 * `methods`: Configures the **Access-Control-Allow-Methods** CORS header. Expects a comma-delimited string (ex: 'GET,PUT,POST') or an array (ex: `['GET', 'PUT', 'POST']`).
-* `allowedHeaders`: Configures the **Access-Control-Allow-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Type,Authorization') or an array (ex: `['Content-Type', 'Authorization]`). If not specified, defaults to reflecting the headers specified in the request's **Access-Control-Request-Headers** header.
-* `exposedHeaders`: Configures the **Access-Control-Expose-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Range,X-Content-Range') or an array (ex: `['Content-Range', 'X-Content-Range]`). If not specified, no custom headers are exposed.
+* `allowedHeaders`: Configures the **Access-Control-Allow-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Type,Authorization') or an array (ex: `['Content-Type', 'Authorization']`). If not specified, defaults to reflecting the headers specified in the request's **Access-Control-Request-Headers** header.
+* `exposedHeaders`: Configures the **Access-Control-Expose-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Range,X-Content-Range') or an array (ex: `['Content-Range', 'X-Content-Range']`). If not specified, no custom headers are exposed.
 * `credentials`: Configures the **Access-Control-Allow-Credentials** CORS header. Set to `true` to pass the header, otherwise it is omitted.
 * `maxAge`: Configures the **Access-Control-Allow-Max-Age** CORS header. Set to an integer to pass the header, otherwise it is omitted.
+* `preflightContinue`: Pass the CORS preflight response to the next handler.
 
 For details on the effect of each CORS header, [read this article on HTML5 Rocks](http://www.html5rocks.com/en/tutorials/cors/).
 

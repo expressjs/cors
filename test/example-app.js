@@ -1,21 +1,19 @@
-/*jslint indent: 2*/
-/*global require: true, module: true, describe: true, it: true*/
-
 (function () {
+  /*global describe, it*/
 
   'use strict';
 
   var should = require('should'),
     express = require('express'),
     supertest = require('supertest'),
-    cors = require('../lib'),
-    simpleApp,
+    cors = require('../lib');
+
+  var simpleApp,
     complexApp;
 
   /* -------------------------------------------------------------------------- */
 
   simpleApp = express();
-  /*jslint unparam: true*/ // `req` is part of the signature, but not used in these routes
   simpleApp.head('/', cors(), function (req, res) {
     res.status(204).send();
   });
@@ -25,17 +23,14 @@
   simpleApp.post('/', cors(), function (req, res) {
     res.send('Hello World (Post)');
   });
-  /*jslint unparam: false*/
 
   /* -------------------------------------------------------------------------- */
 
   complexApp = express();
   complexApp.options('/', cors());
-  /*jslint unparam: true*/ // `req` is part of the signature, but not used in this route
   complexApp.delete('/', cors(), function (req, res) {
     res.send('Hello World (Delete)');
   });
-  /*jslint unparam: false*/
 
   /* -------------------------------------------------------------------------- */
 
@@ -101,4 +96,3 @@
   });
 
 }());
-
