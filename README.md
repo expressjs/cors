@@ -177,6 +177,16 @@ app.listen(80, function(){
 * `maxAge`: Configures the **Access-Control-Allow-Max-Age** CORS header. Set to an integer to pass the header, otherwise it is omitted.
 * `preflightContinue`: Pass the CORS preflight response to the next handler.
 
+The default configuration is the equivalent of:
+
+```json
+{
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false
+}
+```
+
 For details on the effect of each CORS header, read [this](http://www.html5rocks.com/en/tutorials/cors/) article on HTML5 Rocks.
 
 ## Demo
