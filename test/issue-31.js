@@ -32,7 +32,7 @@
     it('OPTIONS works', function (done) {
       supertest(app)
         .options('/items')
-        .expect(204)
+        .expect(200)
         .set('Origin', 'http://example.com')
         .end(function (err, res) {
           should.not.exist(err);

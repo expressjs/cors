@@ -63,7 +63,7 @@
       res = fakeResponse();
       res.end = function () {
         // assert
-        res.statusCode.should.equal(204);
+        res.statusCode.should.equal(200);
         done();
       };
       next = function () {
@@ -102,7 +102,7 @@
       res = fakeResponse();
       res.end = function () {
         // assert
-        res.statusCode.should.equal(204);
+        res.statusCode.should.equal(200);
         done();
       };
       next = function () {
@@ -138,7 +138,7 @@
       res = fakeResponse();
       res.end = function () {
         // assert
-        res.statusCode.should.equal(204);
+        res.statusCode.should.equal(200);
         done();
       };
       next = function () {
@@ -168,7 +168,7 @@
         res = fakeResponse();
         res.end = function () {
           // assert
-          res.statusCode.should.equal(204);
+          res.statusCode.should.equal(200);
           done();
         };
         next = function () {
@@ -426,7 +426,7 @@
         res = fakeResponse();
         res.end = function () {
           // assert
-          res.statusCode.should.equal(204);
+          res.statusCode.should.equal(200);
           done();
         };
         next = function () {
@@ -449,7 +449,7 @@
         res = fakeResponse();
         res.end = function () {
           // assert
-          res.statusCode.should.equal(204);
+          res.statusCode.should.equal(200);
           done();
         };
         next = function () {
