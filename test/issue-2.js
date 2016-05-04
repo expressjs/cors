@@ -16,7 +16,7 @@
   app = express();
   corsOptions = {
     origin: true,
-    methods: ['POST'],
+    methods: ['POST', 'OPTIONS'],
     credentials: true,
     maxAge: 3600
   };
@@ -36,6 +36,7 @@
         .end(function (err, res) {
           should.not.exist(err);
           res.headers['access-control-allow-origin'].should.eql('http://example.com');
+          res.headers['access-control-allow-methods'].should.match(/OPTIONS/);
           done();
         });
     });

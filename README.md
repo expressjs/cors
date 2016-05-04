@@ -182,7 +182,7 @@ The default configuration is the equivalent of:
 ```json
 {
   "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   "preflightContinue": false
 }
 ```
