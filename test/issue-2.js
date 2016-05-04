@@ -36,7 +36,7 @@
         .end(function (err, res) {
           should.not.exist(err);
           res.headers['access-control-allow-origin'].should.eql('http://example.com');
-          res.headers['access-control-allow-methods'].should.match(/(OPTIONS)|(\*)/);
+          res.headers['access-control-allow-methods'].should.match(/OPTIONS/);
           done();
         });
     });
