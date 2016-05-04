@@ -439,7 +439,7 @@
         cors(options)(req, res, next);
       });
 
-      it('methods defaults to GET, PUT, PATCH, POST, DELETE', function (done) {
+      it('methods defaults to GET, PUT, PATCH, POST, DELETE, OPTIONS', function (done) {
         // arrange
         var req, res, next, options;
         options = {
@@ -454,7 +454,7 @@
         };
         next = function () {
           // assert
-          res.getHeader('Access-Control-Allow-Methods').should.equal('GET,PUT,PATCH,POST,DELETE');
+          res.getHeader('Access-Control-Allow-Methods').should.equal('GET,PUT,PATCH,POST,DELETE,OPTIONS');
           done();
         };
 
