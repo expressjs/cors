@@ -177,7 +177,7 @@
           res.getHeader('Access-Control-Allow-Methods').should.equal('FOO,bar');
           res.getHeader('Access-Control-Allow-Headers').should.equal('FIZZ,buzz');
           res.getHeader('Access-Control-Allow-Credentials').should.equal('true');
-          res.getHeader('Access-Control-Allow-Max-Age').should.equal('123');
+          res.getHeader('Access-Control-Max-Age').should.equal('123');
           done();
         };
 
@@ -241,7 +241,7 @@
           should.not.exist(res.getHeader('Access-Control-Allow-Methods'));
           should.not.exist(res.getHeader('Access-Control-Allow-Headers'));
           should.not.exist(res.getHeader('Access-Control-Allow-Credentials'));
-          should.not.exist(res.getHeader('Access-Control-Allow-Max-Age'));
+          should.not.exist(res.getHeader('Access-Control-Max-Age'));
           done();
         };
 
@@ -373,7 +373,7 @@
           should.not.exist(res.getHeader('Access-Control-Allow-Methods'));
           should.not.exist(res.getHeader('Access-Control-Allow-Headers'));
           should.not.exist(res.getHeader('Access-Control-Allow-Credentials'));
-          should.not.exist(res.getHeader('Access-Control-Allow-Max-Age'));
+          should.not.exist(res.getHeader('Access-Control-Max-Age'));
           done();
         };
 
@@ -407,7 +407,7 @@
           should.not.exist(res.getHeader('Access-Control-Allow-Methods'));
           should.not.exist(res.getHeader('Access-Control-Allow-Headers'));
           should.not.exist(res.getHeader('Access-Control-Allow-Credentials'));
-          should.not.exist(res.getHeader('Access-Control-Allow-Max-Age'));
+          should.not.exist(res.getHeader('Access-Control-Max-Age'));
           done();
         };
 
@@ -599,7 +599,7 @@
         res = fakeResponse();
         next = function () {
           // assert
-          should.not.exist(res.getHeader('Access-Control-Allow-Max-Age'));
+          should.not.exist(res.getHeader('Access-Control-Max-Age'));
           done();
         };
 
