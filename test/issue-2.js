@@ -31,7 +31,7 @@
     it('OPTIONS works', function (done) {
       supertest(app)
         .options('/api/login')
-        .expect(204)
+        .expect(200)
         .set('Origin', 'http://example.com')
         .end(function (err, res) {
           should.not.exist(err);

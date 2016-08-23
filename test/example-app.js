@@ -15,7 +15,7 @@
 
   simpleApp = express();
   simpleApp.head('/', cors(), function (req, res) {
-    res.status(204).send();
+    res.status(200).send();
   });
   simpleApp.get('/', cors(), function (req, res) {
     res.send('Hello World (Get)');
@@ -50,7 +50,7 @@
       it('HEAD works', function (done) {
         supertest(simpleApp)
           .head('/')
-          .expect(204)
+          .expect(200)
           .end(function (err, res) {
             should.not.exist(err);
             res.headers['access-control-allow-origin'].should.eql('*');
@@ -74,7 +74,7 @@
       it('OPTIONS works', function (done) {
         supertest(complexApp)
           .options('/')
-          .expect(204)
+          .expect(200)
           .end(function (err, res) {
             should.not.exist(err);
             res.headers['access-control-allow-origin'].should.eql('*');
