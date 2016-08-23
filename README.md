@@ -69,7 +69,8 @@ var express = require('express')
   , app = express();
 
 var corsOptions = {
-  origin: 'http://example.com'
+  origin: 'http://example.com',
+  optionsSucccessCode: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 app.get('/products/:id', cors(corsOptions), function(req, res, next){

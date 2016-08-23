@@ -75,6 +75,26 @@
       cors()(req, res, next);
     });
 
+    it('can configure preflight success response status code', function (done) {
+      // arrange
+      var req, res, next;
+      req = fakeRequest();
+      req.method = 'OPTIONS';
+      res = fakeResponse();
+      res.end = function () {
+        // assert
+        res.statusCode.should.equal(200);
+        done();
+      };
+      next = function () {
+        // assert
+        done('should not be called');
+      };
+
+      // act
+      cors({optionsSuccessStatus: 200})(req, res, next);
+    });
+
     it('doesn\'t shortcircuit preflight requests with preflightContinue option', function (done) {
       // arrange
       var req, res, next;
