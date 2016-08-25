@@ -53,7 +53,7 @@ var express = require('express')
   , app = express();
 
 app.get('/products/:id', cors(), function(req, res, next){
-  res.json({msg: 'This is CORS-enabled for all origins!'});
+  res.json({msg: 'This is CORS-enabled for a Single Route'});
 });
 
 app.listen(80, function(){
