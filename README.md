@@ -31,79 +31,79 @@ $ npm install cors
 
 ```javascript
 var express = require('express')
-  , cors = require('cors')
-  , app = express();
+var cors = require('cors')
+var app = express()
 
-app.use(cors());
+app.use(cors())
 
-app.get('/products/:id', function(req, res, next){
-  res.json({msg: 'This is CORS-enabled for all origins!'});
-});
+app.get('/products/:id', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
 
-app.listen(80, function(){
-  console.log('CORS-enabled web server listening on port 80');
-});
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
 ```
 
 ### Enable CORS for a Single Route
 
 ```javascript
 var express = require('express')
-  , cors = require('cors')
-  , app = express();
+var cors = require('cors')
+var app = express()
 
-app.get('/products/:id', cors(), function(req, res, next){
-  res.json({msg: 'This is CORS-enabled for a Single Route'});
-});
+app.get('/products/:id', cors(), function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for a Single Route'})
+})
 
-app.listen(80, function(){
-  console.log('CORS-enabled web server listening on port 80');
-});
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
 ```
 
 ### Configuring CORS
 
 ```javascript
 var express = require('express')
-  , cors = require('cors')
-  , app = express();
+var cors = require('cors')
+var app = express()
 
 var corsOptions = {
   origin: 'http://example.com',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+}
 
-app.get('/products/:id', cors(corsOptions), function(req, res, next){
-  res.json({msg: 'This is CORS-enabled for only example.com.'});
-});
+app.get('/products/:id', cors(corsOptions), function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for only example.com.'})
+})
 
-app.listen(80, function(){
-  console.log('CORS-enabled web server listening on port 80');
-});
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
 ```
 
 ### Configuring CORS w/ Dynamic Origin
 
 ```javascript
 var express = require('express')
-  , cors = require('cors')
-  , app = express();
+var cors = require('cors')
+var app = express()
 
-var whitelist = ['http://example1.com', 'http://example2.com'];
+var whitelist = ['http://example1.com', 'http://example2.com']
 var corsOptions = {
-  origin: function(origin, callback){
-    var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
-    callback(originIsWhitelisted ? null : 'Bad Request', originIsWhitelisted);
+  origin: function (origin, callback) {
+    var originIsWhitelisted = whitelist.indexOf(origin) !== -1
+    callback(originIsWhitelisted ? null : 'Bad Request', originIsWhitelisted)
   }
-};
+}
 
-app.get('/products/:id', cors(corsOptions), function(req, res, next){
-  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'});
-});
+app.get('/products/:id', cors(corsOptions), function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
+})
 
-app.listen(80, function(){
-  console.log('CORS-enabled web server listening on port 80');
-});
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
 ```
 
 ### Enabling CORS Pre-Flight
@@ -117,50 +117,50 @@ to support:
 
 ```javascript
 var express = require('express')
-  , cors = require('cors')
-  , app = express();
+var cors = require('cors')
+var app = express()
 
-app.options('/products/:id', cors()); // enable pre-flight request for DELETE request
-app.del('/products/:id', cors(), function(req, res, next){
-  res.json({msg: 'This is CORS-enabled for all origins!'});
-});
+app.options('/products/:id', cors()) // enable pre-flight request for DELETE request
+app.del('/products/:id', cors(), function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
 
-app.listen(80, function(){
-  console.log('CORS-enabled web server listening on port 80');
-});
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
 ```
 
 You can also enable pre-flight across-the-board like so:
 
-```
-app.options('*', cors()); // include before other routes
+```javascript
+app.options('*', cors()) // include before other routes
 ```
 
 ### Configuring CORS Asynchronously
 
 ```javascript
 var express = require('express')
-  , cors = require('cors')
-  , app = express();
+var cors = require('cors')
+var app = express()
 
-var whitelist = ['http://example1.com', 'http://example2.com'];
-var corsOptionsDelegate = function(req, callback){
+var whitelist = ['http://example1.com', 'http://example2.com']
+var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
-  if(whitelist.indexOf(req.header('Origin')) !== -1){
-    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
   }else{
-    corsOptions = { origin: false }; // disable CORS for this request
+    corsOptions = { origin: false } // disable CORS for this request
   }
-  callback(null, corsOptions); // callback expects two parameters: error and options
-};
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
 
-app.get('/products/:id', cors(corsOptionsDelegate), function(req, res, next){
-  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'});
-});
+app.get('/products/:id', cors(corsOptionsDelegate), function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
+})
 
-app.listen(80, function(){
-  console.log('CORS-enabled web server listening on port 80');
-});
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
 ```
 
 ## Configuration Options
