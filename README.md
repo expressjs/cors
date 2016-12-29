@@ -177,6 +177,7 @@ app.listen(80, function(){
 * `credentials`: Configures the **Access-Control-Allow-Credentials** CORS header. Set to `true` to pass the header, otherwise it is omitted.
 * `maxAge`: Configures the **Access-Control-Max-Age** CORS header. Set to an integer to pass the header, otherwise it is omitted.
 * `preflightContinue`: Pass the CORS preflight response to the next handler.
+* `optionsSuccessStatus`: Provides a status code to use for successful `OPTIONS` requests, since some legacy browsers (IE11, various SmartTVs) choke on `204`.
 
 The default configuration is the equivalent of:
 
@@ -184,7 +185,8 @@ The default configuration is the equivalent of:
 {
   "origin": "*",
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
 }
 ```
 
