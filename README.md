@@ -91,9 +91,12 @@ var app = express()
 
 var whitelist = ['http://example1.com', 'http://example2.com']
 var corsOptions = {
-  origin: function (origin, callback) {
-    var originIsWhitelisted = whitelist.indexOf(origin) !== -1
-    callback(originIsWhitelisted ? null : new Error('Bad Request'), originIsWhitelisted)
+  origin: function (origin, cb) {
+    if (whitelist.includes(origin)) {
+      cb(null, true)
+    } else {
+      cb(new Error('Not allowed by CORS'))
+    }
   }
 }
 
