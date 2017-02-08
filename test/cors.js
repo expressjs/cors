@@ -44,8 +44,8 @@
   describe('cors', function () {
     it('does not alter `options` configuration object', function () {
       var options = Object.freeze({
-          origin: 'custom-origin'
-        });
+        origin: 'custom-origin'
+      });
       (function () {
         cors(options);
       }).should.not.throw();
