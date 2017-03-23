@@ -42,6 +42,15 @@
     };
 
   describe('cors', function () {
+    it('does not alter `options` configuration object', function () {
+      var options = Object.freeze({
+        origin: 'custom-origin'
+      });
+      (function () {
+        cors(options);
+      }).should.not.throw();
+    });
+
     it('passes control to next middleware', function (done) {
       // arrange
       var req, res, next;

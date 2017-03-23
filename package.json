@@ -3,7 +3,12 @@
   "version": "2.8.1",
   "author": "Troy Goode <troygoode@gmail.com> (https://github.com/troygoode/)",
   "description": "middleware for dynamically or statically enabling CORS in express/connect applications",
-  "keywords": ["cors", "express", "connect", "middleware"],
+  "keywords": [
+    "cors",
+    "express",
+    "connect",
+    "middleware"
+  ],
   "homepage": "https://github.com/expressjs/cors/",
   "repository": {
     "type": "git",
@@ -17,12 +22,15 @@
     }
   ],
   "license": "MIT",
-  "bugs": {"url": "https://github.com/expressjs/cors/issues"},
+  "bugs": {
+    "url": "https://github.com/expressjs/cors/issues"
+  },
   "main": "./lib/index.js",
   "engines": {
     "node": ">=0.10.0"
   },
   "dependencies": {
+    "object-assign": "^4.1.1",
     "vary": "^1"
   },
   "devDependencies": {
