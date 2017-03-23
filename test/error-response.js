@@ -45,7 +45,7 @@
         .end(function (err, res) {
           should.not.exist(err);
           res.headers['access-control-allow-origin'].should.eql('*');
-          res.text.should.startWith('Error: nope');
+          res.text.should.containEql('Error: nope');
           done();
         });
     });
