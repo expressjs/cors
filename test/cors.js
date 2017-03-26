@@ -247,7 +247,7 @@
         cors(options)(req, res, function(err) {
           should.not.exist(err);
           should.not.exist(res.getHeader('Access-Control-Allow-Origin'));
-          should.not.exist(res.getHeader('Vary'));
+          should.exist(res.getHeader('Vary'));
           return done();
         });
       });
