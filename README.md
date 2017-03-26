@@ -150,6 +150,7 @@ Or at the router level in one of these ways:
 ```js
 // Option 1: cors used inside router.js
 var express = require('express');
+var cors = require('cors');
 var router = express.Router();
 
 router.use(cors());
