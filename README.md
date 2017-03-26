@@ -145,6 +145,26 @@ You can also enable pre-flight across-the-board like so:
 app.options('*', cors()) // include before other routes
 ```
 
+Or at the router level in one of these ways:
+
+```js
+// Option 1: cors used inside router.js
+var express = require('express');
+var router = express.Router();
+
+router.use(cors());
+
+router.del('/products/:id', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+});
+
+module.exports = router;
+
+
+// Option 2: CORS not used inside router.js
+app.use('/api', cors(), require('./router'));
+```
+
 ### Configuring CORS Asynchronously
 
 ```javascript
