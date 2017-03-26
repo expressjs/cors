@@ -1,8 +1,8 @@
 {
   "name": "cors",
+  "description": "Node.js CORS middleware",
   "version": "2.8.1",
   "author": "Troy Goode <troygoode@gmail.com> (https://github.com/troygoode/)",
-  "description": "middleware for dynamically or statically enabling CORS in express/connect applications",
   "keywords": ["cors", "express", "connect", "middleware"],
   "homepage": "https://github.com/expressjs/cors/",
   "repository": {
