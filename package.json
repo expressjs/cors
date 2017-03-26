@@ -19,12 +19,13 @@
     "body-parser": "^1.12.4",
     "eslint": "^0.21.2",
     "express": "^4.12.4",
+    "istanbul": "^0.4.5",
     "mocha": "^2.2.5",
     "should": "^6.0.3",
     "supertest": "^1.0.1"
   },
   "scripts": {
-    "test": "npm run lint && mocha",
+    "test": "npm run lint && istanbul cover node_modules/mocha/bin/_mocha",
     "lint": "eslint lib test"
   }
 }

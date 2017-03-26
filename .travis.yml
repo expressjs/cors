@@ -3,3 +3,6 @@ node_js:
   - 0.10
   - 4
   - 6
+after_script:
+  # Report coverage
+  - "test -e ./coverage/lcov.info && npm install coveralls@2 && cat ./coverage/lcov.info | coveralls"
