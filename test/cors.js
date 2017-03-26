@@ -504,6 +504,7 @@
         res.end = function () {
           // assert
           res.getHeader('Access-Control-Allow-Headers').should.equal('header1,header2');
+          should.not.exist(res.getHeader('Vary'));
           done();
         };
 
@@ -522,6 +523,7 @@
         next = function () {
           // assert
           should.not.exist(res.getHeader('Access-Control-Allow-Headers'));
+          should.not.exist(res.getHeader('Vary'));
           done();
         };
 
@@ -540,6 +542,8 @@
         res.end = function () {
           // assert
           res.getHeader('Access-Control-Allow-Headers').should.equal('requestedHeader1,requestedHeader2');
+          should.exist(res.getHeader('Vary'));
+          res.getHeader('Vary').should.equal('Access-Control-Request-Headers');
           done();
         };
 
