@@ -21,7 +21,7 @@ CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/co
 
 ## Installation (via [npm](https://npmjs.org/package/cors))
 
-```bash
+```sh
 $ npm install cors
 ```
 
