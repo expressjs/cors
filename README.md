@@ -1,12 +1,13 @@
 # cors
 
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Build Status][travis-image]][travis-url]
+
 CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/connect/)/[Express](http://expressjs.com/) middleware that can be used to enable [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) with various options.
 
 **[Follow me (@troygoode) on Twitter!](https://twitter.com/intent/user?screen_name=troygoode)**
 
-[![NPM](https://nodei.co/npm/cors.png?downloads=true&stars=true)](https://nodei.co/npm/cors/)
-
-[![build status](https://secure.travis-ci.org/expressjs/cors.svg?branch=master)](http://travis-ci.org/expressjs/cors)
 * [Installation](#installation)
 * [Usage](#usage)
   * [Simple Usage](#simple-usage-enable-all-cors-requests)
@@ -215,3 +216,10 @@ Code for that demo can be found here:
 ## Author
 
 [Troy Goode](https://github.com/TroyGoode) ([troygoode@gmail.com](mailto:troygoode@gmail.com))
+
+[downloads-image]: https://img.shields.io/npm/dm/cors.svg
+[downloads-url]: https://npmjs.org/package/cors
+[npm-image]: https://img.shields.io/npm/v/cors.svg
+[npm-url]: https://npmjs.org/package/cors
+[travis-image]: https://img.shields.io/travis/expressjs/cors/master.svg
+[travis-url]: https://travis-ci.org/expressjs/cors
