@@ -2,8 +2,6 @@
 
 CORS is a node.js package for providing a [connect](http://www.senchalabs.org/connect/)/[express](http://expressjs.com/) middleware that can be used to enable [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) with various options. Learn more about the project in [the README](README.md).
 
-[![build status](https://secure.travis-ci.org/TroyGoode/node-cors.png)](http://travis-ci.org/TroyGoode/node-cors)
-
 ## The CORS Spec
 
 [http://www.w3.org/TR/cors/](http://www.w3.org/TR/cors/)
