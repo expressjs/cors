@@ -19,7 +19,11 @@ CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/co
 * [License](#license)
 * [Author](#author)
 
-## Installation (via [npm](https://npmjs.org/package/cors))
+## Installation
+
+This is a [Node.js](https://nodejs.org/en/) module available through the
+[npm registry](https://www.npmjs.com/). Installation is done using the
+[`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
 
 ```sh
 $ npm install cors
