@@ -564,6 +564,24 @@
         cors(options)(req, res, next);
       });
 
+      it('specifying an empty list or string of exposed headers will result in no response header for exposed headers', function (done) {
+        // arrange
+        var req, res, next, options;
+        options = {
+          exposedHeaders: []
+        };
+        req = fakeRequest();
+        res = fakeResponse();
+        next = function () {
+          // assert
+          should.not.exist(res.getHeader('Access-Control-Expose-Headers'));
+          done();
+        };
+
+        // act
+        cors(options)(req, res, next);
+      });
+
       it('includes credentials if explicitly enabled', function (done) {
         // arrange
         var req, res, options;
