@@ -9,13 +9,6 @@
     "type": "git",
     "url": "git://github.com/expressjs/cors.git"
   },
-  "contributors": [
-    {
-      "name": "Troy Goode",
-      "email": "troygoode@gmail.com",
-      "web": "https://github.com/troygoode/"
-    }
-  ],
   "license": "MIT",
   "bugs": {"url": "https://github.com/expressjs/cors/issues"},
   "main": "./lib/index.js",
