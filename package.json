@@ -4,13 +4,8 @@
   "version": "2.8.1",
   "author": "Troy Goode <troygoode@gmail.com> (https://github.com/troygoode/)",
   "keywords": ["cors", "express", "connect", "middleware"],
-  "homepage": "https://github.com/expressjs/cors/",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/expressjs/cors.git"
-  },
   "license": "MIT",
-  "bugs": {"url": "https://github.com/expressjs/cors/issues"},
+  "repository": "expressjs/cors",
   "main": "./lib/index.js",
   "engines": {
     "node": ">=0.10.0"
