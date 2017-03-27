@@ -174,7 +174,7 @@ app.listen(80, function () {
 
 ### CORS and CSRF
 
-The default configuration of this module implements the CORS specification as outlined by the W3C. That specification is not designed to prevent servers from responding to requests, but rather to allow clients to make cross-origin requests. Thus, in the case of a CORS "failure", where the request's origin is not allowed, the browser will refuse to deliver the response _after_ the server responds as if the request had been valid.
+The default configuration of this module implements the CORS specification as outlined by the W3C. That specification is designed to allow clients to make cross-origin requests, not to prevent servers from responding to requests. Thus, in the case of a CORS "failure", where the request's origin is not allowed, the browser will refuse to deliver the response _after_ the server responds as if the request had been valid.
 
 Thus, CORS is not a defense against [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)): even if cross-origin rules prevent the attacker from seeing the response to the forged request, the attacker can modify state or force the server to perform some expensive calculation, thus causing a denial of service.
 
