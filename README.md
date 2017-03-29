@@ -172,6 +172,37 @@ app.listen(80, function () {
 })
 ```
 
+### CORS and CSRF
+
+The default configuration of this module implements the CORS specification as outlined by the W3C. That specification is designed to allow clients to make cross-origin requests, not to prevent servers from responding to requests. Thus, in the case of a CORS "failure", where the request's origin is not allowed, the browser will refuse to deliver the response _after_ the server responds as if the request had been valid.
+
+Thus, CORS is not a defense against [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)): even if cross-origin rules prevent the attacker from seeing the response to the forged request, the attacker can modify state or force the server to perform some expensive calculation, thus causing a denial of service.
+
+However, this module can be configured to short-circuit the request in case of CORS failures, thus implementing basic CSRF protection [as recommended by the OWASP](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet#Checking_the_Origin_Header). To do this, configure this module with `mismatchContinue: false`:
+
+```js
+var express = require('express');
+var cors = require('cors');
+var app = express();
+
+// `mismatchContinue: false` will work with any of the `origin` options supported
+// by this module. However it won't help prevent CSRF unless you whitelist specific
+// origins. Also see caveats below!
+var whitelist = ['https://same-origin.com', 'https://other-origin.com'];
+
+app.del('/products/:id', cors({ origin: whitelist, mismatchContinue: false }), function (req, res, next) {
+  res.json({msg: 'This will not be executed if called from https://evil-origin.com.'});
+});
+
+app.listen(80, function () {
+  console.log('CORS-enabled and CSRF-protected web server listening on port 80');
+});
+```
+
+Make sure to whitelist cross-origin AND same-origin requests, since the middleware will reject any request whose origin is not on the list. This also means that the middleware will reject requests with _missing_ origins. This means that `mismatchContinue: false` is NOT SUITED for routes where the `Origin` header may be missing, e.g. routes loaded directly by users in the browser, or routes loaded by `<img>` tags. However AJAX requests should [always have `Origin` headers](https://bugs.chromium.org/p/chromium/issues/detail?id=512836#c3).
+
+If you don't want to enable a route for cross-origin usage but you _do_ wish to verify same-origin usage, you can apply this module to that route with _only_ the same origin whitelisted.
+
 ## Configuration Options
 
 * `origin`: Configures the **Access-Control-Allow-Origin** CORS header. Possible values:
@@ -179,7 +210,7 @@ app.listen(80, function () {
   - `String` - set `origin` to a specific origin. For example if you set it to `"http://example.com"` only requests from "http://example.com" will be allowed.
   - `RegExp` - set `origin` to a regular expression pattern which will be used to test the request origin. If it's a match, the request origin will be reflected. For example the pattern `/example\.com$/` will reflect any request that is coming from an origin ending with "example.com".
   - `Array` - set `origin` to an array of valid origins. Each origin can be a `String` or a `RegExp`. For example `["http://example1.com", /\.example2\.com$/]` will accept any request from "http://example1.com" or from a subdomain of "example2.com".
-  - `Function` - set `origin` to a function implementing some custom logic. The function takes the request origin as the first parameter and a callback (which expects the signature `err [object], allow [bool]`) as the second.
+  - `Function` - set `origin` to a function implementing some custom logic. The function takes the request origin as the first parameter and a callback (which expects the signature `err [object], allow [bool]`) as the second. If the function calls back with `allow === false`, CORS will not be enabled for the response, but the next handler will still run unless `mismatchContinue === false`.
 * `methods`: Configures the **Access-Control-Allow-Methods** CORS header. Expects a comma-delimited string (ex: 'GET,PUT,POST') or an array (ex: `['GET', 'PUT', 'POST']`).
 * `allowedHeaders`: Configures the **Access-Control-Allow-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Type,Authorization') or an array (ex: `['Content-Type', 'Authorization']`). If not specified, defaults to reflecting the headers specified in the request's **Access-Control-Request-Headers** header.
 * `exposedHeaders`: Configures the **Access-Control-Expose-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Range,X-Content-Range') or an array (ex: `['Content-Range', 'X-Content-Range']`). If not specified, no custom headers are exposed.
@@ -187,6 +218,8 @@ app.listen(80, function () {
 * `maxAge`: Configures the **Access-Control-Max-Age** CORS header. Set to an integer to pass the header, otherwise it is omitted.
 * `preflightContinue`: Pass the CORS preflight response to the next handler.
 * `optionsSuccessStatus`: Provides a status code to use for successful `OPTIONS` requests, since some legacy browsers (IE11, various SmartTVs) choke on `204`.
+* `mismatchContinue`: `true` to call the next handler even if `req.headers.origin` is missing or doesn't match `origin`, `false` to end the request with `mismatchStatus`.
+* `mismatchStatus`: Provides a status code to use for requests with missing or invalid `Origin` headers when `mismatchContinue === false`. Defaults to 400.
 
 The default configuration is the equivalent of:
 
@@ -195,7 +228,9 @@ The default configuration is the equivalent of:
   "origin": "*",
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
   "preflightContinue": false,
-  "optionsSuccessStatus": 204
+  "optionsSuccessStatus": 204,
+  "mismatchContinue": true,
+  "mismatchStatus": 400
 }
 ```
 
