@@ -681,6 +681,29 @@
         cors(delegate)(req, res, next);
       });
 
+      it('handles options specified via callback for preflight', function (done) {
+        // arrange
+        var req, res, delegate;
+        delegate = function (req2, cb) {
+          cb(null, {
+            origin: 'delegate.com',
+            maxAge: 1000
+          });
+        };
+        req = fakeRequest();
+        req.method = 'OPTIONS';
+        res = fakeResponse();
+        res.end = function () {
+          // assert
+          res.getHeader('Access-Control-Allow-Origin').should.equal('delegate.com');
+          res.getHeader('Access-Control-Max-Age').should.equal('1000');
+          done();
+        };
+
+        // act
+        cors(delegate)(req, res, null);
+      });
+
       it('handles error specified via callback', function (done) {
         // arrange
         var req, res, next, delegate;
