@@ -35,6 +35,10 @@
           headers[key] = value;
           return;
         },
+        set: function (key, value) {
+          headers[key] = value;
+          return;
+        },
         get: function (key) {
           return headers[key];
         }
@@ -324,7 +328,7 @@
         };
         req = fakeRequest();
         res = fakeResponse();
-        res.setHeader('Vary', 'Foo');
+        res.set('Vary', 'Foo');
         next = function () {
           // assert
           res.getHeader('Vary').should.equal('Foo, Origin');
