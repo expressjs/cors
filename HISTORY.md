@@ -1,5 +1,5 @@
-unreleased
-==========
+2.8.3 / 2017-03-29
+==================
 
   * Fix error when options delegate missing `methods` option
 
