@@ -185,6 +185,8 @@ app.listen(80, function () {
 * `exposedHeaders`: Configures the **Access-Control-Expose-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Range,X-Content-Range') or an array (ex: `['Content-Range', 'X-Content-Range']`). If not specified, no custom headers are exposed.
 * `credentials`: Configures the **Access-Control-Allow-Credentials** CORS header. Set to `true` to pass the header, otherwise it is omitted.
 * `maxAge`: Configures the **Access-Control-Max-Age** CORS header. Set to an integer to pass the header, otherwise it is omitted.
+* `cacheControl`: Configures the **Cache-Control** header. Set to a string to pass the header, otherwise it is omitted.
+* `expires`: Configures the **Expires** header. Set to a number that represents how many seconds from the time of the request i.e. if you set the value 300 the date string will be 5 min in the future from the request time. Set to a string to pass the header a specific value, otherwise it is omitted.
 * `preflightContinue`: Pass the CORS preflight response to the next handler.
 * `optionsSuccessStatus`: Provides a status code to use for successful `OPTIONS` requests, since some legacy browsers (IE11, various SmartTVs) choke on `204`.
 

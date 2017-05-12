@@ -658,6 +658,102 @@
         // act
         cors(options)(req, res, next);
       });
+
+      it('includes cacheControl when specified', function (done) {
+        // arrange
+        var req, res, options;
+        options = {
+          cacheControl: 'no-cache, no-store, must-revalidate'
+        };
+        req = fakeRequest();
+        req.method = 'OPTIONS';
+        res = fakeResponse();
+        res.end = function () {
+          // assert
+          res.getHeader('Cache-Control').should.equal('no-cache, no-store, must-revalidate');
+          done();
+        };
+
+        // cache-control
+        cors(options)(req, res, null);
+      });
+
+      it('does not includes cacheControl unless specified', function (done) {
+        // arrange
+        var req, res, next, options;
+        options = {
+        };
+        req = fakeRequest();
+        res = fakeResponse();
+        next = function () {
+          // assert
+          should.not.exist(res.getHeader('Cache-Control'));
+          done();
+        };
+
+        // act
+        cors(options)(req, res, next);
+      });
+
+      it('includes expires when specified as a number', function (done) {
+        // arrange
+        var req, res, options;
+        var date = new Date();
+        var expiresDate = new Date();
+        expiresDate.setTime(date.getTime());
+        options = {
+          expires: 30,
+          expiresDate: expiresDate
+        };
+        req = fakeRequest();
+        req.method = 'OPTIONS';
+        res = fakeResponse();
+        res.end = function () {
+          // assert
+          date.setSeconds(date.getSeconds() + 30);
+          res.getHeader('Expires').should.equal(date.toUTCString());
+          done();
+        };
+
+        // expires
+        cors(options)(req, res, null);
+      });
+
+      it('includes expires when specified as a string', function (done) {
+        // arrange
+        var req, res, options;
+        options = {
+          expires: 'Thu, 01 Jan 1970 00:00:00 GMT'
+        };
+        req = fakeRequest();
+        req.method = 'OPTIONS';
+        res = fakeResponse();
+        res.end = function () {
+          // assert
+          res.getHeader('Expires').should.equal('Thu, 01 Jan 1970 00:00:00 GMT');
+          done();
+        };
+
+        // expires
+        cors(options)(req, res, null);
+      });
+
+      it('does not includes expires unless specified', function (done) {
+        // arrange
+        var req, res, next, options;
+        options = {
+        };
+        req = fakeRequest();
+        res = fakeResponse();
+        next = function () {
+          // assert
+          should.not.exist(res.getHeader('Expires'));
+          done();
+        };
+
+        // act
+        cors(options)(req, res, next);
+      });
     });
 
     describe('passing a function to build options', function () {
