@@ -20,7 +20,7 @@
     "eslint": "^0.21.2",
     "express": "^4.12.4",
     "istanbul": "^0.4.5",
-    "mocha": "^2.2.5",
+    "mocha": "3.4.2",
     "should": "11.2.1",
     "supertest": "3.0.0"
   },
