@@ -1,3 +1,8 @@
+unreleased
+==========
+
+  * Work-around Safari bug in default pre-flight response
+
 2.8.3 / 2017-03-29
 ==================
 
