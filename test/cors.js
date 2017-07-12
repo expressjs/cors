@@ -143,6 +143,26 @@
       cors()(req, res, next);
     });
 
+    it('includes Content-Length response header', function (done) {
+      // arrange
+      var req, res, next;
+      req = fakeRequest();
+      req.method = 'options';
+      res = fakeResponse();
+      res.end = function () {
+        // assert
+        res.getHeader('Content-Length').should.equal('0');
+        done();
+      };
+      next = function () {
+        // assert
+        done('should not be called');
+      };
+
+      // act
+      cors()(req, res, next);
+    });
+
     it('no options enables default CORS to all origins', function (done) {
       // arrange
       var req, res, next;
