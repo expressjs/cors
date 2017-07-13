@@ -22,7 +22,7 @@
     "istanbul": "^0.4.5",
     "mocha": "3.4.2",
     "should": "11.2.1",
-    "supertest": "3.0.0"
+    "supertest": "1.2.0"
   },
   "scripts": {
     "test": "npm run lint && istanbul cover node_modules/mocha/bin/_mocha",
