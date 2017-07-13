@@ -17,7 +17,7 @@
   "devDependencies": {
     "basic-auth-connect": "^1.0.0",
     "body-parser": "^1.12.4",
-    "eslint": "^0.21.2",
+    "eslint": "2.13.1",
     "express": "^4.12.4",
     "istanbul": "^0.4.5",
     "mocha": "3.4.2",

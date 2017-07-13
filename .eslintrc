@@ -3,7 +3,7 @@
     "node": true
   },
   "rules": {
-    "indent": [2, 2],
-    "quotes": "single"
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "quotes": ["error", "single"]
   }
 }

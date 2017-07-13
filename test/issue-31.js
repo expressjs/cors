@@ -1,5 +1,4 @@
 (function () {
-  /*global describe, it*/
 
   'use strict';
 
