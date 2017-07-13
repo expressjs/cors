@@ -1,5 +1,5 @@
-unreleased
-==========
+2.8.4 / 2017-07-12
+==================
 
   * Work-around Safari bug in default pre-flight response
 
