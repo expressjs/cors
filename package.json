@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "basic-auth-connect": "^1.0.0",
-    "body-parser": "^1.12.4",
+    "body-parser": "1.17.2",
     "eslint": "2.13.1",
     "express": "^4.12.4",
     "istanbul": "^0.4.5",
