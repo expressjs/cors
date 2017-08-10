@@ -97,7 +97,8 @@ var app = express()
 
 var whitelist = ['http://example1.com', 'http://example2.com']
 var corsOptions = {
-  origin: function (origin, callback) {
+  origin: function (req, callback) {
+    var origin = req.headers.origin;
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
