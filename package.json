@@ -19,13 +19,13 @@
     "body-parser": "1.17.2",
     "eslint": "2.13.1",
     "express": "^4.12.4",
-    "istanbul": "^0.4.5",
     "mocha": "3.4.2",
+    "nyc": "10.3.2",
     "should": "11.2.1",
     "supertest": "1.2.0"
   },
   "scripts": {
-    "test": "npm run lint && istanbul cover node_modules/mocha/bin/_mocha",
+    "test": "npm run lint && nyc --reporter=html --reporter=text mocha",
     "lint": "eslint lib test"
   }
 }

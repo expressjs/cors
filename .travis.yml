@@ -16,4 +16,4 @@ before_install:
   - "test ! -d node_modules || npm rebuild"
 after_script:
   # Report coverage
-  - "test -e ./coverage/lcov.info && npm install coveralls@2 && cat ./coverage/lcov.info | coveralls"
+  - "test -d .nyc_output && npm install coveralls@2 && nyc report --reporter=text-lcov | coveralls"
