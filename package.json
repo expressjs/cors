@@ -15,7 +15,6 @@
     "vary": "^1"
   },
   "devDependencies": {
-    "body-parser": "1.17.2",
     "eslint": "2.13.1",
     "express": "4.15.4",
     "mocha": "3.5.0",
