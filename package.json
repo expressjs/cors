@@ -15,7 +15,6 @@
     "vary": "^1"
   },
   "devDependencies": {
-    "basic-auth-connect": "^1.0.0",
     "body-parser": "1.17.2",
     "eslint": "2.13.1",
     "express": "4.15.4",
