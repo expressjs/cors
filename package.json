@@ -18,7 +18,7 @@
     "basic-auth-connect": "^1.0.0",
     "body-parser": "1.17.2",
     "eslint": "2.13.1",
-    "express": "^4.12.4",
+    "express": "4.15.4",
     "mocha": "3.5.0",
     "nyc": "10.3.2",
     "should": "11.2.1",
