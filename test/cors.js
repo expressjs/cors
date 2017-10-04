@@ -590,11 +590,29 @@
         cors(options)(req, res, null);
       });
 
-      it('can specify exposed headers', function (done) {
+      it('can specify exposed headers as array', function (done) {
         // arrange
         var req, res, options, next;
         options = {
           exposedHeaders: ['custom-header1', 'custom-header2']
+        };
+        req = fakeRequest();
+        res = fakeResponse();
+        next = function () {
+          // assert
+          res.getHeader('Access-Control-Expose-Headers').should.equal('custom-header1,custom-header2');
+          done();
+        };
+
+        // act
+        cors(options)(req, res, next);
+      });
+
+      it('can specify exposed headers as string', function (done) {
+        // arrange
+        var req, res, options, next;
+        options = {
+          exposedHeaders: 'custom-header1,custom-header2'
         };
         req = fakeRequest();
         res = fakeResponse();
