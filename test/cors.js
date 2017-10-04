@@ -511,11 +511,31 @@
         cors(options)(req, res, next);
       });
 
-      it('can specify allowed headers', function (done) {
+      it('can specify allowed headers as array', function (done) {
         // arrange
         var req, res, options;
         options = {
           allowedHeaders: ['header1', 'header2']
+        };
+        req = fakeRequest();
+        req.method = 'OPTIONS';
+        res = fakeResponse();
+        res.end = function () {
+          // assert
+          res.getHeader('Access-Control-Allow-Headers').should.equal('header1,header2');
+          should.not.exist(res.getHeader('Vary'));
+          done();
+        };
+
+        // act
+        cors(options)(req, res, null);
+      });
+
+      it('can specify allowed headers as string', function (done) {
+        // arrange
+        var req, res, options;
+        options = {
+          allowedHeaders: 'header1,header2'
         };
         req = fakeRequest();
         req.method = 'OPTIONS';
