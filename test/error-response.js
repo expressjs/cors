@@ -2,8 +2,7 @@
 
   'use strict';
 
-  var should = require('should'),
-    express = require('express'),
+  var express = require('express'),
     supertest = require('supertest'),
     cors = require('../lib');
 
@@ -41,35 +40,26 @@
       supertest(app)
         .post('/five-hundred')
         .expect(500)
-        .end(function (err, res) {
-          should.not.exist(err);
-          res.headers['access-control-allow-origin'].should.eql('*');
-          res.text.should.containEql('Error: nope');
-          done();
-        });
+        .expect('Access-Control-Allow-Origin', '*')
+        .expect(/Error: nope/)
+        .end(done)
     });
 
     it('401', function (done) {
       supertest(app)
         .post('/four-oh-one')
         .expect(401)
-        .end(function (err, res) {
-          should.not.exist(err);
-          res.headers['access-control-allow-origin'].should.eql('*');
-          res.text.should.eql('unauthorized');
-          done();
-        });
+        .expect('Access-Control-Allow-Origin', '*')
+        .expect('unauthorized')
+        .end(done)
     });
 
     it('404', function (done) {
       supertest(app)
         .post('/four-oh-four')
         .expect(404)
-        .end(function (err, res) {
-          should.not.exist(err);
-          res.headers['access-control-allow-origin'].should.eql('*');
-          done();
-        });
+        .expect('Access-Control-Allow-Origin', '*')
+        .end(done)
     });
   });
 

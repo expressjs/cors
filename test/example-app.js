@@ -2,8 +2,7 @@
 
   'use strict';
 
-  var should = require('should'),
-    express = require('express'),
+  var express = require('express'),
     supertest = require('supertest'),
     cors = require('../lib');
 
@@ -39,33 +38,24 @@
         supertest(simpleApp)
           .get('/')
           .expect(200)
-          .end(function (err, res) {
-            should.not.exist(err);
-            res.headers['access-control-allow-origin'].should.eql('*');
-            res.text.should.eql('Hello World (Get)');
-            done();
-          });
+          .expect('Access-Control-Allow-Origin', '*')
+          .expect('Hello World (Get)')
+          .end(done)
       });
       it('HEAD works', function (done) {
         supertest(simpleApp)
           .head('/')
           .expect(204)
-          .end(function (err, res) {
-            should.not.exist(err);
-            res.headers['access-control-allow-origin'].should.eql('*');
-            done();
-          });
+          .expect('Access-Control-Allow-Origin', '*')
+          .end(done)
       });
       it('POST works', function (done) {
         supertest(simpleApp)
           .post('/')
           .expect(200)
-          .end(function (err, res) {
-            should.not.exist(err);
-            res.headers['access-control-allow-origin'].should.eql('*');
-            res.text.should.eql('Hello World (Post)');
-            done();
-          });
+          .expect('Access-Control-Allow-Origin', '*')
+          .expect('Hello World (Post)')
+          .end(done)
       });
     });
 
@@ -74,22 +64,16 @@
         supertest(complexApp)
           .options('/')
           .expect(204)
-          .end(function (err, res) {
-            should.not.exist(err);
-            res.headers['access-control-allow-origin'].should.eql('*');
-            done();
-          });
+          .expect('Access-Control-Allow-Origin', '*')
+          .end(done)
       });
       it('DELETE works', function (done) {
         supertest(complexApp)
           .del('/')
           .expect(200)
-          .end(function (err, res) {
-            should.not.exist(err);
-            res.headers['access-control-allow-origin'].should.eql('*');
-            res.text.should.eql('Hello World (Delete)');
-            done();
-          });
+          .expect('Access-Control-Allow-Origin', '*')
+          .expect('Hello World (Delete)')
+          .end(done)
       });
     });
   });
