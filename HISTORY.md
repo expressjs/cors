@@ -44,7 +44,7 @@ This release only changed documentation.
 2.6.1 / 2015-05-28
 ==================
 
-  * Update `license` in pacakge.json
+  * Update `license` in package.json
 
 2.6.0 / 2015-04-27
 ==================
