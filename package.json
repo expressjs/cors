@@ -17,6 +17,7 @@
     "vary": "^1"
   },
   "devDependencies": {
+    "after": "0.8.2",
     "eslint": "2.13.1",
     "express": "4.16.2",
     "mocha": "3.5.3",

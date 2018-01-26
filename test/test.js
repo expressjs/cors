@@ -2,6 +2,7 @@
 
   'use strict';
 
+  var after = require('after')
   var assert = require('assert')
   var cors = require('..')
 
@@ -66,17 +67,18 @@
 
     it('shortcircuits preflight requests', function (done) {
       // arrange
+      var cb = after(1, done)
       var req, res, next;
       req = fakeRequest('OPTIONS');
       res = fakeResponse();
       res.end = function () {
         // assert
         assert.equal(res.statusCode, 204)
-        done();
+        cb()
       };
       next = function () {
         // assert
-        done('should not be called');
+        cb(new Error('should not be called'))
       };
 
       // act
@@ -85,17 +87,18 @@
 
     it('can configure preflight success response status code', function (done) {
       // arrange
+      var cb = after(1, done)
       var req, res, next;
       req = fakeRequest('OPTIONS');
       res = fakeResponse();
       res.end = function () {
         // assert
         assert.equal(res.statusCode, 200)
-        done();
+        cb()
       };
       next = function () {
         // assert
-        done('should not be called');
+        cb(new Error('should not be called'))
       };
 
       // act
@@ -104,16 +107,17 @@
 
     it('doesn\'t shortcircuit preflight requests with preflightContinue option', function (done) {
       // arrange
+      var cb = after(1, done)
       var req, res, next;
       req = fakeRequest('OPTIONS');
       res = fakeResponse();
       res.end = function () {
         // assert
-        done('should not be called');
+        cb(new Error('should not be called'))
       };
       next = function () {
         // assert
-        done();
+        cb()
       };
 
       // act
@@ -122,17 +126,18 @@
 
     it('normalizes method names', function (done) {
       // arrange
+      var cb = after(1, done)
       var req, res, next;
       req = fakeRequest('options');
       res = fakeResponse();
       res.end = function () {
         // assert
         assert.equal(res.statusCode, 204)
-        done();
+        cb()
       };
       next = function () {
         // assert
-        done('should not be called');
+        cb(new Error('should not be called'))
       };
 
       // act
@@ -141,17 +146,18 @@
 
     it('includes Content-Length response header', function (done) {
       // arrange
+      var cb = after(1, done)
       var req, res, next;
       req = fakeRequest('OPTIONS');
       res = fakeResponse();
       res.end = function () {
         // assert
         assert.equal(res.getHeader('Content-Length'), '0')
-        done();
+        cb()
       };
       next = function () {
         // assert
-        done('should not be called');
+        cb(new Error('should not be called'))
       };
 
       // act
@@ -176,6 +182,7 @@
 
     it('OPTION call with no options enables default CORS to all origins and methods', function (done) {
       // arrange
+      var cb = after(1, done)
       var req, res, next;
       req = fakeRequest('OPTIONS');
       res = fakeResponse();
@@ -184,11 +191,11 @@
         assert.equal(res.statusCode, 204)
         assert.equal(res.getHeader('Access-Control-Allow-Origin'), '*')
         assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'GET,HEAD,PUT,PATCH,POST,DELETE')
-        done();
+        cb()
       };
       next = function () {
         // assert
-        done();
+        cb(new Error('should not be called'))
       };
 
       // act
@@ -198,6 +205,7 @@
     describe('passing static options', function () {
       it('overrides defaults', function (done) {
         // arrange
+        var cb = after(1, done)
         var req, res, next, options;
         options = {
           origin: 'example.com',
@@ -211,16 +219,16 @@
         res.end = function () {
           // assert
           assert.equal(res.statusCode, 204)
-          done();
-        };
-        next = function () {
-          // assert
           assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'example.com')
           assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'FOO,bar')
           assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'FIZZ,buzz')
           assert.equal(res.getHeader('Access-Control-Allow-Credentials'), 'true')
           assert.equal(res.getHeader('Access-Control-Max-Age'), '123')
-          done();
+          cb()
+        };
+        next = function () {
+          // assert
+          cb(new Error('should not be called'))
         };
 
         // act
@@ -454,6 +462,7 @@
 
       it('can override methods', function (done) {
         // arrange
+        var cb = after(1, done)
         var req, res, next, options;
         options = {
           methods: ['method1', 'method2']
@@ -463,12 +472,12 @@
         res.end = function () {
           // assert
           assert.equal(res.statusCode, 204)
-          done();
+          assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'method1,method2')
+          cb()
         };
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'method1,method2')
-          done();
+          cb(new Error('should not be called'))
         };
 
         // act
@@ -477,6 +486,7 @@
 
       it('methods defaults to GET, HEAD, PUT, PATCH, POST, DELETE', function (done) {
         // arrange
+        var cb = after(1, done)
         var req, res, next;
         req = fakeRequest('OPTIONS');
         res = fakeResponse();
@@ -484,11 +494,11 @@
           // assert
           assert.equal(res.statusCode, 204)
           assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'GET,HEAD,PUT,PATCH,POST,DELETE')
-          done();
+          cb()
         };
         next = function () {
           // assert
-          done();
+          cb(new Error('should not be called'))
         };
 
         // act
