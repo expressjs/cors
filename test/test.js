@@ -182,12 +182,12 @@
       res.end = function () {
         // assert
         assert.equal(res.statusCode, 204)
+        assert.equal(res.getHeader('Access-Control-Allow-Origin'), '*')
+        assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'GET,HEAD,PUT,PATCH,POST,DELETE')
         done();
       };
       next = function () {
         // assert
-        assert.equal(res.getHeader('Access-Control-Allow-Origin'), '*')
-        assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'GET,PUT,PATCH,POST,DELETE')
         done();
       };
 
@@ -475,7 +475,7 @@
         cors(options)(req, res, next);
       });
 
-      it('methods defaults to GET, PUT, PATCH, POST, DELETE', function (done) {
+      it('methods defaults to GET, HEAD, PUT, PATCH, POST, DELETE', function (done) {
         // arrange
         var req, res, next;
         req = fakeRequest('OPTIONS');
@@ -483,11 +483,11 @@
         res.end = function () {
           // assert
           assert.equal(res.statusCode, 204)
+          assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'GET,HEAD,PUT,PATCH,POST,DELETE')
           done();
         };
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'GET,PUT,PATCH,POST,DELETE')
           done();
         };
 
