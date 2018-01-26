@@ -5,8 +5,9 @@
   var assert = require('assert')
   var cors = require('..')
 
-  var fakeRequest = function (headers) {
+  var fakeRequest = function (method, headers) {
       return {
+        method: method,
         headers: headers || {
           'origin': 'request.com',
           'access-control-request-headers': 'requestedHeader1,requestedHeader2'
@@ -53,7 +54,7 @@
     it('passes control to next middleware', function (done) {
       // arrange
       var req, res, next;
-      req = fakeRequest();
+      req = fakeRequest('GET');
       res = fakeResponse();
       next = function () {
         done();
@@ -66,8 +67,7 @@
     it('shortcircuits preflight requests', function (done) {
       // arrange
       var req, res, next;
-      req = fakeRequest();
-      req.method = 'OPTIONS';
+      req = fakeRequest('OPTIONS');
       res = fakeResponse();
       res.end = function () {
         // assert
@@ -86,8 +86,7 @@
     it('can configure preflight success response status code', function (done) {
       // arrange
       var req, res, next;
-      req = fakeRequest();
-      req.method = 'OPTIONS';
+      req = fakeRequest('OPTIONS');
       res = fakeResponse();
       res.end = function () {
         // assert
@@ -106,8 +105,7 @@
     it('doesn\'t shortcircuit preflight requests with preflightContinue option', function (done) {
       // arrange
       var req, res, next;
-      req = fakeRequest();
-      req.method = 'OPTIONS';
+      req = fakeRequest('OPTIONS');
       res = fakeResponse();
       res.end = function () {
         // assert
@@ -125,8 +123,7 @@
     it('normalizes method names', function (done) {
       // arrange
       var req, res, next;
-      req = fakeRequest();
-      req.method = 'options';
+      req = fakeRequest('options');
       res = fakeResponse();
       res.end = function () {
         // assert
@@ -145,8 +142,7 @@
     it('includes Content-Length response header', function (done) {
       // arrange
       var req, res, next;
-      req = fakeRequest();
-      req.method = 'options';
+      req = fakeRequest('OPTIONS');
       res = fakeResponse();
       res.end = function () {
         // assert
@@ -165,7 +161,7 @@
     it('no options enables default CORS to all origins', function (done) {
       // arrange
       var req, res, next;
-      req = fakeRequest();
+      req = fakeRequest('GET');
       res = fakeResponse();
       next = function () {
         // assert
@@ -181,8 +177,7 @@
     it('OPTION call with no options enables default CORS to all origins and methods', function (done) {
       // arrange
       var req, res, next;
-      req = fakeRequest();
-      req.method = 'OPTIONS';
+      req = fakeRequest('OPTIONS');
       res = fakeResponse();
       res.end = function () {
         // assert
@@ -211,8 +206,7 @@
           credentials: true,
           maxAge: 123
         };
-        req = fakeRequest();
-        req.method = 'OPTIONS';
+        req = fakeRequest('OPTIONS');
         res = fakeResponse();
         res.end = function () {
           // assert
@@ -234,7 +228,7 @@
       });
 
       it('matches request origin against regexp', function(done) {
-        var req = fakeRequest();
+        var req = fakeRequest('GET');
         var res = fakeResponse();
         var options = { origin: /^(.+\.)?request.com$/ };
         cors(options)(req, res, function(err) {
@@ -246,7 +240,7 @@
       });
 
       it('matches request origin against array of origin checks', function(done) {
-        var req = fakeRequest();
+        var req = fakeRequest('GET');
         var res = fakeResponse();
         var options = { origin: [ /foo\.com$/, 'request.com' ] };
         cors(options)(req, res, function(err) {
@@ -258,7 +252,7 @@
       });
 
       it('doesn\'t match request origin against array of invalid origin checks', function(done) {
-        var req = fakeRequest();
+        var req = fakeRequest('GET');
         var res = fakeResponse();
         var options = { origin: [ /foo\.com$/, 'bar.com' ] };
         cors(options)(req, res, function(err) {
@@ -279,7 +273,7 @@
           credentials: true,
           maxAge: 123
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
@@ -301,7 +295,7 @@
         options = {
           origin: 'example.com'
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
@@ -319,7 +313,7 @@
         options = {
           origin: 'example.com'
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
@@ -337,7 +331,7 @@
         options = {
           origin: 'example.com'
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         res.setHeader('Vary', 'Foo');
         next = function () {
@@ -355,7 +349,7 @@
         var req, res, next, options;
         options = {
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
@@ -373,7 +367,7 @@
         options = {
           origin: true
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
@@ -393,7 +387,7 @@
             cb(null, true);
           }
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'request.com')
@@ -411,7 +405,7 @@
             cb(null, false);
           }
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined)
@@ -434,7 +428,7 @@
           }
         };
 
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'request.com')
@@ -442,7 +436,7 @@
 
         cors(options)(req, res, next);
 
-        req = fakeRequest({
+        req = fakeRequest('GET', {
           'origin': 'invalid-request.com'
         });
         res = fakeResponse();
@@ -466,8 +460,7 @@
         options = {
           methods: ['method1', 'method2']
         };
-        req = fakeRequest();
-        req.method = 'OPTIONS';
+        req = fakeRequest('OPTIONS');
         res = fakeResponse();
         res.end = function () {
           // assert
@@ -489,8 +482,7 @@
         var req, res, next, options;
         options = {
         };
-        req = fakeRequest();
-        req.method = 'OPTIONS';
+        req = fakeRequest('OPTIONS');
         res = fakeResponse();
         res.end = function () {
           // assert
@@ -513,8 +505,7 @@
         options = {
           allowedHeaders: ['header1', 'header2']
         };
-        req = fakeRequest();
-        req.method = 'OPTIONS';
+        req = fakeRequest('OPTIONS');
         res = fakeResponse();
         res.end = function () {
           // assert
@@ -533,8 +524,7 @@
         options = {
           allowedHeaders: 'header1,header2'
         };
-        req = fakeRequest();
-        req.method = 'OPTIONS';
+        req = fakeRequest('OPTIONS');
         res = fakeResponse();
         res.end = function () {
           // assert
@@ -553,7 +543,7 @@
         options = {
           allowedHeaders: []
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
@@ -571,8 +561,7 @@
         var req, res, options;
         options = {
         };
-        req = fakeRequest();
-        req.method = 'OPTIONS';
+        req = fakeRequest('OPTIONS');
         res = fakeResponse();
         res.end = function () {
           // assert
@@ -591,7 +580,7 @@
         options = {
           exposedHeaders: ['custom-header1', 'custom-header2']
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
@@ -609,7 +598,7 @@
         options = {
           exposedHeaders: 'custom-header1,custom-header2'
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
@@ -627,7 +616,7 @@
         options = {
           exposedHeaders: []
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
@@ -645,8 +634,7 @@
         options = {
           credentials: true
         };
-        req = fakeRequest();
-        req.method = 'OPTIONS';
+        req = fakeRequest('OPTIONS');
         res = fakeResponse();
         res.end = function () {
           // assert
@@ -663,7 +651,7 @@
         var req, res, next, options;
         options = {
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
@@ -681,8 +669,7 @@
         options = {
           maxAge: 456
         };
-        req = fakeRequest();
-        req.method = 'OPTIONS';
+        req = fakeRequest('OPTIONS');
         res = fakeResponse();
         res.end = function () {
           // assert
@@ -699,7 +686,7 @@
         var req, res, next, options;
         options = {
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
@@ -721,7 +708,7 @@
             origin: 'delegate.com'
           });
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
@@ -742,8 +729,7 @@
             maxAge: 1000
           });
         };
-        req = fakeRequest();
-        req.method = 'OPTIONS';
+        req = fakeRequest('OPTIONS');
         res = fakeResponse();
         res.end = function () {
           // assert
@@ -762,7 +748,7 @@
         delegate = function (req2, cb) {
           cb('some error');
         };
-        req = fakeRequest();
+        req = fakeRequest('GET');
         res = fakeResponse();
         next = function (err) {
           // assert
