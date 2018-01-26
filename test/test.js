@@ -346,9 +346,7 @@
 
       it('origin defaults to *', function (done) {
         // arrange
-        var req, res, next, options;
-        options = {
-        };
+        var req, res, next;
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
@@ -358,7 +356,7 @@
         };
 
         // act
-        cors(options)(req, res, next);
+        cors()(req, res, next);
       });
 
       it('specifying true for origin reflects requesting origin', function (done) {
@@ -479,9 +477,7 @@
 
       it('methods defaults to GET, PUT, PATCH, POST, DELETE', function (done) {
         // arrange
-        var req, res, next, options;
-        options = {
-        };
+        var req, res, next;
         req = fakeRequest('OPTIONS');
         res = fakeResponse();
         res.end = function () {
@@ -496,7 +492,7 @@
         };
 
         // act
-        cors(options)(req, res, next);
+        cors()(req, res, next);
       });
 
       it('can specify allowed headers as array', function (done) {
@@ -558,9 +554,7 @@
 
       it('if no allowed headers are specified, defaults to requested allowed headers', function (done) {
         // arrange
-        var req, res, options;
-        options = {
-        };
+        var req, res;
         req = fakeRequest('OPTIONS');
         res = fakeResponse();
         res.end = function () {
@@ -571,7 +565,7 @@
         };
 
         // act
-        cors(options)(req, res, null);
+        cors()(req, res, null);
       });
 
       it('can specify exposed headers as array', function (done) {
@@ -648,9 +642,7 @@
 
       it('does not includes credentials unless explicitly enabled', function (done) {
         // arrange
-        var req, res, next, options;
-        options = {
-        };
+        var req, res, next;
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
@@ -660,7 +652,7 @@
         };
 
         // act
-        cors(options)(req, res, next);
+        cors()(req, res, next);
       });
 
       it('includes maxAge when specified', function (done) {
@@ -683,9 +675,7 @@
 
       it('does not includes maxAge unless specified', function (done) {
         // arrange
-        var req, res, next, options;
-        options = {
-        };
+        var req, res, next;
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
@@ -695,7 +685,7 @@
         };
 
         // act
-        cors(options)(req, res, next);
+        cors()(req, res, next);
       });
     });
 
