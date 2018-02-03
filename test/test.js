@@ -12,23 +12,12 @@
         headers: headers || {
           'origin': 'request.com',
           'access-control-request-headers': 'requestedHeader1,requestedHeader2'
-        },
-        pause: function () {
-          // do nothing
-          return;
-        },
-        resume: function () {
-          // do nothing
-          return;
         }
       };
     },
     fakeResponse = function () {
       var headers = {};
       return {
-        allHeaders: function () {
-          return headers;
-        },
         getHeader: function (key) {
           return headers[key];
         },
