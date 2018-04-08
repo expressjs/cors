@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - "0.10"
-  - "4.8"
+  - "4.9"
   - "6.12"
   - "8.9"
 sudo: false
