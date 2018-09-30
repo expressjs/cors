@@ -1,3 +1,0 @@
---ui bdd
---reporter spec
---require test/support/env

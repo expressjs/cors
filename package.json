@@ -35,7 +35,7 @@
     "node": ">= 0.10"
   },
   "scripts": {
-    "test": "npm run lint && nyc --reporter=html --reporter=text mocha",
+    "test": "npm run lint && nyc --reporter=html --reporter=text mocha --require test/support/env",
     "lint": "eslint lib test"
   }
 }
