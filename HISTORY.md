@@ -33,7 +33,7 @@ This release only changed documentation.
 2.7.1 / 2015-05-28
 ==================
 
-  * Move module into Express.js organization
+  * Move module into expressjs organization
 
 2.7.0 / 2015-05-28
 ==================
