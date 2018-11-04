@@ -672,6 +672,24 @@
         cors(options)(req, res, null);
       });
 
+      it('includes maxAge when specified and equals to zero', function (done) {
+        // arrange
+        var req, res, options
+        options = {
+          maxAge: 0
+        }
+        req = fakeRequest('OPTIONS')
+        res = fakeResponse()
+        res.end = function () {
+          // assert
+          assert.equal(res.getHeader('Access-Control-Max-Age'), '0')
+          done()
+        }
+
+        // act
+        cors(options)(req, res, null)
+      });
+
       it('does not includes maxAge unless specified', function (done) {
         // arrange
         var req, res, next;

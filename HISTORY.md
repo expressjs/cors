@@ -1,3 +1,8 @@
+unreleased
+==========
+
+  * Fix setting `maxAge` option to `0`
+
 2.8.4 / 2017-07-12
 ==================
 
