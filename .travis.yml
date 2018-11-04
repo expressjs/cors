@@ -14,14 +14,23 @@ before_install:
   - |
     # Skip updating shrinkwrap / lock
     npm config set shrinkwrap false
-   # Setup Node.js version-specific dependencies
+  # Setup Node.js version-specific dependencies
   - |
     # mocha for testing
     # - use 3.x for Node.js < 6
     if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 6 ]]; then
       npm install --save-dev mocha@3.5.3
     fi
- # Update Node.js modules
+  - |
+    # nyc for coverage
+    # - use 10.x for Node.js < 4
+    # - use 11.x for Node.js < 6
+    if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 4 ]]; then
+      npm install --save-dev nyc@10.3.2
+    elif [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 6 ]]; then
+      npm install --save-dev nyc@11.9.0
+    fi
+  # Update Node.js modules
   - |
     # Prune & rebuild node_modules
     if [[ -d node_modules ]]; then
