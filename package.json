@@ -22,7 +22,7 @@
     "express": "4.16.3",
     "mocha": "5.2.0",
     "nyc": "13.1.0",
-    "supertest": "1.2.0"
+    "supertest": "3.3.0"
   },
   "files": [
     "lib/index.js",

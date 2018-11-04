@@ -30,6 +30,12 @@ before_install:
     elif [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 6 ]]; then
       npm install --save-dev nyc@11.9.0
     fi
+  - |
+    # supertest for http calls
+    # - use 2.0.0 for Node.js < 4
+    if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 4 ]]; then
+      npm install --save-dev supertest@2.0.0
+    fi
   # Update Node.js modules
   - |
     # Prune & rebuild node_modules
