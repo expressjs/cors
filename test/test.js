@@ -91,7 +91,7 @@
       };
 
       // act
-      cors({optionsSuccessStatus: 200})(req, res, next);
+      cors({optionSuccessStatus: 200})(req, res, next);
     });
 
     it('doesn\'t shortcircuit preflight requests with preflightContinue option', function (done) {

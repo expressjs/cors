@@ -28,7 +28,7 @@ This release only changed documentation.
 2.8.0 / 2016-08-23
 ==================
 
-  * Add `optionsSuccessStatus` option
+  * Add `optionSuccessStatus` option
 
 2.7.2 / 2016-08-23
 ==================
