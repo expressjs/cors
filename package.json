@@ -19,7 +19,7 @@
   "devDependencies": {
     "after": "0.8.2",
     "eslint": "2.13.1",
-    "express": "4.16.3",
+    "express": "4.16.4",
     "mocha": "5.2.0",
     "nyc": "13.1.0",
     "supertest": "3.3.0"
