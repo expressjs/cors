@@ -10,7 +10,7 @@
       return {
         method: method,
         headers: headers || {
-          'origin': 'request.com',
+          'origin': 'http://example.com',
           'access-control-request-headers': 'requestedHeader1,requestedHeader2'
         }
       };
@@ -197,7 +197,7 @@
         var cb = after(1, done)
         var req, res, next, options;
         options = {
-          origin: 'example.com',
+          origin: 'http://example.com',
           methods: ['FOO', 'bar'],
           headers: ['FIZZ', 'buzz'],
           credentials: true,
@@ -208,7 +208,7 @@
         res.end = function () {
           // assert
           assert.equal(res.statusCode, 204)
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'example.com')
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
           assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'FOO,bar')
           assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'FIZZ,buzz')
           assert.equal(res.getHeader('Access-Control-Allow-Credentials'), 'true')
@@ -227,7 +227,7 @@
       it('matches request origin against regexp', function(done) {
         var req = fakeRequest('GET');
         var res = fakeResponse();
-        var options = { origin: /^(.+\.)?request.com$/ };
+        var options = { origin: /:\/\/(.+\.)?example.com$/ }
         cors(options)(req, res, function(err) {
           assert.ifError(err)
           assert.equal(res.getHeader('Access-Control-Allow-Origin'), req.headers.origin)
@@ -239,7 +239,7 @@
       it('matches request origin against array of origin checks', function(done) {
         var req = fakeRequest('GET');
         var res = fakeResponse();
-        var options = { origin: [ /foo\.com$/, 'request.com' ] };
+        var options = { origin: [ /foo\.com$/, 'http://example.com' ] }
         cors(options)(req, res, function(err) {
           assert.ifError(err)
           assert.equal(res.getHeader('Access-Control-Allow-Origin'), req.headers.origin)
@@ -290,13 +290,13 @@
         // arrange
         var req, res, next, options;
         options = {
-          origin: 'example.com'
+          origin: 'http://example.com'
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'example.com')
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
           done();
         };
 
@@ -308,7 +308,7 @@
         // arrange
         var req, res, next, options;
         options = {
-          origin: 'example.com'
+          origin: 'http://example.com'
         };
         req = fakeRequest('GET');
         res = fakeResponse();
@@ -326,7 +326,7 @@
         // arrange
         var req, res, next, options;
         options = {
-          origin: 'example.com'
+          origin: 'http://example.com'
         };
         req = fakeRequest('GET');
         res = fakeResponse();
@@ -366,7 +366,7 @@
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'request.com')
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
           done();
         };
 
@@ -378,14 +378,13 @@
         var req, res, next, options;
         options = {
           origin: function (sentOrigin, cb) {
-            assert.equal(sentOrigin, 'request.com')
             cb(null, true);
           }
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'request.com')
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
           done();
         };
 
@@ -396,7 +395,6 @@
         var req, res, next, options;
         options = {
           origin: function (sentOrigin, cb) {
-            assert.equal(sentOrigin, 'request.com')
             cb(null, false);
           }
         };
@@ -418,21 +416,20 @@
         var req, res, next, options;
         options = {
           origin: function (sentOrigin, cb) {
-            var isValid = sentOrigin === 'request.com';
-            cb(null, isValid);
+            cb(null, sentOrigin === 'http://example.com')
           }
         };
 
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'request.com')
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
         };
 
         cors(options)(req, res, next);
 
         req = fakeRequest('GET', {
-          'origin': 'invalid-request.com'
+          'origin': 'http://localhost'
         });
         res = fakeResponse();
 
