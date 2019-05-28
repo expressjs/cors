@@ -219,12 +219,12 @@ For details on the effect of each CORS header, read [this](http://www.html5rocks
 
 ## Demo
 
-A demo that illustrates CORS working (and not working) using jQuery is available here: [http://node-cors-client.herokuapp.com/](http://node-cors-client.herokuapp.com/)
+A demo that illustrates CORS working (and not working) using React is available here: [https://node-cors-client.netlify.com](https://node-cors-client.netlify.com)
 
 Code for that demo can be found here:
 
-* Client: [https://github.com/TroyGoode/node-cors-client](https://github.com/TroyGoode/node-cors-client)
-* Server: [https://github.com/TroyGoode/node-cors-server](https://github.com/TroyGoode/node-cors-server)
+* Client: [https://github.com/troygoode/node-cors-client](https://github.com/troygoode/node-cors-client)
+* Server: [https://github.com/troygoode/node-cors-server](https://github.com/troygoode/node-cors-server)
 
 ## License
 
