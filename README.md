@@ -91,19 +91,31 @@ app.listen(80, function () {
 
 ### Configuring CORS w/ Dynamic Origin
 
+This module supports validating the origin dynamically using a function provided
+to the `origin` option. This function will be passed a string that is the origin
+(or `undefined` if the request has no origin), and a `callback` with the signature
+`callback(error, origin)`.
+
+The `origin` argument to the callback can be any value allowed for the `origin`
+option of the middleware, except a function. See the
+[confugration options](#configuration-options) section for more information on all
+the possible value types.
+
+This function is designed to allow the dynamic loading of allowed origin(s) from
+a backing datasource, like a database.
+
 ```javascript
 var express = require('express')
 var cors = require('cors')
 var app = express()
 
-var whitelist = ['http://example1.com', 'http://example2.com']
 var corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
+    // db.loadOrigins is an example call to load
+    // a list of origins from a backing database
+    db.loadOrigins(function (error, origins) {
+      callback(error, origins)
+    })
   }
 }
 
@@ -114,21 +126,6 @@ app.get('/products/:id', cors(corsOptions), function (req, res, next) {
 app.listen(80, function () {
   console.log('CORS-enabled web server listening on port 80')
 })
-```
-
-If you do not want to block REST tools or server-to-server requests,
-add a `!origin` check in the origin function like so:
-
-```javascript
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
 ```
 
 ### Enabling CORS Pre-Flight
