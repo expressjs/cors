@@ -96,10 +96,10 @@ var express = require('express')
 var cors = require('cors')
 var app = express()
 
-var whitelist = ['http://example1.com', 'http://example2.com']
+var safelist = ['http://example1.com', 'http://example2.com']
 var corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (safelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
@@ -108,7 +108,7 @@ var corsOptions = {
 }
 
 app.get('/products/:id', cors(corsOptions), function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
+  res.json({msg: 'This is CORS-enabled for a safelisted domain.'})
 })
 
 app.listen(80, function () {
@@ -122,7 +122,7 @@ add a `!origin` check in the origin function like so:
 ```javascript
 var corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
+    if (safelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
@@ -168,10 +168,10 @@ var express = require('express')
 var cors = require('cors')
 var app = express()
 
-var whitelist = ['http://example1.com', 'http://example2.com']
+var safelist = ['http://example1.com', 'http://example2.com']
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
-  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+  if (safelist.indexOf(req.header('Origin')) !== -1) {
     corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
   } else {
     corsOptions = { origin: false } // disable CORS for this request
@@ -180,7 +180,7 @@ var corsOptionsDelegate = function (req, callback) {
 }
 
 app.get('/products/:id', cors(corsOptionsDelegate), function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
+  res.json({msg: 'This is CORS-enabled for a safelisted domain.'})
 })
 
 app.listen(80, function () {
