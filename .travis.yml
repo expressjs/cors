@@ -5,6 +5,7 @@ node_js:
   - "6.17"
   - "8.17"
   - "10.19"
+  - "12.16"
 cache:
   directories:
     - node_modules
