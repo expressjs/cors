@@ -161,6 +161,10 @@ You can also enable pre-flight across-the-board like so:
 app.options('*', cors()) // include before other routes
 ```
 
+NOTE: When using this middleware as an application level middleware (for
+example, `app.use(cors())`), pre-flight requests are already handled for all
+routes.
+
 ### Configuring CORS Asynchronously
 
 ```javascript
