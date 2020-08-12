@@ -630,6 +630,21 @@ var util = require('util')
         // act
         cors()(req, res, next);
       });
+
+      it('should allow origin if array include *', function (done) {
+        var options = {
+          origin: ['*']
+        };
+        var req = fakeRequest('GET');
+        var res = fakeResponse();
+        var next = function () {
+          // assert
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
+          done();
+        };
+
+        cors(options)(req, res, next);
+      });
     });
 
     describe('passing a function to build options', function () {
