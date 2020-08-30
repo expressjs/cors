@@ -98,7 +98,7 @@ to the `origin` option. This function will be passed a string that is the origin
 
 The `origin` argument to the callback can be any value allowed for the `origin`
 option of the middleware, except a function. See the
-[confugration options](#configuration-options) section for more information on all
+[configuration options](#configuration-options) section for more information on all
 the possible value types.
 
 This function is designed to allow the dynamic loading of allowed origin(s) from
