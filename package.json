@@ -36,7 +36,7 @@
   },
   "scripts": {
     "test": "npm run lint && npm run test-ci",
-    "test-ci": "nyc --reporter=html --reporter=text mocha --require test/support/env",
+    "test-ci": "nyc --reporter=lcov --reporter=text mocha --require test/support/env",
     "lint": "eslint lib test"
   }
 }

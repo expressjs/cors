@@ -2,7 +2,7 @@
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
-[![Build Status][travis-image]][travis-url]
+[![Build Status][github-actions-ci-image]][github-actions-ci-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 
 CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/connect/)/[Express](http://expressjs.com/) middleware that can be used to enable [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) with various options.
@@ -239,7 +239,7 @@ Code for that demo can be found here:
 [coveralls-url]: https://coveralls.io/r/expressjs/cors?branch=master
 [downloads-image]: https://img.shields.io/npm/dm/cors.svg
 [downloads-url]: https://npmjs.org/package/cors
+[github-actions-ci-image]: https://img.shields.io/github/workflow/status/expressjs/cors/ci/master?label=ci
+[github-actions-ci-url]: https://github.com/expressjs/cors?query=workflow%3Aci
 [npm-image]: https://img.shields.io/npm/v/cors.svg
 [npm-url]: https://npmjs.org/package/cors
-[travis-image]: https://img.shields.io/travis/expressjs/cors/master.svg
-[travis-url]: https://travis-ci.org/expressjs/cors
