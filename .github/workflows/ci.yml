@@ -17,6 +17,7 @@ jobs:
         - Node.js 10.x
         - Node.js 12.x
         - Node.js 14.x
+        - Node.js 16.x
 
         include:
         - name: Node.js 0.10
@@ -43,6 +44,9 @@ jobs:
 
         - name: Node.js 14.x
           node-version: "14.15"
+
+        - name: Node.js 16.x
+          node-version: "16.1"
 
     steps:
     - uses: actions/checkout@v2
