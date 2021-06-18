@@ -369,6 +369,8 @@ var util = require('util')
       it('should not allow origin when callback returns false for preflight', function (done) {
         var cb = after(1, done);
         var options = {
+          allowedHeaders: ['TestHeader'],
+          methods: ['POST'],
           origin: function (origin, cb) {
             cb(null, false);
           }
@@ -379,8 +381,8 @@ var util = require('util')
         res.on('finish', function () {
           assert.equal(res.statusCode, 204);
           assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined);
-          assert.equal(res.getHeader('Access-Control-Allow-Methods'), undefined);
-          assert.equal(res.getHeader('Access-Control-Allow-Headers'), undefined);
+          assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'POST');
+          assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'TestHeader');
           assert.equal(res.getHeader('Access-Control-Allow-Credentials'), undefined);
           assert.equal(res.getHeader('Access-Control-Max-Age'), undefined);
           cb();
