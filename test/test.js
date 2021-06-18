@@ -391,6 +391,23 @@ var util = require('util')
         });
       });
 
+      it('should pass error to the next middleware when returned by callback', function (done) {
+        var e = new Error('Test');
+        var options = {
+          origin: function (origin, cb) {
+            cb(e, false);
+          }
+        };
+        var req = fakeRequest('GET');
+        var res = fakeResponse();
+        var next = function (err) {
+          assert.equal(err, e);
+          done();
+        };
+
+        cors(options)(req, res, next);
+      });
+
       it('should not override options.origin callback', function (done) {
         var req, res, next, options;
         options = {
