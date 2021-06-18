@@ -1,3 +1,8 @@
+Future
+==================
+
+* Respond to preflight request properly when origin evaluated as invalid by custom function
+
 2.8.5 / 2018-11-04
 ==================
 

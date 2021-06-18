@@ -366,6 +366,31 @@ var util = require('util')
         cors(options)(req, res, next);
       });
 
+      it('should not allow origin when callback returns false for preflight', function (done) {
+        var cb = after(1, done);
+        var options = {
+          origin: function (origin, cb) {
+            cb(null, false);
+          }
+        };
+        var req = fakeRequest('OPTIONS');
+        var res = fakeResponse();
+
+        res.on('finish', function () {
+          assert.equal(res.statusCode, 204);
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined);
+          assert.equal(res.getHeader('Access-Control-Allow-Methods'), undefined);
+          assert.equal(res.getHeader('Access-Control-Allow-Headers'), undefined);
+          assert.equal(res.getHeader('Access-Control-Allow-Credentials'), undefined);
+          assert.equal(res.getHeader('Access-Control-Max-Age'), undefined);
+          cb();
+        });
+
+        cors(options)(req, res, function (err) {
+          cb(err || new Error('should not be called'));
+        });
+      });
+
       it('should not override options.origin callback', function (done) {
         var req, res, next, options;
         options = {
