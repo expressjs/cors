@@ -44,7 +44,7 @@ jobs:
           node-version: "12.22"
 
         - name: Node.js 14.x
-          node-version: "14.15"
+          node-version: "14.17"
 
         - name: Node.js 16.x
           node-version: "16.6"
