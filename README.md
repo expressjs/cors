@@ -37,9 +37,9 @@ $ npm install cors
 ### Simple Usage (Enable *All* CORS Requests)
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
 app.use(cors())
 
@@ -55,9 +55,9 @@ app.listen(80, function () {
 ### Enable CORS for a Single Route
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
 app.get('/products/:id', cors(), function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for a Single Route'})
@@ -71,11 +71,11 @@ app.listen(80, function () {
 ### Configuring CORS
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
-var corsOptions = {
+const corsOptions = {
   origin: 'http://example.com',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
@@ -105,11 +105,11 @@ This function is designed to allow the dynamic loading of allowed origin(s) from
 a backing datasource, like a database.
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
-var corsOptions = {
+const corsOptions = {
   origin: function (origin, callback) {
     // db.loadOrigins is an example call to load
     // a list of origins from a backing database
@@ -138,9 +138,9 @@ pre-flighting, you must add a new OPTIONS handler for the route you want
 to support:
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
 app.options('/products/:id', cors()) // enable pre-flight request for DELETE request
 app.del('/products/:id', cors(), function (req, res, next) {
@@ -165,14 +165,14 @@ routes.
 ### Configuring CORS Asynchronously
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
-var allowlist = ['http://example1.com', 'http://example2.com']
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (allowlist.indexOf(req.header('Origin')) !== -1) {
+const corsOriginsWhiteList = ['http://example1.com', 'http://example2.com']
+const corsOptionsDelegate = function (req, callback) {
+  let corsOptions;
+  if (corsOriginsWhiteList.indexOf(req.header('Origin')) !== -1) {
     corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
   } else {
     corsOptions = { origin: false } // disable CORS for this request
