@@ -632,6 +632,54 @@ var util = require('util')
       });
     });
 
+    ['same-site', 'same-origin', 'cross-origin'].forEach(function (corp) {
+      it('includes CORP if explicitly enabled and set to ' + corp, function (done) {
+        var cb = after(1, done)
+        var req = new FakeRequest('OPTIONS')
+        var res = new FakeResponse()
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Cross-Origin-Resource-Policy'), corp)
+          cb()
+        })
+
+        cors({ crossOriginResourcePolicy: corp })(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      });
+    });
+
+    it('does not includes CORP if provided an invalid value', function (done) {
+      var cb = after(1, done)
+      var req = new FakeRequest('OPTIONS')
+      var res = new FakeResponse()
+
+      res.on('finish', function () {
+        assert.equal(res.getHeader('Cross-Origin-Resource-Policy'), undefined)
+        cb()
+      })
+
+      cors({ crossOriginResourcePolicy: 'some-other-value' })(req, res, function (err) {
+        cb(err || new Error('should not be called'))
+      })
+    });
+
+
+    it('does not includes CORP unless explicitly enabled', function (done) {
+      // arrange
+      var req, res, next;
+      req = fakeRequest('GET');
+      res = fakeResponse();
+      next = function () {
+        // assert
+        assert.equal(res.getHeader('Cross-Origin-Resource-Policy'), undefined)
+        done();
+      };
+
+      // act
+      cors()(req, res, next);
+    });
+
     describe('passing a function to build options', function () {
       it('handles options specified via callback', function (done) {
         // arrange
