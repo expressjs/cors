@@ -216,7 +216,7 @@ The default configuration is the equivalent of:
 }
 ```
 
-For details on the effect of each CORS header, read [this](http://www.html5rocks.com/en/tutorials/cors/) article on HTML5 Rocks.
+For details on the effect of each CORS header, read [this](https://web.dev/cross-origin-resource-sharing/) article on web.dev.
 
 ## Demo
 
