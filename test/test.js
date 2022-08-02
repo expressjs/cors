@@ -631,11 +631,11 @@ var util = require('util')
         cors()(req, res, next);
       });
 
-      it('allows private network requests when allowPrivateNetworkAccess is true', function (done) {
+      it('allows private network requests when allowPrivateNetwork is true', function (done) {
         // arrange
         var req, res, options, cb;
         options = {
-          allowPrivateNetworkAccess: true,
+          allowPrivateNetwork: true,
         };
         req = fakeRequest('OPTIONS', {'access-control-request-private-network': 'true'});
         res = fakeResponse();
@@ -652,11 +652,11 @@ var util = require('util')
         });
       });
 
-      it('denies private network requests when allowPrivateNetworkAccess is false', function (done) {
+      it('denies private network requests when allowPrivateNetwork is false', function (done) {
         // arrange
         var req, res, options, cb;
         options = {
-          allowPrivateNetworkAccess: false,
+          allowPrivateNetwork: false,
         };
         req = fakeRequest('OPTIONS', {'access-control-request-private-network': 'true'});
         res = fakeResponse();
