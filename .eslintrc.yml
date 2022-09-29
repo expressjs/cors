@@ -1,7 +1,8 @@
 root: true
 env:
   node: true
+  es6: true
 rules:
-  indent: ["error", 2, { "SwitchCase": 1 }]
-  quotes: ["error", "single"]
-  space-in-parens: ["error", "never"]
+  indent: ['error', 2, { 'SwitchCase': 1 }]
+  quotes: ['error', 'single']
+  space-in-parens: ['error', 'never']
