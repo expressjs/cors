@@ -630,6 +630,67 @@ var util = require('util')
         // act
         cors()(req, res, next);
       });
+
+      it('allows private network requests when allowPrivateNetwork is true', function (done) {
+        // arrange
+        var req, res, options, cb;
+        options = {
+          allowPrivateNetwork: true,
+        };
+        req = fakeRequest('OPTIONS', {'access-control-request-private-network': 'true'});
+        res = fakeResponse();
+        cb = after(1, done)
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Private-Network'), 'true')
+          cb()
+        })
+
+        // act
+        cors(options)(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        });
+      });
+
+      it('denies private network requests when allowPrivateNetwork is false', function (done) {
+        // arrange
+        var req, res, options, cb;
+        options = {
+          allowPrivateNetwork: false,
+        };
+        req = fakeRequest('OPTIONS', {'access-control-request-private-network': 'true'});
+        res = fakeResponse();
+        cb = after(1, done)
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Private-Network'), undefined)
+          cb()
+        })
+
+        // act
+        cors(options)(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        });
+      });
+
+      it('denies private network requests when no options are set', function (done) {
+        // arrange
+        var req, res, options, cb;
+        options = {};
+        req = fakeRequest('OPTIONS', {'access-control-request-private-network': 'true'});
+        res = fakeResponse();
+        cb = after(1, done)
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Private-Network'), undefined)
+          cb()
+        })
+
+        // act
+        cors(options)(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        });
+      });
     });
 
     describe('passing a function to build options', function () {
