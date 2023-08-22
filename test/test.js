@@ -673,7 +673,7 @@ var util = require('util')
         });
       });
 
-      it('allows private network requests when no options are set', function (done) {
+      it('denies private network requests when no options are set', function (done) {
         // arrange
         var req, res, options, cb;
         options = {};
@@ -682,7 +682,7 @@ var util = require('util')
         cb = after(1, done)
 
         res.on('finish', function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Private-Network'), 'true')
+          assert.equal(res.getHeader('Access-Control-Allow-Private-Network'), undefined)
           cb()
         })
 
