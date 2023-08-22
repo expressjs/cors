@@ -67,7 +67,12 @@ jobs:
         dirname "$(nvm which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
 
     - name: Configure npm
-      run: npm config set shrinkwrap false
+      shell: bash
+      run: |
+        # - remove on Node.js < 18
+        if [[ "$(cut -d. -f1 <<< "${{ matrix.node-version }}")" -lt 18 ]]; then
+            npm config set shrinkwrap false
+        fi
 
     - name: Install npm module(s) ${{ matrix.npm-i }}
       run: npm install --save-dev ${{ matrix.npm-i }}
