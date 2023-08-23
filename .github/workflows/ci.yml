@@ -18,6 +18,8 @@ jobs:
         - Node.js 12.x
         - Node.js 14.x
         - Node.js 16.x
+        - Node.js 18.x
+        - Node.js 20.x
 
         include:
         - name: Node.js 0.10
@@ -34,11 +36,11 @@ jobs:
 
         - name: Node.js 8.x
           node-version: "8.17"
-          npm-i: mocha@7.2.0
+          npm-i: mocha@7.2.0 nyc@14.1.1
 
         - name: Node.js 10.x
           node-version: "10.24"
-          npm-i: mocha@8.3.2
+          npm-i: mocha@8.3.2 eslint@7.32.0
 
         - name: Node.js 12.x
           node-version: "12.22"
@@ -49,8 +51,14 @@ jobs:
         - name: Node.js 16.x
           node-version: "16.6"
 
+        - name: Node.js 18.x
+          node-version: "18.17"
+
+        - name: Node.js 20.x
+          node-version: "20.5"
+
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Install Node.js ${{ matrix.node-version }}
       shell: bash -eo pipefail -l {0}
@@ -59,7 +67,12 @@ jobs:
         dirname "$(nvm which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
 
     - name: Configure npm
-      run: npm config set shrinkwrap false
+      shell: bash
+      run: |
+        # - remove on Node.js < 18
+        if [[ "$(cut -d. -f1 <<< "${{ matrix.node-version }}")" -lt 18 ]]; then
+            npm config set shrinkwrap false
+        fi
 
     - name: Install npm module(s) ${{ matrix.npm-i }}
       run: npm install --save-dev ${{ matrix.npm-i }}
@@ -114,7 +127,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - name: Uploade code coverage
+    - name: Upload code coverage
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.github_token }}
