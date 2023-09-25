@@ -239,7 +239,7 @@ Code for that demo can be found here:
 [coveralls-url]: https://coveralls.io/r/expressjs/cors?branch=master
 [downloads-image]: https://img.shields.io/npm/dm/cors.svg
 [downloads-url]: https://npmjs.org/package/cors
-[github-actions-ci-image]: https://img.shields.io/github/workflow/status/expressjs/cors/ci/master?label=ci
+[github-actions-ci-image]: https://img.shields.io/github/actions/workflow/status/expressjs/cors/ci.yml?branch=master&label=ci
 [github-actions-ci-url]: https://github.com/expressjs/cors?query=workflow%3Aci
 [npm-image]: https://img.shields.io/npm/v/cors.svg
 [npm-url]: https://npmjs.org/package/cors
