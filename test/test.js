@@ -571,6 +571,39 @@ var util = require('util')
         })
       });
 
+      it('allows private network if explicitly enabled', function (done) {
+        var cb = after(1, done)
+        var req = new FakeRequest('OPTIONS', {
+          'access-control-request-private-network': 'true'
+        })
+        var res = new FakeResponse()
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Private-Network'), 'true')
+          cb()
+        })
+
+        cors({ allowPrivateNetwork: true })(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      });
+
+
+      it('not allows private network if explicitly enabled but access-control-request-private-network is missing', function (done) {
+        var cb = after(1, done)
+        var req = new FakeRequest('OPTIONS')
+        var res = new FakeResponse()
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Private-Network'), undefined)
+          cb()
+        })
+
+        cors({ allowPrivateNetwork: true })(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      });
+
       it('does not includes credentials unless explicitly enabled', function (done) {
         // arrange
         var req, res, next;

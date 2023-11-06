@@ -204,6 +204,7 @@ app.listen(80, function () {
 * `maxAge`: Configures the **Access-Control-Max-Age** CORS header. Set to an integer to pass the header, otherwise it is omitted.
 * `preflightContinue`: Pass the CORS preflight response to the next handler.
 * `optionsSuccessStatus`: Provides a status code to use for successful `OPTIONS` requests, since some legacy browsers (IE11, various SmartTVs) choke on `204`.
+* `allowPrivateNetwork`: Provides **Access-Control-Allow-Private-Network: true** if **Access-Control-Request-Private-Network: true** is presented.
 
 The default configuration is the equivalent of:
 
