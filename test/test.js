@@ -150,6 +150,198 @@ var util = require('util')
       })
     });
 
+    describe('shouldSetVaryHeader', function() {
+      it('Vary: "Access-Control-Request-Headers" header is set by default for pre-flight requests', function (done) {
+        var cb = after(1, done)
+
+        var req = new FakeRequest('OPTIONS')
+        var res = new FakeResponse()
+        req.host = 'http://example.com'
+        req.originalUrl = '/images/asdf.png'
+
+
+        res.on('finish', function () {
+          assert.equal(res.statusCode, 204)
+          assert.equal(res.getHeader('Vary'), 'Access-Control-Request-Headers')
+          cb()
+        })
+
+        cors()(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      })
+
+      it('Vary: "Origin, Access-Control-Request-Headers" header is set by default for pre-flight requests with origins', function (done) {
+        var cb = after(1, done)
+
+        var req = new FakeRequest('OPTIONS')
+        var res = new FakeResponse()
+        req.host = 'http://example.com'
+        req.originalUrl = '/images/asdf.png'
+        var options = {
+          origin: 'https://example.com'
+        }
+
+        res.on('finish', function () {
+          assert.equal(res.statusCode, 204)
+          assert.equal(res.getHeader('Vary'), 'Origin, Access-Control-Request-Headers')
+          cb()
+        })
+
+        cors(options)(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      })
+
+      it('Vary: "Access-Control-Request-Headers" header is set for pre-flight requests and shouldSetVaryHeader(req, \'Origin\') configured to return false with origins', function (done) {
+        var cb = after(1, done)
+
+        var req = new FakeRequest('OPTIONS')
+        var res = new FakeResponse()
+        req.host = 'http://example.com'
+        req.originalUrl = '/images/asdf.png'
+        var options = {
+          origin: 'https://example.com',
+          shouldSetVaryHeader: function(req, header) {
+            if (header === 'Access-Control-Request-Headers') {
+              return true
+            }
+
+            if (req.originalUrl.startsWith('/images') && header === 'Origin') {
+              return false
+            } else {
+              return true
+            }
+          }
+        }
+
+        res.on('finish', function () {
+          assert.equal(res.statusCode, 204)
+          assert.equal(res.getHeader('Vary'), 'Access-Control-Request-Headers')
+          cb()
+        })
+
+        cors(options)(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      })
+
+      it('Vary: "Access-Control-Request-Headers" header is not set for pre-flight requests when shouldSetVaryHeader(req, \'Access-Control-Request-Headers\') configured to return false', function (done) {
+        var cb = after(1, done)
+
+        var req = new FakeRequest('OPTIONS')
+        var res = new FakeResponse()
+        req.host = 'http://example.com'
+        req.originalUrl = '/images/asdf.png'
+        var options = {
+          origin: 'https://example.com',
+          shouldSetVaryHeader: function(req, header) {
+            if (header === 'Access-Control-Request-Headers') {
+              return false
+            }
+
+            if (req.originalUrl.startsWith('/images') && header === 'Origin') {
+              return false
+            } else {
+              return true
+            }
+          }
+        }
+
+        res.on('finish', function () {
+          assert.equal(res.statusCode, 204)
+          assert.equal(res.getHeader('Vary'), undefined)
+          cb()
+        })
+
+        cors(options)(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      })
+
+      it('Vary: "Origin" header is set by default', function (done) {
+        var req = fakeRequest('GET')
+        var res = fakeResponse()
+        req.host = 'http://example.com'
+        req.originalUrl = '/images/asdf.png'
+        var options = {
+          origin: 'http://example.com'
+        }
+
+        var next = function () {
+          // assert
+          assert.equal(res.statusCode, 200)
+          assert.equal(res.getHeader('Vary'), 'Origin')
+          done();
+        };
+
+        cors(options)(req, res, next)
+      })
+
+      it('Vary: "Origin" header is not set when shouldSetVaryHeader(req, \'Origin\') configured to return false', function (done) {
+        var req = fakeRequest('GET')
+        var res = fakeResponse()
+        req.host = 'http://example.com'
+        req.originalUrl = '/images/asdf.png'
+
+        var options = {
+          origin: ['http://example.com', 'http://foo.com'],
+          shouldSetVaryHeader: function(req, header) {
+            if (header === 'Access-Control-Request-Headers') {
+              return true
+            }
+
+            if (req.originalUrl.startsWith('/images') && header === 'Origin') {
+              return false
+            } else {
+              return true
+            }
+          }
+        }
+
+        var next = function () {
+          // assert
+          assert.equal(res.statusCode, 200)
+          assert.equal(res.getHeader('Vary'), undefined)
+          done();
+        };
+
+        cors(options)(req, res, next)
+      })
+
+      it('Vary: "Origin" header is set when shouldSetVaryHeader(req, \'Origin\') configured to return true', function (done) {
+        var req = fakeRequest('GET')
+        var res = fakeResponse()
+        req.host = 'http://example.com'
+
+        req.originalUrl = '/some/other/path'
+
+        var options = {
+          origin: ['http://example.com', 'http://foo.com'],
+          shouldSetVaryHeader: function(req, header) {
+            if (header === 'Access-Control-Request-Headers') {
+              return true
+            }
+
+            if (req.originalUrl.startsWith('/images') && header === 'Origin') {
+              return false
+            } else {
+              return true
+            }
+          }
+        }
+
+        var next = function () {
+          // assert
+          assert.equal(res.statusCode, 200)
+          assert.equal(res.getHeader('Vary'), 'Origin')
+          done();
+        };
+
+        cors(options)(req, res, next)
+      })
+    })
+
     describe('passing static options', function () {
       it('overrides defaults', function (done) {
         var cb = after(1, done)
