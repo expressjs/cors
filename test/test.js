@@ -207,7 +207,7 @@ var util = require('util')
               return true
             }
 
-            if (req.originalUrl.startsWith('/images') && header === 'Origin') {
+            if (req.originalUrl.indexOf('/images') === 0 && header === 'Origin') {
               return false
             } else {
               return true
@@ -240,7 +240,7 @@ var util = require('util')
               return false
             }
 
-            if (req.originalUrl.startsWith('/images') && header === 'Origin') {
+            if (req.originalUrl.indexOf('/images') === 0 && header === 'Origin') {
               return false
             } else {
               return true
@@ -291,7 +291,7 @@ var util = require('util')
               return true
             }
 
-            if (req.originalUrl.startsWith('/images') && header === 'Origin') {
+            if (req.originalUrl.indexOf('/images') === 0 && header === 'Origin') {
               return false
             } else {
               return true
@@ -323,7 +323,7 @@ var util = require('util')
               return true
             }
 
-            if (req.originalUrl.startsWith('/images') && header === 'Origin') {
+            if (req.originalUrl.indexOf('/images') === 0 && header === 'Origin') {
               return false
             } else {
               return true
