@@ -441,7 +441,7 @@ var util = require('util')
         var res = new FakeResponse()
 
         res.on('finish', function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'header1,header2')
+          assert.strictEqual(res.getHeader('Access-Control-Allow-Headers'), 'header1,header2')
           assert.equal(res.getHeader('Vary'), undefined)
           cb()
         })
