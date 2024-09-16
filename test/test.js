@@ -150,7 +150,7 @@ var util = require('util')
       })
     });
 
-    describe('shouldSetVaryHeader', function() {
+    describe('shouldSetVaryOriginHeader', function() {
       it('Vary: "Origin" header is set by default', function (done) {
         var req = fakeRequest('GET')
         var res = fakeResponse()
@@ -170,7 +170,7 @@ var util = require('util')
         cors(options)(req, res, next)
       })
 
-      it('Vary: "Origin" header is not set when shouldSetVaryHeader(req, \'Origin\') configured to return false', function (done) {
+      it('Vary: "Origin" header is not set when shouldSetVaryOriginHeader(req) configured to return false', function (done) {
         var req = fakeRequest('GET')
         var res = fakeResponse()
         req.host = 'http://example.com'
@@ -178,7 +178,7 @@ var util = require('util')
 
         var options = {
           origin: ['http://example.com', 'http://foo.com'],
-          shouldSetVaryHeader: function(req, header) {
+          shouldSetVaryOriginHeader: function(req) {
             return req.originalUrl.indexOf('/images') !== 0
           }
         }
@@ -193,7 +193,7 @@ var util = require('util')
         cors(options)(req, res, next)
       })
 
-      it('Vary: "Origin" header is not set when shouldSetVaryHeader(req, \'Origin\') configured to return false and origin is string', function (done) {
+      it('Vary: "Origin" header is not set when shouldSetVaryOriginHeader(req) configured to return false and origin is string', function (done) {
         var req = fakeRequest('GET')
         var res = fakeResponse()
         req.host = 'http://example.com'
@@ -201,7 +201,7 @@ var util = require('util')
 
         var options = {
           origin: 'http://example.com',
-          shouldSetVaryHeader: function(req, header) {
+          shouldSetVaryOriginHeader: function(req) {
             return req.originalUrl.indexOf('/images') !== 0
           }
         }
@@ -216,7 +216,7 @@ var util = require('util')
         cors(options)(req, res, next)
       })
 
-      it('Vary: "Origin" header is set when shouldSetVaryHeader(req, \'Origin\') configured to return true', function (done) {
+      it('Vary: "Origin" header is set when shouldSetVaryOriginHeader(req) configured to return true', function (done) {
         var req = fakeRequest('GET')
         var res = fakeResponse()
         req.host = 'http://example.com'
@@ -225,7 +225,7 @@ var util = require('util')
 
         var options = {
           origin: ['http://example.com', 'http://foo.com'],
-          shouldSetVaryHeader: function(req, header) {
+          shouldSetVaryOriginHeader: function(req) {
             return req.originalUrl.indexOf('/images') !== 0
           }
         }
