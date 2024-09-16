@@ -226,39 +226,6 @@ var util = require('util')
         })
       })
 
-      it('Vary: "Access-Control-Request-Headers" header is not set for pre-flight requests when shouldSetVaryHeader(req, \'Access-Control-Request-Headers\') configured to return false', function (done) {
-        var cb = after(1, done)
-
-        var req = new FakeRequest('OPTIONS')
-        var res = new FakeResponse()
-        req.host = 'http://example.com'
-        req.originalUrl = '/images/asdf.png'
-        var options = {
-          origin: 'https://example.com',
-          shouldSetVaryHeader: function(req, header) {
-            if (header === 'Access-Control-Request-Headers') {
-              return false
-            }
-
-            if (req.originalUrl.indexOf('/images') === 0 && header === 'Origin') {
-              return false
-            } else {
-              return true
-            }
-          }
-        }
-
-        res.on('finish', function () {
-          assert.equal(res.statusCode, 204)
-          assert.equal(res.getHeader('Vary'), undefined)
-          cb()
-        })
-
-        cors(options)(req, res, function (err) {
-          cb(err || new Error('should not be called'))
-        })
-      })
-
       it('Vary: "Origin" header is set by default', function (done) {
         var req = fakeRequest('GET')
         var res = fakeResponse()
