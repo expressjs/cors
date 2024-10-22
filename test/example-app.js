@@ -2,12 +2,12 @@
 
   'use strict';
 
-  var express = require('express'),
-    supertest = require('supertest'),
-    cors = require('../lib');
+  const express = require('express');
+  const supertest = require('supertest');
+  const cors = require('../lib');
 
-  var simpleApp,
-    complexApp;
+  let simpleApp;
+  let complexApp;
 
   /* -------------------------------------------------------------------------- */
 
@@ -40,14 +40,14 @@
           .expect(200)
           .expect('Access-Control-Allow-Origin', '*')
           .expect('Hello World (Get)')
-          .end(done)
+          .end(done);
       });
       it('HEAD works', function (done) {
         supertest(simpleApp)
           .head('/')
           .expect(204)
           .expect('Access-Control-Allow-Origin', '*')
-          .end(done)
+          .end(done);
       });
       it('POST works', function (done) {
         supertest(simpleApp)
@@ -55,7 +55,7 @@
           .expect(200)
           .expect('Access-Control-Allow-Origin', '*')
           .expect('Hello World (Post)')
-          .end(done)
+          .end(done);
       });
     });
 
@@ -65,7 +65,7 @@
           .options('/')
           .expect(204)
           .expect('Access-Control-Allow-Origin', '*')
-          .end(done)
+          .end(done);
       });
       it('DELETE works', function (done) {
         supertest(complexApp)
@@ -73,7 +73,7 @@
           .expect(200)
           .expect('Access-Control-Allow-Origin', '*')
           .expect('Hello World (Delete)')
-          .end(done)
+          .end(done);
       });
     });
   });

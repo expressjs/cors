@@ -2,12 +2,12 @@
 
   'use strict';
 
-  var express = require('express'),
-    supertest = require('supertest'),
-    cors = require('../lib');
+  const express = require('express');
+  const supertest = require('supertest');
+  const cors = require('../lib');
 
-  var app,
-    corsOptions;
+  let app;
+  let corsOptions;
 
   /* -------------------------------------------------------------------------- */
 
@@ -25,14 +25,14 @@
 
   /* -------------------------------------------------------------------------- */
 
-  describe('issue  #2', function () {
+  describe('issue #2', function () {
     it('OPTIONS works', function (done) {
       supertest(app)
         .options('/api/login')
         .set('Origin', 'http://example.com')
         .expect(204)
         .expect('Access-Control-Allow-Origin', 'http://example.com')
-        .end(done)
+        .end(done);
     });
     it('POST works', function (done) {
       supertest(app)
@@ -41,7 +41,7 @@
         .expect(200)
         .expect('Access-Control-Allow-Origin', 'http://example.com')
         .expect('LOGIN')
-        .end(done)
+        .end(done);
     });
   });
 
