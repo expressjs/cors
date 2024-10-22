@@ -9,18 +9,19 @@ CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/co
 
 **[Follow me (@troygoode) on Twitter!](https://twitter.com/intent/user?screen_name=troygoode)**
 
-* [Installation](#installation)
-* [Usage](#usage)
-  * [Simple Usage](#simple-usage-enable-all-cors-requests)
-  * [Enable CORS for a Single Route](#enable-cors-for-a-single-route)
-  * [Configuring CORS](#configuring-cors)
-  * [Configuring CORS w/ Dynamic Origin](#configuring-cors-w-dynamic-origin)
-  * [Enabling CORS Pre-Flight](#enabling-cors-pre-flight)
-  * [Configuring CORS Asynchronously](#configuring-cors-asynchronously)
-* [Configuration Options](#configuration-options)
-* [Demo](#demo)
-* [License](#license)
-* [Author](#author)
+- [cors](#cors)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Simple Usage (Enable *All* CORS Requests)](#simple-usage-enable-all-cors-requests)
+    - [Enable CORS for a Single Route](#enable-cors-for-a-single-route)
+    - [Configuring CORS](#configuring-cors)
+    - [Configuring CORS w/ Dynamic Origin](#configuring-cors-w-dynamic-origin)
+    - [Enabling CORS Pre-Flight](#enabling-cors-pre-flight)
+    - [Configuring CORS Asynchronously](#configuring-cors-asynchronously)
+  - [Configuration Options](#configuration-options)
+  - [Demo](#demo)
+  - [License](#license)
+  - [Author](#author)
 
 ## Installation
 
@@ -37,9 +38,9 @@ $ npm install cors
 ### Simple Usage (Enable *All* CORS Requests)
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
 app.use(cors())
 
@@ -55,9 +56,9 @@ app.listen(80, function () {
 ### Enable CORS for a Single Route
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
 app.get('/products/:id', cors(), function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for a Single Route'})
@@ -71,11 +72,11 @@ app.listen(80, function () {
 ### Configuring CORS
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
-var corsOptions = {
+const corsOptions = {
   origin: 'http://example.com',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
@@ -105,11 +106,11 @@ This function is designed to allow the dynamic loading of allowed origin(s) from
 a backing datasource, like a database.
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
-var corsOptions = {
+const corsOptions = {
   origin: function (origin, callback) {
     // db.loadOrigins is an example call to load
     // a list of origins from a backing database
@@ -138,9 +139,9 @@ pre-flighting, you must add a new OPTIONS handler for the route you want
 to support:
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
 app.options('/products/:id', cors()) // enable pre-flight request for DELETE request
 app.del('/products/:id', cors(), function (req, res, next) {
@@ -165,12 +166,12 @@ routes.
 ### Configuring CORS Asynchronously
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
-var allowlist = ['http://example1.com', 'http://example2.com']
-var corsOptionsDelegate = function (req, callback) {
+const allowlist = ['http://example1.com', 'http://example2.com']
+const corsOptionsDelegate = function (req, callback) {
   var corsOptions;
   if (allowlist.indexOf(req.header('Origin')) !== -1) {
     corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
