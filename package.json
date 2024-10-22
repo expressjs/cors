@@ -13,7 +13,6 @@
   "repository": "expressjs/cors",
   "main": "./lib/index.js",
   "dependencies": {
-    "object-assign": "^4",
     "vary": "^1"
   },
   "devDependencies": {
