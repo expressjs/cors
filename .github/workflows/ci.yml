@@ -10,8 +10,6 @@ jobs:
     strategy:
       matrix:
         name:
-        - Node.js 0.10
-        - Node.js 4.x
         - Node.js 6.x
         - Node.js 8.x
         - Node.js 10.x
@@ -26,14 +24,6 @@ jobs:
         - Node.js 22.x
 
         include:
-        - name: Node.js 0.10
-          node-version: "0.10"
-          npm-i: mocha@3.5.3 nyc@10.3.2 supertest@2.0.0
-
-        - name: Node.js 4.x
-          node-version: "4.9"
-          npm-i: mocha@5.2.0 nyc@11.9.0 supertest@3.4.2
-
         - name: Node.js 6.x
           node-version: "6.17"
           npm-i: mocha@6.2.2 nyc@14.1.1
@@ -72,6 +62,9 @@ jobs:
 
         - name: Node.js 22.x
           node-version: "22.0"
+
+        - name: Node.js 23.x
+          node-version: "23.0"
 
     steps:
     - uses: actions/checkout@v4
