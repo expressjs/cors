@@ -1,0 +1,31 @@
+npm install cors
+const cors = require('cors');
+
+app.use(cors({
+    origin: 'http://localhost:3000', // Replace with your frontend's URL
+    credentials: true
+}));
+<script>
+    async function fetchProducts() {
+        try {
+            const response = await fetch('http://localhost:5000/api/products');
+            const products = await response.json();
+            
+            // Display products on the page
+            const productContainer = document.getElementById('product-container');
+            productContainer.innerHTML = products.map(product => `
+                <div class="product">
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <p>Price: $${product.price}</p>
+                </div>
+            `).join('');
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    }
+
+    // Call the function when the page loads
+    document.addEventListener('DOMContentLoaded', fetchProducts);
+</script>
