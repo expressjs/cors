@@ -16,7 +16,7 @@ CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/co
   * [Configuring CORS](#configuring-cors)
   * [Configuring CORS w/ Dynamic Origin](#configuring-cors-w-dynamic-origin)
   * [Enabling CORS Pre-Flight](#enabling-cors-pre-flight)
-  * [Configuring CORS Asynchronously](#configuring-cors-asynchronously)
+  * [Customizing CORS Settings Dynamically per Request](#customizing-cors-settings-dynamically-per-request)
 * [Configuration Options](#configuration-options)
 * [Demo](#demo)
 * [License](#license)
@@ -69,6 +69,8 @@ app.listen(80, function () {
 ```
 
 ### Configuring CORS
+
+See the [configuration options](#configuration-options) for details.
 
 ```javascript
 var express = require('express')
@@ -162,27 +164,45 @@ NOTE: When using this middleware as an application level middleware (for
 example, `app.use(cors())`), pre-flight requests are already handled for all
 routes.
 
-### Configuring CORS Asynchronously
+### Customizing CORS Settings Dynamically per Request
+
+For APIs that require different CORS configurations for specific routes or requests, you can dynamically generate CORS options based on the incoming request. The `cors` middleware allows you to achieve this by passing a function instead of static options. This function is called for each incoming request and must use the callback pattern to return the appropriate CORS options.
+
+The function accepts:
+1. **`req`**: 
+   - The incoming request object.
+
+2. **`callback(error, corsOptions)`**: 
+   - A function used to return the computed CORS options.
+   - **Arguments**:
+     - **`error`**: Pass `null` if there’s no error, or an error object to indicate a failure.
+     - **`corsOptions`**: An object specifying the CORS policy for the current request.
+
+Here’s an example that handles both public routes and restricted, credential-sensitive routes:
 
 ```javascript
-var express = require('express')
-var cors = require('cors')
-var app = express()
-
-var allowlist = ['http://example1.com', 'http://example2.com']
-var corsOptionsDelegate = function (req, callback) {
+var dynamicCorsOptions = function(req, callback) {
   var corsOptions;
-  if (allowlist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  if (req.path.startsWith('/auth/connect/')) {
+    corsOptions = {
+      origin: 'http://mydomain.com', // Allow only a specific origin
+      credentials: true,            // Enable cookies and credentials
+    };
   } else {
-    corsOptions = { origin: false } // disable CORS for this request
+    corsOptions = { origin: '*' };   // Allow all origins for other routes
   }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
+  callback(null, corsOptions);
+};
 
-app.get('/products/:id', cors(corsOptionsDelegate), function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for an allowed domain.'})
-})
+app.use(cors(dynamicCorsOptions));
+
+app.get('/auth/connect/twitter', function (req, res) {
+  res.send('CORS dynamically applied for Twitter authentication.');
+});
+
+app.get('/public', function (req, res) {
+  res.send('Public data with open CORS.');
+});
 
 app.listen(80, function () {
   console.log('CORS-enabled web server listening on port 80')
