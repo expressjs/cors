@@ -2,11 +2,11 @@
 
   'use strict';
 
-  var express = require('express'),
-    supertest = require('supertest'),
-    cors = require('../lib');
+  const express = require('express');
+  const supertest = require('supertest');
+  const cors = require('../lib');
 
-  var app;
+  let app;
 
   /* -------------------------------------------------------------------------- */
 
@@ -42,7 +42,7 @@
         .expect(500)
         .expect('Access-Control-Allow-Origin', '*')
         .expect(/Error: nope/)
-        .end(done)
+        .end(done);
     });
 
     it('401', function (done) {
@@ -51,7 +51,7 @@
         .expect(401)
         .expect('Access-Control-Allow-Origin', '*')
         .expect('unauthorized')
-        .end(done)
+        .end(done);
     });
 
     it('404', function (done) {
@@ -59,7 +59,7 @@
         .post('/four-oh-four')
         .expect(404)
         .expect('Access-Control-Allow-Origin', '*')
-        .end(done)
+        .end(done);
     });
   });
 
