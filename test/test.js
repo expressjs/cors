@@ -442,7 +442,7 @@ var util = require('util')
 
         res.on('finish', function () {
           assert.strictEqual(res.getHeader('Access-Control-Allow-Headers'), 'header1,header2')
-          assert.equal(res.getHeader('Vary'), undefined)
+          assert.ok(res.getHeader('Vary').includes('Origin'));
           cb()
         })
 
@@ -458,7 +458,7 @@ var util = require('util')
 
         res.on('finish', function () {
           assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'header1,header2')
-          assert.equal(res.getHeader('Vary'), undefined)
+          assert.ok(res.getHeader('Vary').includes('Origin'));
           cb()
         })
 
@@ -478,7 +478,7 @@ var util = require('util')
         next = function () {
           // assert
           assert.equal(res.getHeader('Access-Control-Allow-Headers'), undefined)
-          assert.equal(res.getHeader('Vary'), undefined)
+          assert.ok(res.getHeader('Vary').includes('Origin'));
           done();
         };
 
@@ -493,7 +493,7 @@ var util = require('util')
 
         res.on('finish', function () {
           assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'x-header-1, x-header-2')
-          assert.equal(res.getHeader('Vary'), 'Access-Control-Request-Headers')
+          assert.ok(res.getHeader('Vary').includes('Access-Control-Request-Headers'))
           cb()
         })
 
@@ -502,6 +502,8 @@ var util = require('util')
         })
       });
 
+
+      
       it('can specify exposed headers as array', function (done) {
         // arrange
         var req, res, options, next;
@@ -691,6 +693,21 @@ var util = require('util')
 
         // act
         cors(delegate)(req, res, next);
+      });
+
+
+      it('sets `Vary: Origin` header even if `Origin` request header is missing', function (done) {
+        var req = fakeRequest('GET', {}); // No 'Origin' header
+        var res = fakeResponse();
+
+        res.on('finish', function () {
+          assert.strictEqual(res.getHeader('Vary'), 'Origin'); // Validate `Vary: Origin`
+          done();
+        });
+
+        cors()(req, res, function () {
+          res.end();
+        });
       });
     });
   });
