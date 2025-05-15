@@ -204,6 +204,7 @@ app.listen(80, function () {
 * `maxAge`: Configures the **Access-Control-Max-Age** CORS header. Set to an integer to pass the header, otherwise it is omitted.
 * `preflightContinue`: Pass the CORS preflight response to the next handler.
 * `optionsSuccessStatus`: Provides a status code to use for successful `OPTIONS` requests, since some legacy browsers (IE11, various SmartTVs) choke on `204`.
+* `shouldSetVaryOriginHeader`: takes a `req`, and determines whether the `Vary: Origin` header should be set for that header name. Does nothing for pre-flight OPTIONS requests. As an example, `shouldSetVaryOriginHeader(req) { !req.originalUrl.startsWith('/images')) }` would set the Vary header to `Vary: Origin` for all request URIs besides those that start with `/images`; for requests that start with `/images`, it would not set the `Vary` header. This is mostly useful for working with caching and edge services that do not support the `Vary` header, such as [Cloudflare Polish](https://developers.cloudflare.com/images/polish/compression/); it is also useful for working with CDNs in general, because the `Vary` header can cause cache fragmentation and lower cache hit ratios depending on how it is configured.
 
 The default configuration is the equivalent of:
 
