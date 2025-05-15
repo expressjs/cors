@@ -1,31 +1,31 @@
-'use strict'
+'use strict';
 
-var EventEmitter = require('events').EventEmitter
-var util = require('util')
+var EventEmitter = require('events').EventEmitter;
+var util = require('util');
 
-;(function () {
+(function () {
   'use strict';
 
-  var after = require('after')
-  var assert = require('assert')
-  var cors = require('..')
+  var after = require('after');
+  var assert = require('assert');
+  var cors = require('..');
 
   var fakeRequest = function (method, headers) {
-    return new FakeRequest(method, headers)
-  }
+    return new FakeRequest(method, headers);
+  };
 
   var fakeResponse = function () {
-    return new FakeResponse()
-  }
+    return new FakeResponse();
+  };
 
   describe('cors', function () {
     it('does not alter `options` configuration object', function () {
       var options = Object.freeze({
-        origin: 'custom-origin'
+        origin: 'custom-origin',
       });
       assert.doesNotThrow(function () {
         cors(options);
-      })
+      });
     });
 
     it('passes control to next middleware', function (done) {
@@ -42,79 +42,79 @@ var util = require('util')
     });
 
     it('shortcircuits preflight requests', function (done) {
-      var cb = after(1, done)
-      var req = new FakeRequest('OPTIONS')
-      var res = new FakeResponse()
+      var cb = after(1, done);
+      var req = new FakeRequest('OPTIONS');
+      var res = new FakeResponse();
 
       res.on('finish', function () {
-        assert.equal(res.statusCode, 204)
-        cb()
-      })
+        assert.equal(res.statusCode, 204);
+        cb();
+      });
 
       cors()(req, res, function (err) {
-        cb(err || new Error('should not be called'))
-      })
+        cb(err || new Error('should not be called'));
+      });
     });
 
     it('can configure preflight success response status code', function (done) {
-      var cb = after(1, done)
-      var req = new FakeRequest('OPTIONS')
-      var res = new FakeResponse()
+      var cb = after(1, done);
+      var req = new FakeRequest('OPTIONS');
+      var res = new FakeResponse();
 
       res.on('finish', function () {
-        assert.equal(res.statusCode, 200)
-        cb()
-      })
+        assert.equal(res.statusCode, 200);
+        cb();
+      });
 
       // act
       cors({ optionsSuccessStatus: 200 })(req, res, function (err) {
-        cb(err || new Error('should not be called'))
-      })
+        cb(err || new Error('should not be called'));
+      });
     });
 
-    it('doesn\'t shortcircuit preflight requests with preflightContinue option', function (done) {
-      var cb = after(1, done)
-      var req = new FakeRequest('OPTIONS')
-      var res = new FakeResponse()
+    it('does not shortcircuit preflight requests with preflightContinue option', function (done) {
+      var cb = after(1, done);
+      var req = new FakeRequest('OPTIONS');
+      var res = new FakeResponse();
 
       res.on('finish', function () {
-        cb(new Error('should not be called'))
-      })
+        cb(new Error('should not be called'));
+      });
 
       cors({ preflightContinue: true })(req, res, function (err) {
-        if (err) return cb(err)
-        setTimeout(cb, 10)
-      })
+        if (err) return cb(err);
+        setTimeout(cb, 10);
+      });
     });
 
     it('normalizes method names', function (done) {
-      var cb = after(1, done)
-      var req = new FakeRequest('options')
-      var res = new FakeResponse()
+      var cb = after(1, done);
+      var req = new FakeRequest('options');
+      var res = new FakeResponse();
 
       res.on('finish', function () {
-        assert.equal(res.statusCode, 204)
-        cb()
-      })
+        assert.equal(res.statusCode, 204);
+        cb();
+      });
 
       cors()(req, res, function (err) {
-        cb(err || new Error('should not be called'))
-      })
+        cb(err || new Error('should not be called'));
+      });
     });
 
     it('includes Content-Length response header', function (done) {
-      var cb = after(1, done)
-      var req = new FakeRequest('OPTIONS')
-      var res = new FakeResponse()
+      var cb = after(1, done);
+      var req = new FakeRequest('OPTIONS');
+      var res = new FakeResponse();
 
       res.on('finish', function () {
-        assert.equal(res.getHeader('Content-Length'), '0')
-        cb()
-      })
+        assert.equal(res.getHeader('Content-Length'), '0');
+        cb();
+      });
 
       cors()(req, res, function (err) {
-        cb(err || new Error('should not be called'))
-      })
+        cb(err || new Error('should not be called'));
+      });
     });
 
     it('no options enables default CORS to all origins', function (done) {
@@ -124,8 +124,8 @@ var util = require('util')
       res = fakeResponse();
       next = function () {
         // assert
-        assert.equal(res.getHeader('Access-Control-Allow-Origin'), '*')
-        assert.equal(res.getHeader('Access-Control-Allow-Methods'), undefined)
+        assert.equal(res.getHeader('Access-Control-Allow-Origin'), '*');
+        assert.equal(res.getHeader('Access-Control-Allow-Methods'), undefined);
         done();
       };
 
@@ -134,82 +134,103 @@ var util = require('util')
     });
 
     it('OPTION call with no options enables default CORS to all origins and methods', function (done) {
-      var cb = after(1, done)
-      var req = new FakeRequest('OPTIONS')
-      var res = new FakeResponse()
+      var cb = after(1, done);
+      var req = new FakeRequest('OPTIONS');
+      var res = new FakeResponse();
 
       res.on('finish', function () {
-        assert.equal(res.statusCode, 204)
-        assert.equal(res.getHeader('Access-Control-Allow-Origin'), '*')
-        assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'GET,HEAD,PUT,PATCH,POST,DELETE')
-        cb()
-      })
+        assert.equal(res.statusCode, 204);
+        assert.equal(res.getHeader('Access-Control-Allow-Origin'), '*');
+        assert.equal(
+          res.getHeader('Access-Control-Allow-Methods'),
+          'GET,HEAD,PUT,PATCH,POST,DELETE'
+        );
+        cb();
+      });
 
       cors()(req, res, function (err) {
-        cb(err || new Error('should not be called'))
-      })
+        cb(err || new Error('should not be called'));
+      });
     });
 
     describe('passing static options', function () {
       it('overrides defaults', function (done) {
-        var cb = after(1, done)
-        var req = new FakeRequest('OPTIONS')
-        var res = new FakeResponse()
+        var cb = after(1, done);
+        var req = new FakeRequest('OPTIONS');
+        var res = new FakeResponse();
         var options = {
           origin: 'http://example.com',
           methods: ['FOO', 'bar'],
           headers: ['FIZZ', 'buzz'],
           credentials: true,
-          maxAge: 123
+          maxAge: 123,
         };
 
         res.on('finish', function () {
-          assert.equal(res.statusCode, 204)
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
-          assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'FOO,bar')
-          assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'FIZZ,buzz')
-          assert.equal(res.getHeader('Access-Control-Allow-Credentials'), 'true')
-          assert.equal(res.getHeader('Access-Control-Max-Age'), '123')
-          cb()
-        })
+          assert.equal(res.statusCode, 204);
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Origin'),
+            'http://example.com'
+          );
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Methods'),
+            'FOO,bar'
+          );
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Headers'),
+            'FIZZ,buzz'
+          );
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Credentials'),
+            'true'
+          );
+          assert.equal(res.getHeader('Access-Control-Max-Age'), '123');
+          cb();
+        });
 
         cors(options)(req, res, function (err) {
-          cb(err || new Error('should not be called'))
-        })
+          cb(err || new Error('should not be called'));
+        });
       });
 
-      it('matches request origin against regexp', function(done) {
+      it('matches request origin against regexp', function (done) {
         var req = fakeRequest('GET');
         var res = fakeResponse();
-        var options = { origin: /:\/\/(.+\.)?example.com$/ }
-        cors(options)(req, res, function(err) {
-          assert.ifError(err)
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), req.headers.origin)
-          assert.equal(res.getHeader('Vary'), 'Origin')
+        var options = { origin: /:\/\/(.+\.)?example.com$/ };
+        cors(options)(req, res, function (err) {
+          assert.ifError(err);
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Origin'),
+            req.headers.origin
+          );
+          assert.equal(res.getHeader('Vary'), 'Origin');
           return done();
         });
       });
 
-      it('matches request origin against array of origin checks', function(done) {
+      it('matches request origin against array of origin checks', function (done) {
         var req = fakeRequest('GET');
         var res = fakeResponse();
-        var options = { origin: [ /foo\.com$/, 'http://example.com' ] }
-        cors(options)(req, res, function(err) {
-          assert.ifError(err)
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), req.headers.origin)
-          assert.equal(res.getHeader('Vary'), 'Origin')
+        var options = { origin: [/foo\.com$/, 'http://example.com'] };
+        cors(options)(req, res, function (err) {
+          assert.ifError(err);
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Origin'),
+            req.headers.origin
+          );
+          assert.equal(res.getHeader('Vary'), 'Origin');
           return done();
         });
       });
 
-      it('doesn\'t match request origin against array of invalid origin checks', function(done) {
+      it('does not match request origin against array of invalid origin checks', function (done) {
         var req = fakeRequest('GET');
         var res = fakeResponse();
-        var options = { origin: [ /foo\.com$/, 'bar.com' ] };
-        cors(options)(req, res, function(err) {
-          assert.ifError(err)
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined)
-          assert.equal(res.getHeader('Vary'), 'Origin')
+        var options = { origin: [/foo\.com$/, 'bar.com'] };
+        cors(options)(req, res, function (err) {
+          assert.ifError(err);
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined);
+          assert.equal(res.getHeader('Vary'), 'Origin');
           return done();
         });
       });
@@ -222,17 +243,26 @@ var util = require('util')
           methods: ['FOO', 'bar'],
           headers: ['FIZZ', 'buzz'],
           credentials: true,
-          maxAge: 123
+          maxAge: 123,
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined)
-          assert.equal(res.getHeader('Access-Control-Allow-Methods'), undefined)
-          assert.equal(res.getHeader('Access-Control-Allow-Headers'), undefined)
-          assert.equal(res.getHeader('Access-Control-Allow-Credentials'), undefined)
-          assert.equal(res.getHeader('Access-Control-Max-Age'), undefined)
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined);
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Methods'),
+            undefined
+          );
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Headers'),
+            undefined
+          );
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Credentials'),
+            undefined
+          );
+          assert.equal(res.getHeader('Access-Control-Max-Age'), undefined);
           done();
         };
 
@@ -244,13 +274,16 @@ var util = require('util')
         // arrange
         var req, res, next, options;
         options = {
-          origin: 'http://example.com'
+          origin: 'http://example.com',
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Origin'),
+            'http://example.com'
+          );
           done();
         };
 
@@ -262,13 +295,13 @@ var util = require('util')
         // arrange
         var req, res, next, options;
         options = {
-          origin: 'http://example.com'
+          origin: 'http://example.com',
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Vary'), 'Origin')
+          assert.equal(res.getHeader('Vary'), 'Origin');
           done();
         };
 
@@ -280,14 +313,14 @@ var util = require('util')
         // arrange
         var req, res, next, options;
         options = {
-          origin: 'http://example.com'
+          origin: 'http://example.com',
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         res.setHeader('Vary', 'Foo');
         next = function () {
           // assert
-          assert.equal(res.getHeader('Vary'), 'Foo, Origin')
+          assert.equal(res.getHeader('Vary'), 'Foo, Origin');
           done();
         };
 
@@ -302,7 +335,7 @@ var util = require('util')
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), '*')
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), '*');
           done();
         };
 
@@ -314,13 +347,16 @@ var util = require('util')
         // arrange
         var req, res, next, options;
         options = {
-          origin: true
+          origin: true,
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Origin'),
+            'http://example.com'
+          );
           done();
         };
 
@@ -333,12 +369,15 @@ var util = require('util')
         options = {
           origin: function (sentOrigin, cb) {
             cb(null, true);
-          }
+          },
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Origin'),
+            'http://example.com'
+          );
           done();
         };
 
@@ -350,16 +389,25 @@ var util = require('util')
         options = {
           origin: function (sentOrigin, cb) {
             cb(null, false);
-          }
+          },
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined)
-          assert.equal(res.getHeader('Access-Control-Allow-Methods'), undefined)
-          assert.equal(res.getHeader('Access-Control-Allow-Headers'), undefined)
-          assert.equal(res.getHeader('Access-Control-Allow-Credentials'), undefined)
-          assert.equal(res.getHeader('Access-Control-Max-Age'), undefined)
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined);
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Methods'),
+            undefined
+          );
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Headers'),
+            undefined
+          );
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Credentials'),
+            undefined
+          );
+          assert.equal(res.getHeader('Access-Control-Max-Age'), undefined);
           done();
         };
 
@@ -370,115 +418,145 @@ var util = require('util')
         var req, res, next, options;
         options = {
           origin: function (sentOrigin, cb) {
-            cb(null, sentOrigin === 'http://example.com')
-          }
+            cb(null, sentOrigin === 'http://example.com');
+          },
         };
 
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Origin'),
+            'http://example.com'
+          );
         };
 
         cors(options)(req, res, next);
 
         req = fakeRequest('GET', {
-          'origin': 'http://localhost'
+          origin: 'http://localhost',
         });
         res = fakeResponse();
 
         next = function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined)
-          assert.equal(res.getHeader('Access-Control-Allow-Methods'), undefined)
-          assert.equal(res.getHeader('Access-Control-Allow-Headers'), undefined)
-          assert.equal(res.getHeader('Access-Control-Allow-Credentials'), undefined)
-          assert.equal(res.getHeader('Access-Control-Max-Age'), undefined)
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined);
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Methods'),
+            undefined
+          );
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Headers'),
+            undefined
+          );
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Credentials'),
+            undefined
+          );
+          assert.equal(res.getHeader('Access-Control-Max-Age'), undefined);
           done();
         };
 
         cors(options)(req, res, next);
       });
 
-
       it('can override methods', function (done) {
-        var cb = after(1, done)
-        var req = new FakeRequest('OPTIONS')
-        var res = new FakeResponse()
+        var cb = after(1, done);
+        var req = new FakeRequest('OPTIONS');
+        var res = new FakeResponse();
         var options = {
-          methods: ['method1', 'method2']
+          methods: ['method1', 'method2'],
         };
 
         res.on('finish', function () {
-          assert.equal(res.statusCode, 204)
-          assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'method1,method2')
-          cb()
-        })
+          assert.equal(res.statusCode, 204);
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Methods'),
+            'method1,method2'
+          );
+          cb();
+        });
 
         cors(options)(req, res, function (err) {
-          cb(err || new Error('should not be called'))
-        })
+          cb(err || new Error('should not be called'));
+        });
       });
 
       it('methods defaults to GET, HEAD, PUT, PATCH, POST, DELETE', function (done) {
-        var cb = after(1, done)
-        var req = new FakeRequest('OPTIONS')
-        var res = new FakeResponse()
+        var cb = after(1, done);
+        var req = new FakeRequest('OPTIONS');
+        var res = new FakeResponse();
 
         res.on('finish', function () {
-          assert.equal(res.statusCode, 204)
-          assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'GET,HEAD,PUT,PATCH,POST,DELETE')
-          cb()
-        })
+          assert.equal(res.statusCode, 204);
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Methods'),
+            'GET,HEAD,PUT,PATCH,POST,DELETE'
+          );
+          cb();
+        });
 
         cors()(req, res, function (err) {
-          cb(err || new Error('should not be called'))
-        })
+          cb(err || new Error('should not be called'));
+        });
       });
 
       it('can specify allowed headers as array', function (done) {
-        var cb = after(1, done)
-        var req = new FakeRequest('OPTIONS')
-        var res = new FakeResponse()
+        var cb = after(1, done);
+        var req = new FakeRequest('OPTIONS');
+        var res = new FakeResponse();
 
         res.on('finish', function () {
-          assert.strictEqual(res.getHeader('Access-Control-Allow-Headers'), 'header1,header2')
-          assert.ok(res.getHeader('Vary').includes('Origin'));
-          cb()
-        })
+          assert.strictEqual(
+            res.getHeader('Access-Control-Allow-Headers'),
+            'header1,header2'
+          );
+          assert.ok(res.getHeader('Vary'),'Origin');
+          cb();
+        });
 
-        cors({ allowedHeaders: ['header1', 'header2'] })(req, res, function (err) {
-          cb(err || new Error('should not be called'))
-        })
+        cors({ allowedHeaders: ['header1', 'header2'] })(
+          req,
+          res,
+          function (err) {
+            cb(err || new Error('should not be called'));
+          }
+        );
       });
 
       it('can specify allowed headers as string', function (done) {
-        var cb = after(1, done)
-        var req = new FakeRequest('OPTIONS')
-        var res = new FakeResponse()
+        var cb = after(1, done);
+        var req = new FakeRequest('OPTIONS');
+        var res = new FakeResponse();
 
         res.on('finish', function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'header1,header2')
-          assert.ok(res.getHeader('Vary').includes('Origin'));
-          cb()
-        })
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Headers'),
+            'header1,header2'
+          );
+          assert.ok(res.getHeader('Vary'),'Origin');
+          cb();
+        });
 
         cors({ allowedHeaders: 'header1,header2' })(req, res, function (err) {
-          cb(err || new Error('should not be called'))
-        })
+          cb(err || new Error('should not be called'));
+        });
       });
 
       it('specifying an empty list or string of allowed headers will result in no response header for allowed headers', function (done) {
         // arrange
         var req, res, next, options;
         options = {
-          allowedHeaders: []
+          allowedHeaders: [],
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Allow-Headers'), undefined)
-          assert.ok(res.getHeader('Vary').includes('Origin'));
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Headers'),
+            undefined
+          );
+          assert.ok(res.getHeader('Vary'), 'Origin');
           done();
         };
 
@@ -487,34 +565,38 @@ var util = require('util')
       });
 
       it('if no allowed headers are specified, defaults to requested allowed headers', function (done) {
-        var cb = after(1, done)
-        var req = new FakeRequest('OPTIONS')
-        var res = new FakeResponse()
+        var cb = after(1, done);
+        var req = new FakeRequest('OPTIONS');
+        var res = new FakeResponse();
 
         res.on('finish', function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'x-header-1, x-header-2')
-          assert.ok(res.getHeader('Vary').includes('Access-Control-Request-Headers'))
-          cb()
-        })
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Headers'),
+            'x-header-1, x-header-2'
+          );
+          assert.ok(res.getHeader('Vary'), 'Access-Control-Request-Headers');
+          cb();
+        });
 
         cors()(req, res, function (err) {
-          cb(err || new Error('should not be called'))
-        })
+          cb(err || new Error('should not be called'));
+        });
       });
 
-
-      
       it('can specify exposed headers as array', function (done) {
         // arrange
         var req, res, options, next;
         options = {
-          exposedHeaders: ['custom-header1', 'custom-header2']
+          exposedHeaders: ['custom-header1', 'custom-header2'],
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Expose-Headers'), 'custom-header1,custom-header2')
+          assert.equal(
+            res.getHeader('Access-Control-Expose-Headers'),
+            'custom-header1,custom-header2'
+          );
           done();
         };
 
@@ -526,13 +608,16 @@ var util = require('util')
         // arrange
         var req, res, options, next;
         options = {
-          exposedHeaders: 'custom-header1,custom-header2'
+          exposedHeaders: 'custom-header1,custom-header2',
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Expose-Headers'), 'custom-header1,custom-header2')
+          assert.equal(
+            res.getHeader('Access-Control-Expose-Headers'),
+            'custom-header1,custom-header2'
+          );
           done();
         };
 
@@ -544,13 +629,16 @@ var util = require('util')
         // arrange
         var req, res, next, options;
         options = {
-          exposedHeaders: []
+          exposedHeaders: [],
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Expose-Headers'), undefined)
+          assert.equal(
+            res.getHeader('Access-Control-Expose-Headers'),
+            undefined
+          );
           done();
         };
 
@@ -559,18 +647,21 @@ var util = require('util')
       });
 
       it('includes credentials if explicitly enabled', function (done) {
-        var cb = after(1, done)
-        var req = new FakeRequest('OPTIONS')
-        var res = new FakeResponse()
+        var cb = after(1, done);
+        var req = new FakeRequest('OPTIONS');
+        var res = new FakeResponse();
 
         res.on('finish', function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Credentials'), 'true')
-          cb()
-        })
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Credentials'),
+            'true'
+          );
+          cb();
+        });
 
         cors({ credentials: true })(req, res, function (err) {
-          cb(err || new Error('should not be called'))
-        })
+          cb(err || new Error('should not be called'));
+        });
       });
 
       it('does not includes credentials unless explicitly enabled', function (done) {
@@ -580,7 +671,10 @@ var util = require('util')
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Allow-Credentials'), undefined)
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Credentials'),
+            undefined
+          );
           done();
         };
 
@@ -589,33 +683,33 @@ var util = require('util')
       });
 
       it('includes maxAge when specified', function (done) {
-        var cb = after(1, done)
-        var req = new FakeRequest('OPTIONS')
-        var res = new FakeResponse()
+        var cb = after(1, done);
+        var req = new FakeRequest('OPTIONS');
+        var res = new FakeResponse();
 
         res.on('finish', function () {
-          assert.equal(res.getHeader('Access-Control-Max-Age'), '456')
-          cb()
-        })
+          assert.equal(res.getHeader('Access-Control-Max-Age'), '456');
+          cb();
+        });
 
         cors({ maxAge: 456 })(req, res, function (err) {
-          cb(err || new Error('should not be called'))
-        })
+          cb(err || new Error('should not be called'));
+        });
       });
 
       it('includes maxAge when specified and equals to zero', function (done) {
-        var cb = after(1, done)
-        var req = new FakeRequest('OPTIONS')
-        var res = new FakeResponse()
+        var cb = after(1, done);
+        var req = new FakeRequest('OPTIONS');
+        var res = new FakeResponse();
 
         res.on('finish', function () {
-          assert.equal(res.getHeader('Access-Control-Max-Age'), '0')
-          cb()
-        })
+          assert.equal(res.getHeader('Access-Control-Max-Age'), '0');
+          cb();
+        });
 
         cors({ maxAge: 0 })(req, res, function (err) {
-          cb(err || new Error('should not be called'))
-        })
+          cb(err || new Error('should not be called'));
+        });
       });
 
       it('does not includes maxAge unless specified', function (done) {
@@ -625,7 +719,7 @@ var util = require('util')
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Max-Age'), undefined)
+          assert.equal(res.getHeader('Access-Control-Max-Age'), undefined);
           done();
         };
 
@@ -640,14 +734,17 @@ var util = require('util')
         var req, res, next, delegate;
         delegate = function (req2, cb) {
           cb(null, {
-            origin: 'delegate.com'
+            origin: 'delegate.com',
           });
         };
         req = fakeRequest('GET');
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'delegate.com')
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Origin'),
+            'delegate.com'
+          );
           done();
         };
 
@@ -656,25 +753,28 @@ var util = require('util')
       });
 
       it('handles options specified via callback for preflight', function (done) {
-        var cb = after(1, done)
-        var req = new FakeRequest('OPTIONS')
-        var res = new FakeResponse()
+        var cb = after(1, done);
+        var req = new FakeRequest('OPTIONS');
+        var res = new FakeResponse();
         var delegate = function (req2, cb) {
           cb(null, {
             origin: 'delegate.com',
-            maxAge: 1000
+            maxAge: 1000,
           });
         };
 
         res.on('finish', function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'delegate.com')
-          assert.equal(res.getHeader('Access-Control-Max-Age'), '1000')
-          cb()
-        })
+          assert.equal(
+            res.getHeader('Access-Control-Allow-Origin'),
+            'delegate.com'
+          );
+          assert.equal(res.getHeader('Access-Control-Max-Age'), '1000');
+          cb();
+        });
 
         cors(delegate)(req, res, function (err) {
-          cb(err || new Error('should not be called'))
-        })
+          cb(err || new Error('should not be called'));
+        });
       });
 
       it('handles error specified via callback', function (done) {
@@ -687,14 +787,13 @@ var util = require('util')
         res = fakeResponse();
         next = function (err) {
           // assert
-          assert.equal(err, 'some error')
+          assert.equal(err, 'some error');
           done();
         };
 
         // act
         cors(delegate)(req, res, next);
       });
-
 
       it('sets `Vary: Origin` header even if `Origin` request header is missing', function (done) {
         var req = fakeRequest('GET', {}); // No 'Origin' header
@@ -711,38 +810,37 @@ var util = require('util')
       });
     });
   });
+})();
 
-}());
-
-function FakeRequest (method, headers) {
+function FakeRequest(method, headers) {
   this.headers = headers || {
-    'origin': 'http://example.com',
-    'access-control-request-headers': 'x-header-1, x-header-2'
-  }
-  this.method = method || 'GET'
+    origin: 'http://example.com',
+    'access-control-request-headers': 'x-header-1, x-header-2',
+  };
+  this.method = method || 'GET';
 }
 
-function FakeResponse () {
-  this._headers = {}
-  this.statusCode = 200
+function FakeResponse() {
+  this._headers = {};
+  this.statusCode = 200;
 }
 
-util.inherits(FakeResponse, EventEmitter)
+util.inherits(FakeResponse, EventEmitter);
 
-FakeResponse.prototype.end = function end () {
-  var response = this
+FakeResponse.prototype.end = function end() {
+  var response = this;
 
   process.nextTick(function () {
-    response.emit('finish')
-  })
-}
+    response.emit('finish');
+  });
+};
 
-FakeResponse.prototype.getHeader = function getHeader (name) {
-  var key = name.toLowerCase()
-  return this._headers[key]
-}
+FakeResponse.prototype.getHeader = function getHeader(name) {
+  var key = name.toLowerCase();
+  return this._headers[key];
+};
 
-FakeResponse.prototype.setHeader = function setHeader (name, value) {
-  var key = name.toLowerCase()
-  this._headers[key] = value
-}
+FakeResponse.prototype.setHeader = function setHeader(name, value) {
+  var key = name.toLowerCase();
+  this._headers[key] = value;
+};
