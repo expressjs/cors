@@ -18,7 +18,6 @@ CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/co
   * [Enabling CORS Pre-Flight](#enabling-cors-pre-flight)
   * [Configuring CORS Asynchronously](#configuring-cors-asynchronously)
 * [Configuration Options](#configuration-options)
-* [Demo](#demo)
 * [License](#license)
 * [Author](#author)
 
@@ -217,15 +216,6 @@ The default configuration is the equivalent of:
 ```
 
 For details on the effect of each CORS header, read [this](https://web.dev/cross-origin-resource-sharing/) article on web.dev.
-
-## Demo
-
-A demo that illustrates CORS working (and not working) using React is available here: [https://node-cors-client.netlify.com](https://node-cors-client.netlify.com)
-
-Code for that demo can be found here:
-
-* Client: [https://github.com/troygoode/node-cors-client](https://github.com/troygoode/node-cors-client)
-* Server: [https://github.com/troygoode/node-cors-server](https://github.com/troygoode/node-cors-server)
 
 ## License
 
