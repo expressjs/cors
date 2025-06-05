@@ -30,6 +30,8 @@ jobs:
         - Node.js 20.x
         - Node.js 21.x
         - Node.js 22.x
+        - Node.js 23.x
+        - Node.js 24.x
 
         include:
         - name: Node.js 0.10
@@ -37,47 +39,53 @@ jobs:
           npm-i: mocha@3.5.3 nyc@10.3.2 supertest@2.0.0
 
         - name: Node.js 4.x
-          node-version: "4.9"
+          node-version: "4"
           npm-i: mocha@5.2.0 nyc@11.9.0 supertest@3.4.2
 
         - name: Node.js 6.x
-          node-version: "6.17"
+          node-version: "6"
           npm-i: mocha@6.2.2 nyc@14.1.1
 
         - name: Node.js 8.x
-          node-version: "8.17"
+          node-version: "8"
           npm-i: mocha@7.2.0 nyc@14.1.1
 
         - name: Node.js 10.x
-          node-version: "10.24"
+          node-version: "10"
           npm-i: mocha@8.3.2
 
         - name: Node.js 12.x
-          node-version: "12.22"
+          node-version: "12"
 
         - name: Node.js 14.x
-          node-version: "14.17"
+          node-version: "14"
 
         - name: Node.js 16.x
-          node-version: "16.6"
+          node-version: "16"
 
         - name: Node.js 17.x
-          node-version: "17.6"
+          node-version: "17"
 
         - name: Node.js 18.x
-          node-version: "18.14"
+          node-version: "18"
 
         - name: Node.js 19.x
-          node-version: "19.6"
+          node-version: "19"
 
         - name: Node.js 20.x
-          node-version: "20.12"
+          node-version: "20"
 
         - name: Node.js 21.x
-          node-version: "21.7"
+          node-version: "21"
 
         - name: Node.js 22.x
-          node-version: "22.0"
+          node-version: "22"
+
+        - name: Node.js 23.x
+          node-version: "23"
+
+        - name: Node.js 24.x
+          node-version: "24"
 
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
