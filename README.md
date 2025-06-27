@@ -156,7 +156,13 @@ app.listen(80, function () {
 You can also enable pre-flight across-the-board like so:
 
 ```javascript
-app.options('*', cors()) // include before other routes
+// Catch every non-root path
+app.options('/*splat', cors());
+
+// —or—
+
+// Catch everything, including '/'
+app.options('/{*splat}', cors());
 ```
 
 NOTE: When using this middleware as an application level middleware (for
