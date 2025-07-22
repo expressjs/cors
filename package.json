@@ -11,6 +11,10 @@
     "middleware"
   ],
   "repository": "expressjs/cors",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/express"
+  },
   "main": "./lib/index.js",
   "dependencies": {
     "object-assign": "^4",
