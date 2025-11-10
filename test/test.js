@@ -310,6 +310,67 @@ var util = require('util')
         cors()(req, res, next);
       });
 
+      it('should not allow non-matching origin when origin is set to specific string', function (done) {
+        // arrange
+        var req, res, next, options;
+        options = {
+          origin: 'https://allowed.com'  // Only allow this specific origin
+        };
+        // Request from different origin
+        req = fakeRequest('GET', {
+          'origin': 'https://notallowed.com'
+        });
+        res = fakeResponse();
+        next = function () {
+          // assert - should NOT set Access-Control-Allow-Origin header for non-matching origin
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined)
+          done();
+        };
+
+        // act
+        cors(options)(req, res, next);
+      });
+
+      it('should allow matching origin when origin is set to specific string', function (done) {
+        // arrange
+        var req, res, next, options;
+        options = {
+          origin: 'https://allowed.com'  // Only allow this specific origin
+        };
+        // Request from matching origin
+        req = fakeRequest('GET', {
+          'origin': 'https://allowed.com'
+        });
+        res = fakeResponse();
+        next = function () {
+          // assert - should set Access-Control-Allow-Origin header for matching origin
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'https://allowed.com')
+          done();
+        };
+
+        // act
+        cors(options)(req, res, next);
+      });
+
+      it('should not set header when request has no origin and string origin configured', function (done) {
+        // arrange
+        var req, res, next, options;
+        options = {
+          origin: 'https://allowed.com'
+        };
+        // Request with no origin header (like a same-origin request)
+        req = fakeRequest('GET', {});
+        res = fakeResponse();
+        next = function () {
+          // assert - should not set Access-Control-Allow-Origin header when no origin in request
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined)
+          done();
+        };
+
+        // act
+        cors(options)(req, res, next);
+      });
+
       it('specifying true for origin reflects requesting origin', function (done) {
         // arrange
         var req, res, next, options;
@@ -638,14 +699,14 @@ var util = require('util')
         var req, res, next, delegate;
         delegate = function (req2, cb) {
           cb(null, {
-            origin: 'delegate.com'
+            origin: 'http://example.com'  // Must match request origin for security
           });
         };
-        req = fakeRequest('GET');
+        req = fakeRequest('GET');  // Defaults to origin: 'http://example.com'
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'delegate.com')
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
           done();
         };
 
@@ -655,17 +716,17 @@ var util = require('util')
 
       it('handles options specified via callback for preflight', function (done) {
         var cb = after(1, done)
-        var req = new FakeRequest('OPTIONS')
+        var req = new FakeRequest('OPTIONS')  // Defaults to origin: 'http://example.com'
         var res = new FakeResponse()
         var delegate = function (req2, cb) {
           cb(null, {
-            origin: 'delegate.com',
+            origin: 'http://example.com',  // Must match request origin for security
             maxAge: 1000
           });
         };
 
         res.on('finish', function () {
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'delegate.com')
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
           assert.equal(res.getHeader('Access-Control-Max-Age'), '1000')
           cb()
         })
