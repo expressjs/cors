@@ -248,8 +248,8 @@ For details on the effect of each CORS header, read [this](https://web.dev/artic
 [coveralls-image]: https://img.shields.io/coveralls/expressjs/cors/master.svg
 [coveralls-url]: https://coveralls.io/r/expressjs/cors?branch=master
 [downloads-image]: https://img.shields.io/npm/dm/cors.svg
-[downloads-url]: https://npmjs.org/package/cors
+[downloads-url]: https://npmjs.com/package/cors
 [github-actions-ci-image]: https://img.shields.io/github/actions/workflow/status/expressjs/cors/ci.yml?branch=master&label=ci
 [github-actions-ci-url]: https://github.com/expressjs/cors?query=workflow%3Aci
 [npm-image]: https://img.shields.io/npm/v/cors.svg
-[npm-url]: https://npmjs.org/package/cors
+[npm-url]: https://npmjs.com/package/cors
