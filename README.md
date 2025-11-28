@@ -5,9 +5,7 @@
 [![Build Status][github-actions-ci-image]][github-actions-ci-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 
-CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/connect/)/[Express](http://expressjs.com/) middleware that can be used to enable [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) with various options.
-
-**[Follow me (@troygoode) on Twitter!](https://twitter.com/intent/user?screen_name=troygoode)**
+CORS is a [Node.js](https://nodejs.org/en/) package for providing a [Connect](https://github.com/senchalabs/connect)/[Express](https://expressjs.com/) middleware that can be used to enable [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS) with various options.
 
 * [Installation](#installation)
 * [Usage](#usage)
@@ -19,13 +17,13 @@ CORS is a node.js package for providing a [Connect](http://www.senchalabs.org/co
   * [Customizing CORS Settings Dynamically per Request](#customizing-cors-settings-dynamically-per-request)
 * [Configuration Options](#configuration-options)
 * [License](#license)
-* [Author](#author)
+* [Original Author](#original-author)
 
 ## Installation
 
 This is a [Node.js](https://nodejs.org/en/) module available through the
 [npm registry](https://www.npmjs.com/). Installation is done using the
-[`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
+[`npm install` command](https://docs.npmjs.com/downloading-and-installing-packages-locally):
 
 ```sh
 $ npm install cors
@@ -211,7 +209,7 @@ app.listen(80, function () {
 ## Configuration Options
 
 * `origin`: Configures the **Access-Control-Allow-Origin** CORS header. Possible values:
-  - `Boolean` - set `origin` to `true` to reflect the [request origin](http://tools.ietf.org/html/draft-abarth-origin-09), as defined by `req.header('Origin')`, or set it to `false` to disable CORS.
+  - `Boolean` - set `origin` to `true` to reflect the [request origin](https://datatracker.ietf.org/doc/html/draft-abarth-origin-09), as defined by `req.header('Origin')`, or set it to `false` to disable CORS.
   - `String` - set `origin` to a specific origin. For example, if you set it to
     - `"http://example.com"` only requests from "http://example.com" will be allowed.
     - `"*"` for all domains to be allowed. 
@@ -237,13 +235,13 @@ The default configuration is the equivalent of:
 }
 ```
 
-For details on the effect of each CORS header, read [this](https://web.dev/cross-origin-resource-sharing/) article on web.dev.
+For details on the effect of each CORS header, read [this](https://web.dev/articles/cross-origin-resource-sharing) article.
 
 ## License
 
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
 
-## Author
+## Original Author
 
 [Troy Goode](https://github.com/TroyGoode) ([troygoode@gmail.com](mailto:troygoode@gmail.com))
 
