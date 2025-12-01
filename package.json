@@ -17,6 +17,7 @@
   },
   "main": "./lib/index.js",
   "dependencies": {
+    "debug": "^4.3.1",
     "object-assign": "^4",
     "vary": "^1"
   },
