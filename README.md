@@ -241,15 +241,15 @@ The default configuration is the equivalent of:
 
 ## Common Misconceptions
 
-**"CORS blocks requests from disallowed origins"**
+### "CORS blocks requests from disallowed origins"
 
 No. Your server receives and processes every request. CORS headers tell the browser whether JavaScript can read the response—not whether the request is allowed.
 
-**"CORS protects my API from unauthorized access"**
+### "CORS protects my API from unauthorized access"
 
 No. CORS is not access control. Any HTTP client (curl, Postman, another server) can call your API regardless of CORS settings. Use authentication and authorization to protect your API.
 
-**"Setting `origin: 'http://example.com'` means only that domain can access my server"**
+### "Setting `origin: 'http://example.com'` means only that domain can access my server"
 
 No. It means browsers will only let JavaScript from that origin read responses. The server still responds to all requests.
 
