@@ -5,7 +5,10 @@
 [![Build Status][github-actions-ci-image]][github-actions-ci-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 
-CORS is a [Node.js](https://nodejs.org/en/) package for providing a [Connect](https://github.com/senchalabs/connect)/[Express](https://expressjs.com/) middleware that can be used to enable [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS) with various options.
+CORS is a [Node.js](https://nodejs.org/en/) middleware for [Express](https://expressjs.com/)/[Connect](https://github.com/senchalabs/connect) that sets [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS) response headers. These headers tell browsers which origins can read responses from your server.
+
+> [!IMPORTANT]
+> **How CORS Works:** This package sets response headers—it doesn't block requests. CORS is enforced by browsers: they check the headers and decide if JavaScript can read the response. Non-browser clients (curl, Postman, other servers) ignore CORS entirely. See the [MDN CORS guide](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS) for details.
 
 * [Installation](#installation)
 * [Usage](#usage)
@@ -16,6 +19,7 @@ CORS is a [Node.js](https://nodejs.org/en/) package for providing a [Connect](ht
   * [Enabling CORS Pre-Flight](#enabling-cors-pre-flight)
   * [Customizing CORS Settings Dynamically per Request](#customizing-cors-settings-dynamically-per-request)
 * [Configuration Options](#configuration-options)
+* [Common Misconceptions](#common-misconceptions)
 * [License](#license)
 * [Original Author](#original-author)
 
@@ -235,7 +239,19 @@ The default configuration is the equivalent of:
 }
 ```
 
-For details on the effect of each CORS header, read [this](https://web.dev/articles/cross-origin-resource-sharing) article.
+## Common Misconceptions
+
+**"CORS blocks requests from disallowed origins"**
+
+No. Your server receives and processes every request. CORS headers tell the browser whether JavaScript can read the response—not whether the request is allowed.
+
+**"CORS protects my API from unauthorized access"**
+
+No. CORS is not access control. Any HTTP client (curl, Postman, another server) can call your API regardless of CORS settings. Use authentication and authorization to protect your API.
+
+**"Setting `origin: 'http://example.com'` means only that domain can access my server"**
+
+No. It means browsers will only let JavaScript from that origin read responses. The server still responds to all requests.
 
 ## License
 
