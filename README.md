@@ -38,7 +38,7 @@ var express = require('express')
 var cors = require('cors')
 var app = express()
 
-// Adds CORS headers: Access-Control-Allow-Origin: *
+// Adds headers: Access-Control-Allow-Origin: *
 app.use(cors())
 
 app.get('/products/:id', function (req, res, next) {
@@ -57,7 +57,7 @@ var express = require('express')
 var cors = require('cors')
 var app = express()
 
-// Adds CORS headers: Access-Control-Allow-Origin: *
+// Adds headers: Access-Control-Allow-Origin: *
 app.get('/products/:id', cors(), function (req, res, next) {
   res.json({msg: 'Hello'})
 })
@@ -81,7 +81,7 @@ var corsOptions = {
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
-// Adds CORS headers: Access-Control-Allow-Origin: http://example.com
+// Adds headers: Access-Control-Allow-Origin: http://example.com, Vary: Origin
 app.get('/products/:id', cors(corsOptions), function (req, res, next) {
   res.json({msg: 'Hello'})
 })
@@ -121,7 +121,7 @@ var corsOptions = {
   }
 }
 
-// Adds CORS headers: Access-Control-Allow-Origin: <matched origin>
+// Adds headers: Access-Control-Allow-Origin: <matched origin>, Vary: Origin
 app.get('/products/:id', cors(corsOptions), function (req, res, next) {
   res.json({msg: 'Hello'})
 })
@@ -185,7 +185,7 @@ Here’s an example that handles both public routes and restricted, credential-s
 var dynamicCorsOptions = function(req, callback) {
   var corsOptions;
   if (req.path.startsWith('/auth/connect/')) {
-    // Access-Control-Allow-Origin: http://mydomain.com
+    // Access-Control-Allow-Origin: http://mydomain.com, Access-Control-Allow-Credentials: true, Vary: Origin
     corsOptions = {
       origin: 'http://mydomain.com',
       credentials: true
