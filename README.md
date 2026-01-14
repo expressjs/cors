@@ -243,7 +243,7 @@ The default configuration is the equivalent of:
 
 ### "CORS blocks requests from disallowed origins"
 
-No. Your server receives and processes every request. CORS headers tell the browser whether JavaScript can read the response—not whether the request is allowed.
+**No.** Your server receives and processes every request. CORS headers tell the browser whether JavaScript can read the response—not whether the request is allowed.
 
 ### "CORS protects my API from unauthorized access"
 
