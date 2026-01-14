@@ -247,7 +247,7 @@ The default configuration is the equivalent of:
 
 ### "CORS protects my API from unauthorized access"
 
-No. CORS is not access control. Any HTTP client (curl, Postman, another server) can call your API regardless of CORS settings. Use authentication and authorization to protect your API.
+**No.** CORS is not access control. Any HTTP client (curl, Postman, another server) can call your API regardless of CORS settings. Use authentication and authorization to protect your API.
 
 ### "Setting `origin: 'http://example.com'` means only that domain can access my server"
 
