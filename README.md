@@ -251,7 +251,7 @@ The default configuration is the equivalent of:
 
 ### "Setting `origin: 'http://example.com'` means only that domain can access my server"
 
-No. It means browsers will only let JavaScript from that origin read responses. The server still responds to all requests.
+**No.** It means browsers will only let JavaScript from that origin read responses. The server still responds to all requests.
 
 ## License
 
