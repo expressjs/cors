@@ -29,11 +29,7 @@
     "supertest": "6.1.3"
   },
   "files": [
-    "lib/index.js",
-    "CONTRIBUTING.md",
-    "HISTORY.md",
-    "LICENSE",
-    "README.md"
+    "lib/index.js"
   ],
   "engines": {
     "node": ">= 0.10"
