@@ -1,3 +1,9 @@
+2.8.6 / 2026-01-22
+==================
+
+  * Improve documentation (API, context, examples...)
+  * Remove additional markdown files from tarball
+
 2.8.5 / 2018-11-04
 ==================
 
