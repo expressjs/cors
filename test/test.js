@@ -150,6 +150,97 @@ var util = require('util')
       })
     });
 
+    describe('shouldSetVaryOriginHeader', function() {
+      it('Vary: "Origin" header is set by default', function (done) {
+        var req = fakeRequest('GET')
+        var res = fakeResponse()
+        req.host = 'http://example.com'
+        req.originalUrl = '/images/asdf.png'
+        var options = {
+          origin: 'http://example.com'
+        }
+
+        var next = function () {
+          // assert
+          assert.equal(res.statusCode, 200)
+          assert.equal(res.getHeader('Vary'), 'Origin')
+          done();
+        };
+
+        cors(options)(req, res, next)
+      })
+
+      it('Vary: "Origin" header is not set when shouldSetVaryOriginHeader(req) configured to return false', function (done) {
+        var req = fakeRequest('GET')
+        var res = fakeResponse()
+        req.host = 'http://example.com'
+        req.originalUrl = '/images/asdf.png'
+
+        var options = {
+          origin: ['http://example.com', 'http://foo.com'],
+          shouldSetVaryOriginHeader: function(req) {
+            return req.originalUrl.indexOf('/images') !== 0
+          }
+        }
+
+        var next = function () {
+          // assert
+          assert.equal(res.statusCode, 200)
+          assert.equal(res.getHeader('Vary'), undefined)
+          done();
+        };
+
+        cors(options)(req, res, next)
+      })
+
+      it('Vary: "Origin" header is not set when shouldSetVaryOriginHeader(req) configured to return false and origin is string', function (done) {
+        var req = fakeRequest('GET')
+        var res = fakeResponse()
+        req.host = 'http://example.com'
+        req.originalUrl = '/images/asdf.png'
+
+        var options = {
+          origin: 'http://example.com',
+          shouldSetVaryOriginHeader: function(req) {
+            return req.originalUrl.indexOf('/images') !== 0
+          }
+        }
+
+        var next = function () {
+          // assert
+          assert.equal(res.statusCode, 200)
+          assert.equal(res.getHeader('Vary'), undefined)
+          done();
+        };
+
+        cors(options)(req, res, next)
+      })
+
+      it('Vary: "Origin" header is set when shouldSetVaryOriginHeader(req) configured to return true', function (done) {
+        var req = fakeRequest('GET')
+        var res = fakeResponse()
+        req.host = 'http://example.com'
+
+        req.originalUrl = '/some/other/path'
+
+        var options = {
+          origin: ['http://example.com', 'http://foo.com'],
+          shouldSetVaryOriginHeader: function(req) {
+            return req.originalUrl.indexOf('/images') !== 0
+          }
+        }
+
+        var next = function () {
+          // assert
+          assert.equal(res.statusCode, 200)
+          assert.equal(res.getHeader('Vary'), 'Origin')
+          done();
+        };
+
+        cors(options)(req, res, next)
+      })
+    })
+
     describe('passing static options', function () {
       it('overrides defaults', function (done) {
         var cb = after(1, done)
