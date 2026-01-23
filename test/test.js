@@ -586,6 +586,45 @@ var util = require('util')
         cors()(req, res, next);
       });
 
+      describe('credentials configured with function', function () {
+        function conditionalCredentials(req) {
+          console.log('conditionalCredentials()', 'origin:', req.headers.origin);
+          var match = req.headers.origin === 'http://example.com';
+          console.log('conditionalCredentials()', 'match:', match);
+          return match;
+        }
+
+        it('includes credentials if provided function returns true', function (done) {
+          var cb = after(1, done)
+          var req = fakeRequest('OPTIONS')
+          var res = fakeResponse()
+
+          res.on('finish', function () {
+            assert.equal(res.getHeader('Access-Control-Allow-Credentials'), 'true')
+            cb()
+          })
+
+          cors({ credentials: conditionalCredentials })(req, res, function (err) {
+            cb(err || new Error('should not be called'))
+          })
+        });
+
+        it('does not include credentials if provided function returns false', function (done) {
+          var cb = after(1, done)
+          var req = fakeRequest('OPTIONS', { origin: 'http://unmatched.example.com' });
+          var res = fakeResponse();
+
+          res.on('finish', function () {
+            assert.equal(res.getHeader('Access-Control-Allow-Credentials'), undefined)
+            cb()
+          })
+
+          cors({ credentials: conditionalCredentials })(req, res, function (err) {
+            cb(err || new Error('should not be called'))
+          })
+        });
+      });
+
       it('includes maxAge when specified', function (done) {
         var cb = after(1, done)
         var req = new FakeRequest('OPTIONS')
