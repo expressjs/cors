@@ -162,8 +162,17 @@ app.listen(80, function () {
 You can also enable pre-flight across-the-board like so:
 
 ```javascript
+app.options('*cors', cors()) // include before other routes; the cors string after the * is arbitrary
+```
+
+NOTE: previous versions of this documentation suggested the following:
+
+```javascript
 app.options('*', cors()) // include before other routes
 ```
+
+Since path-to-regexp broke API and requires wildcards to be named, this no
+longer works in Express 5.
 
 NOTE: When using this middleware as an application level middleware (for
 example, `app.use(cors())`), pre-flight requests are already handled for all
