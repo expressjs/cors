@@ -275,3 +275,6 @@ The default configuration is the equivalent of:
 [github-actions-ci-url]: https://github.com/expressjs/cors?query=workflow%3Aci
 [npm-image]: https://img.shields.io/npm/v/cors.svg
 [npm-url]: https://npmjs.com/package/cors
+
+
+<!-- Test PR via AutoQA test-pr-publish-1772626429584 -->
