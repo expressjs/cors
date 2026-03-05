@@ -1,0 +1,122 @@
+{
+  "success": false,
+  "totalSuites": 1,
+  "passedSuites": 0,
+  "failedSuites": 1,
+  "totalTests": 12,
+  "passed": 2,
+  "failed": 10,
+  "skipped": 0,
+  "pending": 0,
+  "duration": 5041,
+  "runtimeErrors": [],
+  "testFileResults": [
+    {
+      "file": "/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js",
+      "status": "failed",
+      "duration": 4922,
+      "tests": [
+        {
+          "name": "lib/index.js should exist",
+          "status": "passed",
+          "duration": 6,
+          "failureMessages": []
+        },
+        {
+          "name": "lib/index.js should return a function",
+          "status": "passed",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "name": "lib/index.js should call next when no options are provided",
+          "status": "failed",
+          "duration": 1,
+          "failureMessages": [
+            "TypeError: Cannot read properties of undefined (reading 'method')\n    at method (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:5:19)\n    at Object.mockReq (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:30:17)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:95:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Allow-Origin header when origin is '*'",
+          "status": "failed",
+          "duration": 1,
+          "failureMessages": [
+            "TypeError: Cannot read properties of undefined (reading 'method')\n    at method (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:5:19)\n    at Object.mockReq (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:42:17)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:95:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Allow-Origin header when origin is a string",
+          "status": "failed",
+          "duration": 1,
+          "failureMessages": [
+            "TypeError: Cannot read properties of undefined (reading 'method')\n    at method (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:5:19)\n    at Object.mockReq (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:55:17)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:95:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Allow-Origin header when origin is a function",
+          "status": "failed",
+          "duration": 1,
+          "failureMessages": [
+            "TypeError: Cannot read properties of undefined (reading 'method')\n    at method (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:5:19)\n    at Object.mockReq (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:69:17)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:95:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Allow-Methods header",
+          "status": "failed",
+          "duration": 1,
+          "failureMessages": [
+            "TypeError: Cannot read properties of undefined (reading 'method')\n    at method (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:5:19)\n    at Object.mockReq (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:83:17)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:95:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Allow-Credentials header",
+          "status": "failed",
+          "duration": 1,
+          "failureMessages": [
+            "TypeError: Cannot read properties of undefined (reading 'method')\n    at method (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:5:19)\n    at Object.mockReq (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:96:17)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:95:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Expose-Headers header",
+          "status": "failed",
+          "duration": 1,
+          "failureMessages": [
+            "TypeError: Cannot read properties of undefined (reading 'method')\n    at method (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:5:19)\n    at Object.mockReq (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:109:17)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:95:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Max-Age header",
+          "status": "failed",
+          "duration": 1,
+          "failureMessages": [
+            "TypeError: Cannot read properties of undefined (reading 'method')\n    at method (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:5:19)\n    at Object.mockReq (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:122:17)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:95:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "lib/index.js should handle preflight request",
+          "status": "failed",
+          "duration": 4335,
+          "failureMessages": [
+            "Error: thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\nAdd a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n    at test (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:132:3)    at Object.describe (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:18:1)    at processTicksAndRejections (node:internal/process/task_queues:95:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "lib/index.js should handle non-preflight request",
+          "status": "failed",
+          "duration": 2,
+          "failureMessages": [
+            "TypeError: Cannot read properties of undefined (reading 'method')\n    at method (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:5:19)\n    at Object.mockReq (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:149:17)    at new Promise (<anonymous>)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        }
+      ],
+      "errors": [
+        "● lib/index.js › should call next when no options are provided\n\n    TypeError: Cannot read properties of undefined (reading 'method')\n\n      3 |\n      4 | const mockReq = (options) => ({\n    > 5 |   method: options.method || 'GET',\n        |                   ^\n      6 |   headers: options.headers || {},\n      7 |   getHeader: jest.fn().mockReturnValue(''),\n      8 | });\n\n      at method (lib/index.auto.test.js:5:19)\n      at Object.mockReq (lib/index.auto.test.js:30:17)"
+      ]
+    }
+  ],
+  "coverageSummary": {
+    "available": true,
+    "note": "Coverage map present in results"
+  },
+  "rawStderr": "FAIL lib/index.auto.test.js\n  lib/index.js\n    ✓ should exist (6 ms)\n    ✓ should return a function (2 ms)\n    ✕ should call next when no options are provided (1 ms)\n    ✕ should set Access-Control-Allow-Origin header when origin is '*' (1 ms)\n    ✕ should set Access-Control-Allow-Origin header when origin is a string (1 ms)\n    ✕ should set Access-Control-Allow-Origin header when origin is a function (1 ms)\n    ✕ should set Access-Control-Allow-Methods header (1 ms)\n    ✕ should set Access-Control-Allow-Credentials header (1 ms)\n    ✕ should set Access-Control-Expose-Headers header (1 ms)\n    ✕ should set Access-Control-Max-Age header (1 ms)\n    ✕ should handle preflight request (4335 ms)\n    ✕ should handle non-preflight request (2 ms)\n\n  ● lib/index.js › should call next when no options are provided\n\n    TypeError: Cannot read properties of undefined (reading 'method')\n\n      3 |\n      4 | const mockReq = (options) => ({\n    > 5 |   method: options.method || 'GET',\n        |                   ^\n      6 |   headers: options.headers || {},\n      7 |   getHeader: jest.fn().mockReturnValue(''),\n      8 | });\n\n      at method (lib/index.auto.test.js:5:19)\n      at Object.mockReq (lib/index.auto.test.js:30:17)\n\n  ● lib/index.js › should set Access-Control-Allow-Origin header when origin is '*'\n\n    TypeError: Cannot read properties of undefined (reading 'method')\n\n      3 |\n      4 | const mockReq = (options) => ({\n    > 5 |   method: options.method || 'GET',\n        |                   ^\n      6 |   headers: options.headers || {},\n      7 |   getHeader: jest.fn().mockReturnValue(''),\n      8 | });\n\n      at method (lib/index.auto.test.js:5:19)\n      at Object.mockReq (lib/index.auto.test.js:42:17)\n\n  ● lib/index.js › should set Access-Control-Allow-Origin header when origin is a string\n\n    TypeError: Cannot read properties of undefined (reading 'method')\n\n      3 |\n      4 | const mockReq = (options) => ({\n    > 5 |   method: options.method || 'GET',\n        |                   ^\n      6 |   headers: options.headers || {},\n      7 |   getHeader: jest.fn().mockReturnValue(''),\n      8 | });\n\n      at method (lib/index.auto.test.js:5:19)\n      at Object.mockReq (lib/index.auto.test.js:55:17)\n\n  ● lib/index.js › should set Access-Control-Allow-Origin header when origin is a function\n\n    TypeError: Cannot read properties of undefined (reading 'method')\n\n      3 |\n      4 | const mockReq = (options) => ({\n    > 5 |   method: options.method || 'GET',\n        |                   ^\n      6 |   headers: options.headers || {},\n      7 |   getHeader: jest.fn().mockReturnValue(''),\n      8 | });\n\n      at method (lib/index.auto.test.js:5:19)\n      at Object.mockReq (lib/index.auto.test.js:69:17)\n\n  ● lib/index.js › should set Access-Control-Allow-Methods header\n\n    TypeError: Cannot read properties of undefined (reading 'method')\n\n      3 |\n      4 | const mockReq = (options) => ({\n    > 5 |   method: options.method || 'GET',\n        |                   ^\n      6 |   headers: options.headers || {},\n      7 |   getHeader: jest.fn().mockReturnValue(''),\n      8 | });\n\n      at method (lib/index.auto.test.js:5:19)\n      at Object.mockReq (lib/index.auto.test.js:83:17)\n\n  ● lib/index.js › should set Access-Control-Allow-Credentials header\n\n    TypeError: Cannot read properties of undefined (reading 'method')\n\n      3 |\n      4 | const mockReq = (options) => ({\n    > 5 |   method: options.method || 'GET',\n        |                   ^\n      6 |   headers: options.headers || {},\n      7 |   getHeader: jest.fn().mockReturnValue(''),\n      8 | });\n\n      at method (lib/index.auto.test.js:5:19)\n      at Object.mockReq (lib/index.auto.test.js:96:17)\n\n  ● lib/index.js › should set Access-Control-Expose-Headers header\n\n    TypeError: Cannot read properties of undefined (reading 'method')\n\n      3 |\n      4 | const mockReq = (options) => ({\n    > 5 |   method: options.method || 'GET',\n        |                   ^\n      6 |   headers: options.headers || {},\n      7 |   getHeader: jest.fn().mockReturnValue(''),\n      8 | });\n\n      at method (lib/index.auto.test.js:5:19)\n      at Object.mockReq (lib/index.auto.test.js:109:17)\n\n  ● lib/index.js › should set Access-Control-Max-Age header\n\n    TypeError: Cannot read properties of undefined (reading 'method')\n\n      3 |\n      4 | const mockReq = (options) => ({\n    > 5 |   method: options.method || 'GET',\n        |                   ^\n      6 |   headers: options.headers || {},\n      7 |   getHeader: jest.fn().mockReturnValue(''),\n      8 | });\n\n      at method (lib/index.auto.test.js:5:19)\n      at Object.mockReq (lib/index.auto.test.js:122:17)\n\n  ● lib/index.js › should handle preflight request\n\n    thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\n    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n\n      130 |   });\n      131 |\n    > 132 |   test(\"should handle preflight request\", (done) => {\n          |   ^\n      133 |     const options = {};\n      134 |     const middleware = middlewareWrapper(options);\n      135 |     const req = mockReq({ method: 'OPTIONS' });\n\n      at test (lib/index.auto.test.js:132:3)\n      at Object.describe (lib/index.auto.test.js:18:1)\n\n  ● lib/index.js › should handle non-preflight request\n\n    TypeError: Cannot read properties of undefined (reading 'method')\n\n      3 |\n      4 | const mockReq = (options) => ({\n    > 5 |   method: options.method || 'GET',\n        |                   ^\n      6 |   headers: options.headers || {},\n      7 |   getHeader: jest.fn().mockReturnValue(''),\n      8 | });\n\n      at method (lib/index.auto.test.js:5:19)\n      at Object.mockReq (lib/index.auto.test.js:149:17)\n\nTest Suites: 1 failed, 1 total\nTests:       10 failed, 2 passed, 12 total\nSnapshots:   0 total\nTime:        5.011 s\nRan all test suites.\nTest results written to: __jest_results__.json"
+}

@@ -1,0 +1,108 @@
+{
+  "success": false,
+  "totalSuites": 1,
+  "passedSuites": 0,
+  "failedSuites": 1,
+  "totalTests": 12,
+  "passed": 9,
+  "failed": 3,
+  "skipped": 0,
+  "pending": 0,
+  "duration": 15038,
+  "runtimeErrors": [],
+  "testFileResults": [
+    {
+      "file": "/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js",
+      "status": "failed",
+      "duration": 14911,
+      "tests": [
+        {
+          "name": "lib/index.js should exist",
+          "status": "passed",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "name": "lib/index.js should return a function",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "lib/index.js should call next when no options are provided",
+          "status": "passed",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Allow-Origin header when origin is '*''",
+          "status": "passed",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Allow-Origin header when origin is a string",
+          "status": "passed",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Allow-Origin header when origin is a function",
+          "status": "passed",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Allow-Methods header",
+          "status": "failed",
+          "duration": 5003,
+          "failureMessages": [
+            "Error: thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\nAdd a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n    at test (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:81:3)    at Object.describe (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:15:1)    at processTicksAndRejections (node:internal/process/task_queues:95:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Allow-Credentials header",
+          "status": "passed",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Expose-Headers header",
+          "status": "passed",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "name": "lib/index.js should set Access-Control-Max-Age header",
+          "status": "failed",
+          "duration": 4291,
+          "failureMessages": [
+            "Error: thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\nAdd a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n    at test (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:126:3)    at Object.describe (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:15:1)    at processTicksAndRejections (node:internal/process/task_queues:95:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "lib/index.js should handle preflight request",
+          "status": "failed",
+          "duration": 5010,
+          "failureMessages": [
+            "Error: thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\nAdd a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n    at test (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:144:3)    at Object.describe (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/lib/index.auto.test.js:15:1)    at processTicksAndRejections (node:internal/process/task_queues:95:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_fabe34d932e710eb/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "lib/index.js should handle non-preflight request",
+          "status": "passed",
+          "duration": 3,
+          "failureMessages": []
+        }
+      ],
+      "errors": [
+        "● lib/index.js › should set Access-Control-Allow-Methods header\n\n    thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\n    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n\n      79 |   });\n      80 |\n    > 81 |   test(\"should set Access-Control-Allow-Methods header\", (done) => {\n         |   ^\n      82 |     const options = { methods: 'GET,HEAD,PUT,PATCH,POST,DELETE' };\n      83 |     const middleware = middlewareWrapper(options);\n      84 |     const req = mockReq('OPTIONS'); // Changed to OPTIONS method for preflight\n\n      at test (lib/index.auto.test.js:81:3)\n      at Object.describe (lib/index.auto.test.js:15:1)"
+      ]
+    }
+  ],
+  "coverageSummary": {
+    "available": true,
+    "note": "Coverage map present in results"
+  },
+  "rawStderr": "FAIL lib/index.auto.test.js (14.911 s)\n  lib/index.js\n    ✓ should exist (4 ms)\n    ✓ should return a function (1 ms)\n    ✓ should call next when no options are provided (3 ms)\n    ✓ should set Access-Control-Allow-Origin header when origin is '*'' (2 ms)\n    ✓ should set Access-Control-Allow-Origin header when origin is a string (2 ms)\n    ✓ should set Access-Control-Allow-Origin header when origin is a function (2 ms)\n    ✕ should set Access-Control-Allow-Methods header (5003 ms)\n    ✓ should set Access-Control-Allow-Credentials header (5 ms)\n    ✓ should set Access-Control-Expose-Headers header (2 ms)\n    ✕ should set Access-Control-Max-Age header (4291 ms)\n    ✕ should handle preflight request (5010 ms)\n    ✓ should handle non-preflight request (3 ms)\n\n  ● lib/index.js › should set Access-Control-Allow-Methods header\n\n    thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\n    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n\n      79 |   });\n      80 |\n    > 81 |   test(\"should set Access-Control-Allow-Methods header\", (done) => {\n         |   ^\n      82 |     const options = { methods: 'GET,HEAD,PUT,PATCH,POST,DELETE' };\n      83 |     const middleware = middlewareWrapper(options);\n      84 |     const req = mockReq('OPTIONS'); // Changed to OPTIONS method for preflight\n\n      at test (lib/index.auto.test.js:81:3)\n      at Object.describe (lib/index.auto.test.js:15:1)\n\n  ● lib/index.js › should set Access-Control-Max-Age header\n\n    thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\n    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n\n      124 |   });\n      125 |\n    > 126 |   test(\"should set Access-Control-Max-Age header\", (done) => {\n          |   ^\n      127 |     const options = { maxAge: 3600 };\n      128 |     const middleware = middlewareWrapper(options);\n      129 |     const req = mockReq('OPTIONS'); // Changed to OPTIONS method for preflight\n\n      at test (lib/index.auto.test.js:126:3)\n      at Object.describe (lib/index.auto.test.js:15:1)\n\n  ● lib/index.js › should handle preflight request\n\n    thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\n    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n\n      142 |   });\n      143 |\n    > 144 |   test(\"should handle preflight request\", (done) => {\n          |   ^\n      145 |     const options = {};\n      146 |     const middleware = middlewareWrapper(options);\n      147 |     const req = mockReq('OPTIONS');\n\n      at test (lib/index.auto.test.js:144:3)\n      at Object.describe (lib/index.auto.test.js:15:1)\n\nTest Suites: 1 failed, 1 total\nTests:       3 failed, 9 passed, 12 total\nSnapshots:   0 total\nTime:        15.009 s\nRan all test suites.\nTest results written to: __jest_results__.json"
+}
