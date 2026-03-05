@@ -1,0 +1,106 @@
+{
+  "success": true,
+  "totalSuites": 1,
+  "passedSuites": 1,
+  "failedSuites": 0,
+  "totalTests": 13,
+  "passed": 13,
+  "failed": 0,
+  "skipped": 0,
+  "pending": 0,
+  "duration": 535,
+  "runtimeErrors": [],
+  "testFileResults": [
+    {
+      "file": "/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js",
+      "status": "passed",
+      "duration": 422,
+      "tests": [
+        {
+          "name": "middlewareWrapper should exist",
+          "status": "passed",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should return a function",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should call next with no options (GET request)",
+          "status": "passed",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should set Access-Control-Allow-Origin with default options (GET request)",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should set Access-Control-Allow-Origin with custom options (GET request)",
+          "status": "passed",
+          "duration": 7,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should NOT set Access-Control-Allow-Methods for a non-OPTIONS request with default options (GET request)",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should NOT set Access-Control-Allow-Methods for a non-OPTIONS request with custom options (GET request)",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should NOT set Access-Control-Allow-Credentials with default options (GET request)",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should set Access-Control-Allow-Credentials with custom options (GET request)",
+          "status": "passed",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should handle preflight request with default options",
+          "status": "passed",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should handle preflight request with custom options",
+          "status": "passed",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should handle error from options callback",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should handle error from origin callback",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "coverageSummary": {
+    "available": true,
+    "note": "Coverage map present in results"
+  },
+  "rawStderr": ""
+}

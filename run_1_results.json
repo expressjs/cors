@@ -1,0 +1,120 @@
+{
+  "success": false,
+  "totalSuites": 1,
+  "passedSuites": 0,
+  "failedSuites": 1,
+  "totalTests": 12,
+  "passed": 3,
+  "failed": 9,
+  "skipped": 0,
+  "pending": 0,
+  "duration": 10074,
+  "runtimeErrors": [],
+  "testFileResults": [
+    {
+      "file": "/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js",
+      "status": "failed",
+      "duration": 9992,
+      "tests": [
+        {
+          "name": "middlewareWrapper should exist",
+          "status": "passed",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should return a function",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should call next with no options",
+          "status": "failed",
+          "duration": 3,
+          "failureMessages": [
+            "Error: expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\nExpected number of calls: 1\nReceived number of calls: 0\n    at toHaveBeenCalledTimes (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:33:24)\n    at next (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:188:7)\n    at cors (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:224:17)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:214:15)\n    at originCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:219:13)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:199:9)\n    at optionsCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:204:7)\n    at Object.middleware (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:31:5)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:105:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "middlewareWrapper should set Access-Control-Allow-Origin with default options",
+          "status": "passed",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should set Access-Control-Allow-Origin with custom options",
+          "status": "failed",
+          "duration": 2,
+          "failureMessages": [
+            "Error: expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\nExpected number of calls: 1\nReceived number of calls: 2\n    at toHaveBeenCalledTimes (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:57:29)\n    at next (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:188:7)\n    at cors (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:224:17)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:214:15)\n    at originCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:219:13)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:199:9)\n    at optionsCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:204:7)\n    at Object.middleware (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:55:5)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:105:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "middlewareWrapper should set Access-Control-Allow-Methods with default options",
+          "status": "failed",
+          "duration": 5,
+          "failureMessages": [
+            "Error: expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\nExpected number of calls: 2\nReceived number of calls: 1\n    at toHaveBeenCalledTimes (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:69:29)\n    at next (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:188:7)\n    at cors (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:224:17)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:214:15)\n    at originCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:219:13)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:199:9)\n    at optionsCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:204:7)\n    at Object.middleware (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:67:5)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:105:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "middlewareWrapper should set Access-Control-Allow-Methods with custom options",
+          "status": "failed",
+          "duration": 1,
+          "failureMessages": [
+            "Error: expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\nExpected number of calls: 2\nReceived number of calls: 1\n    at toHaveBeenCalledTimes (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:82:29)\n    at next (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:188:7)\n    at cors (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:224:17)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:214:15)\n    at originCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:219:13)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:199:9)\n    at optionsCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:204:7)\n    at Object.middleware (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:80:5)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:105:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "middlewareWrapper should set Access-Control-Allow-Credentials with default options",
+          "status": "failed",
+          "duration": 1,
+          "failureMessages": [
+            "Error: expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\nExpected number of calls: 2\nReceived number of calls: 1\n    at toHaveBeenCalledTimes (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:94:29)\n    at next (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:188:7)\n    at cors (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:224:17)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:214:15)\n    at originCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:219:13)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:199:9)\n    at optionsCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:204:7)\n    at Object.middleware (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:92:5)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:105:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "middlewareWrapper should set Access-Control-Allow-Credentials with custom options",
+          "status": "failed",
+          "duration": 1,
+          "failureMessages": [
+            "Error: expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\nExpected number of calls: 3\nReceived number of calls: 2\n    at toHaveBeenCalledTimes (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:107:29)\n    at next (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:188:7)\n    at cors (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:224:17)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:214:15)\n    at originCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:219:13)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:199:9)\n    at optionsCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:204:7)\n    at Object.middleware (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:105:5)    at new Promise (<anonymous>)    at processTicksAndRejections (node:internal/process/task_queues:105:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "middlewareWrapper should handle preflight request with default options",
+          "status": "failed",
+          "duration": 5003,
+          "failureMessages": [
+            "Error: thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\nAdd a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n    at test (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:113:3)    at Object.describe (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:17:1)    at processTicksAndRejections (node:internal/process/task_queues:105:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "middlewareWrapper should handle preflight request with custom options",
+          "status": "failed",
+          "duration": 4482,
+          "failureMessages": [
+            "Error: thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\nAdd a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n    at test (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:126:3)    at Object.describe (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:17:1)    at processTicksAndRejections (node:internal/process/task_queues:105:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "middlewareWrapper should handle error",
+          "status": "failed",
+          "duration": 4,
+          "failureMessages": [
+            "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: [Error: Test error]\nReceived: undefined\n    at toBe (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:146:19)\n    at next (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:188:7)\n    at cors (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:224:17)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:214:15)\n    at originCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:219:13)\n    at cb (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:199:9)\n    at optionsCallback (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.js:204:7)\n    at Object.middleware (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:145:5)    at new Promise (<anonymous>)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        }
+      ],
+      "errors": [
+        "● middlewareWrapper › should call next with no options\n\n    expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\n    Expected number of calls: 1\n    Received number of calls: 0\n\n      31 |     middleware(req, res, (err) => {\n      32 |       expect(err).toBeFalsy();\n    > 33 |       expect(mockNext).toHaveBeenCalledTimes(1);\n         |                        ^\n      34 |       done();\n      35 |     });\n      36 |   });"
+      ]
+    }
+  ],
+  "coverageSummary": {
+    "available": true,
+    "note": "Coverage map present in results"
+  },
+  "rawStderr": "FAIL lib/index.auto.test.js (9.992 s)\n  middlewareWrapper\n    ✓ should exist (3 ms)\n    ✓ should return a function (1 ms)\n    ✕ should call next with no options (3 ms)\n    ✓ should set Access-Control-Allow-Origin with default options (2 ms)\n    ✕ should set Access-Control-Allow-Origin with custom options (2 ms)\n    ✕ should set Access-Control-Allow-Methods with default options (5 ms)\n    ✕ should set Access-Control-Allow-Methods with custom options (1 ms)\n    ✕ should set Access-Control-Allow-Credentials with default options (1 ms)\n    ✕ should set Access-Control-Allow-Credentials with custom options (1 ms)\n    ✕ should handle preflight request with default options (5003 ms)\n    ✕ should handle preflight request with custom options (4482 ms)\n    ✕ should handle error (4 ms)\n\n  ● middlewareWrapper › should call next with no options\n\n    expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\n    Expected number of calls: 1\n    Received number of calls: 0\n\n      31 |     middleware(req, res, (err) => {\n      32 |       expect(err).toBeFalsy();\n    > 33 |       expect(mockNext).toHaveBeenCalledTimes(1);\n         |                        ^\n      34 |       done();\n      35 |     });\n      36 |   });\n\n      at toHaveBeenCalledTimes (lib/index.auto.test.js:33:24)\n      at next (lib/index.js:188:7)\n      at cors (lib/index.js:224:17)\n      at cb (lib/index.js:214:15)\n      at originCallback (lib/index.js:219:13)\n      at cb (lib/index.js:199:9)\n      at optionsCallback (lib/index.js:204:7)\n      at Object.middleware (lib/index.auto.test.js:31:5)\n\n  ● middlewareWrapper › should set Access-Control-Allow-Origin with custom options\n\n    expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\n    Expected number of calls: 1\n    Received number of calls: 2\n\n      55 |     middleware(req, res, (err) => {\n      56 |       expect(err).toBeFalsy();\n    > 57 |       expect(res.setHeader).toHaveBeenCalledTimes(1);\n         |                             ^\n      58 |       expect(res.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Origin', 'http://example.com');\n      59 |       done();\n      60 |     });\n\n      at toHaveBeenCalledTimes (lib/index.auto.test.js:57:29)\n      at next (lib/index.js:188:7)\n      at cors (lib/index.js:224:17)\n      at cb (lib/index.js:214:15)\n      at originCallback (lib/index.js:219:13)\n      at cb (lib/index.js:199:9)\n      at optionsCallback (lib/index.js:204:7)\n      at Object.middleware (lib/index.auto.test.js:55:5)\n\n  ● middlewareWrapper › should set Access-Control-Allow-Methods with default options\n\n    expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\n    Expected number of calls: 2\n    Received number of calls: 1\n\n      67 |     middleware(req, res, (err) => {\n      68 |       expect(err).toBeFalsy();\n    > 69 |       expect(res.setHeader).toHaveBeenCalledTimes(2);\n         |                             ^\n      70 |       expect(res.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');\n      71 |       done();\n      72 |     });\n\n      at toHaveBeenCalledTimes (lib/index.auto.test.js:69:29)\n      at next (lib/index.js:188:7)\n      at cors (lib/index.js:224:17)\n      at cb (lib/index.js:214:15)\n      at originCallback (lib/index.js:219:13)\n      at cb (lib/index.js:199:9)\n      at optionsCallback (lib/index.js:204:7)\n      at Object.middleware (lib/index.auto.test.js:67:5)\n\n  ● middlewareWrapper › should set Access-Control-Allow-Methods with custom options\n\n    expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\n    Expected number of calls: 2\n    Received number of calls: 1\n\n      80 |     middleware(req, res, (err) => {\n      81 |       expect(err).toBeFalsy();\n    > 82 |       expect(res.setHeader).toHaveBeenCalledTimes(2);\n         |                             ^\n      83 |       expect(res.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Methods', 'GET,POST');\n      84 |       done();\n      85 |     });\n\n      at toHaveBeenCalledTimes (lib/index.auto.test.js:82:29)\n      at next (lib/index.js:188:7)\n      at cors (lib/index.js:224:17)\n      at cb (lib/index.js:214:15)\n      at originCallback (lib/index.js:219:13)\n      at cb (lib/index.js:199:9)\n      at optionsCallback (lib/index.js:204:7)\n      at Object.middleware (lib/index.auto.test.js:80:5)\n\n  ● middlewareWrapper › should set Access-Control-Allow-Credentials with default options\n\n    expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\n    Expected number of calls: 2\n    Received number of calls: 1\n\n      92 |     middleware(req, res, (err) => {\n      93 |       expect(err).toBeFalsy();\n    > 94 |       expect(res.setHeader).toHaveBeenCalledTimes(2);\n         |                             ^\n      95 |       expect(res.setHeader).not.toHaveBeenCalledWith('Access-Control-Allow-Credentials');\n      96 |       done();\n      97 |     });\n\n      at toHaveBeenCalledTimes (lib/index.auto.test.js:94:29)\n      at next (lib/index.js:188:7)\n      at cors (lib/index.js:224:17)\n      at cb (lib/index.js:214:15)\n      at originCallback (lib/index.js:219:13)\n      at cb (lib/index.js:199:9)\n      at optionsCallback (lib/index.js:204:7)\n      at Object.middleware (lib/index.auto.test.js:92:5)\n\n  ● middlewareWrapper › should set Access-Control-Allow-Credentials with custom options\n\n    expect(jest.fn()).toHaveBeenCalledTimes(expected)\n\n    Expected number of calls: 3\n    Received number of calls: 2\n\n      105 |     middleware(req, res, (err) => {\n      106 |       expect(err).toBeFalsy();\n    > 107 |       expect(res.setHeader).toHaveBeenCalledTimes(3);\n          |                             ^\n      108 |       expect(res.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Credentials', 'true');\n      109 |       done();\n      110 |     });\n\n      at toHaveBeenCalledTimes (lib/index.auto.test.js:107:29)\n      at next (lib/index.js:188:7)\n      at cors (lib/index.js:224:17)\n      at cb (lib/index.js:214:15)\n      at originCallback (lib/index.js:219:13)\n      at cb (lib/index.js:199:9)\n      at optionsCallback (lib/index.js:204:7)\n      at Object.middleware (lib/index.auto.test.js:105:5)\n\n  ● middlewareWrapper › should handle preflight request with default options\n\n    thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\n    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n\n      111 |   });\n      112 |\n    > 113 |   test('should handle preflight request with default options', (done) => {\n          |   ^\n      114 |     const middleware = middlewareWrapper();\n      115 |     const req = mockReq({ method: 'OPTIONS', headers: { 'Access-Control-Request-Method': 'GET' } });\n      116 |     const res = mockRes();\n\n      at test (lib/index.auto.test.js:113:3)\n      at Object.describe (lib/index.auto.test.js:17:1)\n\n  ● middlewareWrapper › should handle preflight request with custom options\n\n    thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\n    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n\n      124 |   });\n      125 |\n    > 126 |   test('should handle preflight request with custom options', (done) => {\n          |   ^\n      127 |     const options = { methods: 'GET,POST', credentials: true };\n      128 |     const middleware = middlewareWrapper(options);\n      129 |     const req = mockReq({ method: 'OPTIONS', headers: { 'Access-Control-Request-Method': 'GET' } });\n\n      at test (lib/index.auto.test.js:126:3)\n      at Object.describe (lib/index.auto.test.js:17:1)\n\n  ● middlewareWrapper › should handle error\n\n    expect(received).toBe(expected) // Object.is equality\n\n    Expected: [Error: Test error]\n    Received: undefined\n\n      144 |     const error = new Error('Test error');\n      145 |     middleware(req, res, (err) => {\n    > 146 |       expect(err).toBe(error);\n          |                   ^\n      147 |       done();\n      148 |     });\n      149 |     throw error;\n\n      at toBe (lib/index.auto.test.js:146:19)\n      at next (lib/index.js:188:7)\n      at cors (lib/index.js:224:17)\n      at cb (lib/index.js:214:15)\n      at originCallback (lib/index.js:219:13)\n      at cb (lib/index.js:199:9)\n      at optionsCallback (lib/index.js:204:7)\n      at Object.middleware (lib/index.auto.test.js:145:5)\n\nTest Suites: 1 failed, 1 total\nTests:       9 failed, 3 passed, 12 total\nSnapshots:   0 total\nTime:        10.048 s\nRan all test suites.\nTest results written to: __jest_results__.json"
+}
