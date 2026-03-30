@@ -16,6 +16,7 @@
     "url": "https://opencollective.com/express"
   },
   "main": "./lib/index.js",
+  "types": "./index.d.ts",
   "dependencies": {
     "object-assign": "^4",
     "vary": "^1"
@@ -29,6 +30,7 @@
     "supertest": "6.1.3"
   },
   "files": [
+    "index.d.ts",
     "lib/index.js"
   ],
   "engines": {
