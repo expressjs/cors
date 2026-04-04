@@ -150,7 +150,7 @@ var cors = require('cors')
 var app = express()
 
 app.options('/products/:id', cors()) // preflight for DELETE
-app.del('/products/:id', cors(), function (req, res, next) {
+app.delete('/products/:id', cors(), function (req, res, next) {
   res.json({msg: 'Hello'})
 })
 
