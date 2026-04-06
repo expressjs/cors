@@ -360,6 +360,7 @@ var util = require('util')
           assert.equal(res.getHeader('Access-Control-Allow-Headers'), undefined)
           assert.equal(res.getHeader('Access-Control-Allow-Credentials'), undefined)
           assert.equal(res.getHeader('Access-Control-Max-Age'), undefined)
+          assert.equal(res.getHeader('Vary'), 'Origin')
           done();
         };
 
@@ -393,6 +394,7 @@ var util = require('util')
           assert.equal(res.getHeader('Access-Control-Allow-Headers'), undefined)
           assert.equal(res.getHeader('Access-Control-Allow-Credentials'), undefined)
           assert.equal(res.getHeader('Access-Control-Max-Age'), undefined)
+          assert.equal(res.getHeader('Vary'), 'Origin')
           done();
         };
 
