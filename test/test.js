@@ -400,6 +400,124 @@ var util = require('util')
       });
 
 
+      it('should pass the request origin to the origin callback', function (done) {
+        var req, res, next, options;
+        options = {
+          origin: function (sentOrigin, cb) {
+            assert.equal(sentOrigin, 'http://example.com')
+            cb(null, true);
+          }
+        };
+        req = fakeRequest('GET');
+        res = fakeResponse();
+        next = function () {
+          done();
+        };
+
+        cors(options)(req, res, next);
+      });
+
+      it('should forward error from origin callback to next', function (done) {
+        var req, res, next, options;
+        var err = new Error('origin check failed');
+        options = {
+          origin: function (sentOrigin, cb) {
+            cb(err);
+          }
+        };
+        req = fakeRequest('GET');
+        res = fakeResponse();
+        next = function (nextErr) {
+          assert.equal(nextErr, err)
+          done();
+        };
+
+        cors(options)(req, res, next);
+      });
+
+      it('should allow origin when callback returns a string', function (done) {
+        var req, res, next, options;
+        options = {
+          origin: function (sentOrigin, cb) {
+            cb(null, 'http://allowed.com');
+          }
+        };
+        req = fakeRequest('GET');
+        res = fakeResponse();
+        next = function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://allowed.com')
+          assert.equal(res.getHeader('Vary'), 'Origin')
+          done();
+        };
+
+        cors(options)(req, res, next);
+      });
+
+      it('matches request origin against regexp on preflight', function (done) {
+        var cb = after(1, done)
+        var req = new FakeRequest('OPTIONS')
+        var res = new FakeResponse()
+        var options = { origin: /:\/\/(.+\.)?example.com$/ }
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), req.headers.origin)
+          assert.equal(res.getHeader('Vary'), 'Origin, Access-Control-Request-Headers')
+          cb()
+        })
+
+        cors(options)(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      });
+
+      it('matches request origin against array of origin checks on preflight', function (done) {
+        var cb = after(1, done)
+        var req = new FakeRequest('OPTIONS')
+        var res = new FakeResponse()
+        var options = { origin: [ /foo\.com$/, 'http://example.com' ] }
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), req.headers.origin)
+          assert.equal(res.getHeader('Vary'), 'Origin, Access-Control-Request-Headers')
+          cb()
+        })
+
+        cors(options)(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      });
+
+      it('handles preflight when origin is set to true', function (done) {
+        var cb = after(1, done)
+        var req = new FakeRequest('OPTIONS')
+        var res = new FakeResponse()
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
+          assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'GET,HEAD,PUT,PATCH,POST,DELETE')
+          cb()
+        })
+
+        cors({ origin: true })(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      });
+
+      it('can override methods with a string', function (done) {
+        var cb = after(1, done)
+        var req = new FakeRequest('OPTIONS')
+        var res = new FakeResponse()
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Methods'), 'GET,POST')
+          cb()
+        })
+
+        cors({ methods: 'GET,POST' })(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      });
+
       it('can override methods', function (done) {
         var cb = after(1, done)
         var req = new FakeRequest('OPTIONS')
