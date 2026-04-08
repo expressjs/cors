@@ -1,0 +1,112 @@
+{
+  "success": false,
+  "totalSuites": 1,
+  "passedSuites": 0,
+  "failedSuites": 1,
+  "totalTests": 13,
+  "passed": 11,
+  "failed": 2,
+  "skipped": 0,
+  "pending": 0,
+  "duration": 10554,
+  "runtimeErrors": [],
+  "testFileResults": [
+    {
+      "file": "/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js",
+      "status": "failed",
+      "duration": 10472,
+      "tests": [
+        {
+          "name": "middlewareWrapper should exist",
+          "status": "passed",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should return a function",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should call next with no options (GET request)",
+          "status": "passed",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should set Access-Control-Allow-Origin with default options (GET request)",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should set Access-Control-Allow-Origin with custom options (GET request)",
+          "status": "passed",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should NOT set Access-Control-Allow-Methods for a non-OPTIONS request with default options (GET request)",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should NOT set Access-Control-Allow-Methods for a non-OPTIONS request with custom options (GET request)",
+          "status": "passed",
+          "duration": 6,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should NOT set Access-Control-Allow-Credentials with default options (GET request)",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should set Access-Control-Allow-Credentials with custom options (GET request)",
+          "status": "passed",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should handle preflight request with default options",
+          "status": "failed",
+          "duration": 5002,
+          "failureMessages": [
+            "Error: thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\nAdd a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n    at test (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:120:3)    at Object.describe (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:15:1)    at processTicksAndRejections (node:internal/process/task_queues:105:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "middlewareWrapper should handle preflight request with custom options",
+          "status": "failed",
+          "duration": 5007,
+          "failureMessages": [
+            "Error: thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\nAdd a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n    at test (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:142:3)    at Object.describe (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/lib/index.auto.test.js:15:1)    at processTicksAndRejections (node:internal/process/task_queues:105:5)    at runTest (/home/sujeet/automation-engine/repo_workspace/session_cc9067321e80cb4d/cors/node_modules/jest-runner/build/index.js:343:7)"
+          ]
+        },
+        {
+          "name": "middlewareWrapper should handle error from options callback",
+          "status": "passed",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "name": "middlewareWrapper should handle error from origin callback",
+          "status": "passed",
+          "duration": 2,
+          "failureMessages": []
+        }
+      ],
+      "errors": [
+        "● middlewareWrapper › should handle preflight request with default options\n\n    thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\n    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n\n      118 |   });\n      119 |\n    > 120 |   test('should handle preflight request with default options', (done) => {\n          |   ^\n      121 |     const middleware = middlewareWrapper();\n      122 |     const req = mockReq({ method: 'OPTIONS', headers: { 'Access-Control-Request-Method': 'GET' } });\n      123 |     const res = mockRes();\n\n      at test (lib/index.auto.test.js:120:3)\n      at Object.describe (lib/index.auto.test.js:15:1)"
+      ]
+    }
+  ],
+  "coverageSummary": {
+    "available": true,
+    "note": "Coverage map present in results"
+  },
+  "rawStderr": "FAIL lib/index.auto.test.js (10.472 s)\n  middlewareWrapper\n    ✓ should exist (3 ms)\n    ✓ should return a function (1 ms)\n    ✓ should call next with no options (GET request) (3 ms)\n    ✓ should set Access-Control-Allow-Origin with default options (GET request) (1 ms)\n    ✓ should set Access-Control-Allow-Origin with custom options (GET request) (2 ms)\n    ✓ should NOT set Access-Control-Allow-Methods for a non-OPTIONS request with default options (GET request) (1 ms)\n    ✓ should NOT set Access-Control-Allow-Methods for a non-OPTIONS request with custom options (GET request) (6 ms)\n    ✓ should NOT set Access-Control-Allow-Credentials with default options (GET request) (1 ms)\n    ✓ should set Access-Control-Allow-Credentials with custom options (GET request) (1 ms)\n    ✕ should handle preflight request with default options (5002 ms)\n    ✕ should handle preflight request with custom options (5007 ms)\n    ✓ should handle error from options callback (3 ms)\n    ✓ should handle error from origin callback (2 ms)\n\n  ● middlewareWrapper › should handle preflight request with default options\n\n    thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\n    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n\n      118 |   });\n      119 |\n    > 120 |   test('should handle preflight request with default options', (done) => {\n          |   ^\n      121 |     const middleware = middlewareWrapper();\n      122 |     const req = mockReq({ method: 'OPTIONS', headers: { 'Access-Control-Request-Method': 'GET' } });\n      123 |     const res = mockRes();\n\n      at test (lib/index.auto.test.js:120:3)\n      at Object.describe (lib/index.auto.test.js:15:1)\n\n  ● middlewareWrapper › should handle preflight request with custom options\n\n    thrown: \"Exceeded timeout of 5000 ms for a test while waiting for `done()` to be called.\n    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout.\"\n\n      140 |   });\n      141 |\n    > 142 |   test('should handle preflight request with custom options', (done) => {\n          |   ^\n      143 |     const options = { methods: 'GET,POST', credentials: true };\n      144 |     const middleware = middlewareWrapper(options);\n      145 |     const req = mockReq({ method: 'OPTIONS', headers: { 'Access-Control-Request-Method': 'GET' } });\n\n      at test (lib/index.auto.test.js:142:3)\n      at Object.describe (lib/index.auto.test.js:15:1)\n\nTest Suites: 1 failed, 1 total\nTests:       2 failed, 11 passed, 13 total\nSnapshots:   0 total\nTime:        10.528 s\nRan all test suites.\nTest results written to: __jest_results__.json"
+}
