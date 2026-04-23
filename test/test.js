@@ -729,3 +729,38 @@ FakeResponse.prototype.setHeader = function setHeader (name, value) {
   var key = name.toLowerCase()
   this._headers[key] = value
 }
+
+describe('credentials with origin "*"', function () {
+  it('throws an error when origin is "*" and credentials is true', function (done) {
+    var req = fakeRequest('GET');
+    var res = fakeResponse();
+    var next = function (err) {
+      if (err && err.message.indexOf('credentials') !== -1 && err.message.indexOf('origin') !== -1) {
+        done();
+      } else {
+        done(new Error('Expected error about credentials and origin, got: ' + (err ? err.message : 'no error')));
+      }
+    };
+
+    assert.throws(function () {
+      cors({ origin: '*', credentials: true })(req, res, next);
+    }, /Cross-origin requests are not allowed when credentials are set to true with origin/);
+    done();
+  });
+
+  it('allows origin "*" when credentials is false', function (done) {
+    var cb = after(1, done);
+    var req = fakeRequest('GET');
+    var res = new FakeResponse();
+
+    res.on('finish', function () {
+      assert.equal(res.getHeader('Access-Control-Allow-Origin'), '*');
+      assert.equal(res.getHeader('Access-Control-Allow-Credentials'), undefined);
+      cb();
+    });
+
+    cors({ origin: '*', credentials: false })(req, res, function (err) {
+      cb(err || new Error('should not be called'));
+    });
+  });
+});
