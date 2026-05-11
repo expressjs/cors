@@ -8,7 +8,7 @@
 CORS is a [Node.js](https://nodejs.org/en/) middleware for [Express](https://expressjs.com/)/[Connect](https://github.com/senchalabs/connect) that sets [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS) response headers. These headers tell browsers which origins can read responses from your server.
 
 > [!IMPORTANT]
-> **How CORS Works:** This package sets response headers—it doesn't block requests. CORS is enforced by browsers: they check the headers and decide if JavaScript can read the response. Non-browser clients (curl, Postman, other servers) ignore CORS entirely. See the [MDN CORS guide](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS) for details.
+> **How CORS Works:** This package sets response headers, it doesn't block requests. CORS is enforced by browsers: they check the headers and decide if JavaScript can read the response. Non-browser clients (curl, Postman, other servers) ignore CORS entirely. See the [MDN CORS guide](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS) for details.
 
 * [Installation](#installation)
 * [Usage](#usage)
@@ -223,7 +223,7 @@ app.listen(80, function () {
   - `String` - set `origin` to a specific origin. For example, if you set it to
     - `"http://example.com"` only requests from "http://example.com" will be allowed.
     - `"*"` for all domains to be allowed. 
-  - `RegExp` - set `origin` to a regular expression pattern which will be used to test the request origin. If it's a match, the request origin will be reflected. The origin header includes the scheme, so the pattern must anchor at the start of the origin to avoid unintended matches — for example `/^https?:\/\/(.+\.)?example\.com$/` will reflect `https://example.com` and any of its subdomains, but will not match attacker-controlled origins like `https://evil-example.com`. A trailing-only anchor such as `/example\.com$/` is **not safe** because it also matches domains that merely *end* with `example.com`.
+  - `RegExp` - set `origin` to a regular expression pattern which will be used to test the request origin. If it's a match, the request origin will be reflected. The origin header includes the scheme, so the pattern must anchor at the start of the origin to avoid unintended matches, for example `/^https?:\/\/(.+\.)?example\.com$/` will reflect `https://example.com` and any of its subdomains, but will not match attacker-controlled origins like `https://evil-example.com`. A trailing-only anchor such as `/example\.com$/` is **not safe** because it also matches domains that merely *end* with `example.com`.
   - `Array` - set `origin` to an array of valid origins. Each origin can be a `String` or a `RegExp`. For example `["http://example1.com", /^https?:\/\/(.+\.)?example2\.com$/]` will accept any request from "http://example1.com" or from a subdomain of "example2.com". As with the single-`RegExp` form, anchor at the start of the origin so patterns don't accept lookalike domains.
   - `Function` - set `origin` to a function implementing some custom logic. The function takes the request origin as the first parameter and a callback (called as `callback(err, origin)`, where `origin` is a non-function value of the `origin` option) as the second.
 * `methods`: Configures the **Access-Control-Allow-Methods** CORS header. Expects a comma-delimited string (ex: 'GET,PUT,POST') or an array (ex: `['GET', 'PUT', 'POST']`).
@@ -249,7 +249,7 @@ The default configuration is the equivalent of:
 
 ### "CORS blocks requests from disallowed origins"
 
-**No.** Your server receives and processes every request. CORS headers tell the browser whether JavaScript can read the response—not whether the request is allowed.
+**No.** Your server receives and processes every request. CORS headers tell the browser whether JavaScript can read the response, not whether the request is allowed.
 
 ### "CORS protects my API from unauthorized access"
 
