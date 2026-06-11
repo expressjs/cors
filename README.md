@@ -12,8 +12,8 @@ CORS is a [Node.js](https://nodejs.org/en/) middleware for [Express](https://exp
 
 * [Installation](#installation)
 * [Usage](#usage)
-  * [Simple Usage](#simple-usage-enable-all-cors-requests)
-  * [Enable CORS for a Single Route](#enable-cors-for-a-single-route)
+  * [Simple Usage](#simple-usage-set-cors-headers-for-all-requests)
+  * [Set CORS Headers for a Single Route](#set-cors-headers-for-a-single-route)
   * [Configuring CORS](#configuring-cors)
   * [Configuring CORS w/ Dynamic Origin](#configuring-cors-w-dynamic-origin)
   * [Enabling CORS Pre-Flight](#enabling-cors-pre-flight)
@@ -35,7 +35,7 @@ $ npm install cors
 
 ## Usage
 
-### Simple Usage (Enable *All* CORS Requests)
+### Simple Usage (Set CORS Headers for All Requests)
 
 ```javascript
 var express = require('express')
@@ -54,7 +54,7 @@ app.listen(80, function () {
 })
 ```
 
-### Enable CORS for a Single Route
+### Set CORS Headers for a Single Route
 
 ```javascript
 var express = require('express')
@@ -97,8 +97,9 @@ app.listen(80, function () {
 
 ### Configuring CORS w/ Dynamic Origin
 
-This module supports validating the origin dynamically using a function provided
-to the `origin` option. This function will be passed a string that is the origin
+This module supports selecting the `Access-Control-Allow-Origin` value
+dynamically using a function provided to the `origin` option. This function
+will be passed a string that is the origin
 (or `undefined` if the request has no origin), and a `callback` with the signature
 `callback(error, origin)`.
 
@@ -107,8 +108,8 @@ option of the middleware, except a function. See the
 [configuration options](#configuration-options) section for more information on all
 the possible value types.
 
-This function is designed to allow the dynamic loading of allowed origin(s) from
-a backing datasource, like a database.
+This function is designed to load origin values from a backing datasource, like a
+database, and then decide which CORS headers to send for the request.
 
 ```javascript
 var express = require('express')
@@ -219,13 +220,13 @@ app.listen(80, function () {
 ## Configuration Options
 
 * `origin`: Configures the **Access-Control-Allow-Origin** CORS header. Possible values:
-  - `Boolean` - set `origin` to `true` to reflect the [request origin](https://datatracker.ietf.org/doc/html/draft-abarth-origin-09), as defined by `req.header('Origin')`, or set it to `false` to disable CORS.
-  - `String` - set `origin` to a specific origin. For example, if you set it to
-    - `"http://example.com"` only requests from "http://example.com" will be allowed.
-    - `"*"` for all domains to be allowed. 
-  - `RegExp` - set `origin` to a regular expression pattern which will be used to test the request origin. If it's a match, the request origin will be reflected. For example the pattern `/example\.com$/` will reflect any request that is coming from an origin ending with "example.com".
-  - `Array` - set `origin` to an array of valid origins. Each origin can be a `String` or a `RegExp`. For example `["http://example1.com", /\.example2\.com$/]` will accept any request from "http://example1.com" or from a subdomain of "example2.com".
-  - `Function` - set `origin` to a function implementing some custom logic. The function takes the request origin as the first parameter and a callback (called as `callback(err, origin)`, where `origin` is a non-function value of the `origin` option) as the second.
+  - `Boolean` - set `origin` to `true` to copy the [request origin](https://datatracker.ietf.org/doc/html/draft-abarth-origin-09), as defined by `req.header('Origin')`, into the response header, or set it to `false` to omit CORS headers.
+  - `String` - set `origin` to a specific header value. For example:
+    - `"http://example.com"` sets `Access-Control-Allow-Origin: http://example.com`, so browsers only let JavaScript from that origin read the response.
+    - `"*"` sets `Access-Control-Allow-Origin: *`, so browsers let JavaScript from any origin read the response.
+  - `RegExp` - set `origin` to a regular expression pattern which will be used to test the request origin. If it's a match, the request origin will be copied into the response header. For example the pattern `/example\.com$/` will copy any request origin that ends with "example.com".
+  - `Array` - set `origin` to an array of origin header values and patterns. Each entry can be a `String` or a `RegExp`. For example `["http://example1.com", /\.example2\.com$/]` will copy request origins from "http://example1.com" or from a subdomain of "example2.com".
+  - `Function` - set `origin` to a function implementing custom logic for the response header value. The function takes the request origin as the first parameter and a callback (called as `callback(err, origin)`, where `origin` is a non-function value of the `origin` option) as the second.
 * `methods`: Configures the **Access-Control-Allow-Methods** CORS header. Expects a comma-delimited string (ex: 'GET,PUT,POST') or an array (ex: `['GET', 'PUT', 'POST']`).
 * `allowedHeaders`: Configures the **Access-Control-Allow-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Type,Authorization') or an array (ex: `['Content-Type', 'Authorization']`). If not specified, defaults to reflecting the headers specified in the request's **Access-Control-Request-Headers** header.
 * `exposedHeaders`: Configures the **Access-Control-Expose-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Range,X-Content-Range') or an array (ex: `['Content-Range', 'X-Content-Range']`). If not specified, no custom headers are exposed.
