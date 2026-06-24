@@ -234,6 +234,11 @@ app.listen(80, function () {
 * `preflightContinue`: Pass the CORS preflight response to the next handler.
 * `optionsSuccessStatus`: Provides a status code to use for successful `OPTIONS` requests, since some legacy browsers (IE11, various SmartTVs) choke on `204`.
 
+> [!WARNING]
+> **Avoid combining `origin: true` with `credentials: true`:** `origin: true` reflects whatever value is sent in the request's `Origin` header back as `Access-Control-Allow-Origin`, so it
+>  ends up authorizing *every* origin, not just one. Paired with `Access-Control-Allow-Credentials: true`, that means any website can make credentialed (cookie-bearing) requests to your API
+and read the response. If you need to support multiple specific origins with credentials, use an array, a `RegExp`, or a function for the `origin` option instead.
+
 The default configuration is the equivalent of:
 
 ```json
