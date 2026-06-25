@@ -231,7 +231,21 @@ app.listen(80, function () {
 * `exposedHeaders`: Configures the **Access-Control-Expose-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Range,X-Content-Range') or an array (ex: `['Content-Range', 'X-Content-Range']`). If not specified, no custom headers are exposed.
 * `credentials`: Configures the **Access-Control-Allow-Credentials** CORS header. Set to `true` to pass the header, otherwise it is omitted.
 
-  > **Security note:** Do not combine `credentials: true` with `origin: true`. When `origin` is `true`, this package reflects whatever origin the browser sends back in `Access-Control-Allow-Origin`. Paired with `Access-Control-Allow-Credentials: true`, this means *any* website can make credentialed (cookie-bearing) requests to your server and read the responses — equivalent to opening your API to the entire web with full session access. Use an explicit allowlist (`origin: ['https://app.example.com']`) instead.
+  > **Security note:** Do not combine `credentials: true` with `origin: true`. When `origin` is `true`, this package reflects whatever origin the browser sends back in `Access-Control-Allow-Origin`. Paired with `Access-Control-Allow-Credentials: true`, this means *any* website can make credentialed (cookie-bearing) requests to your server and read the responses — equivalent to opening your API to the entire web with full session access. Use an explicit allowlist (`origin: ['https://app.example.com']`) instead, or a function for dynamic lists (env-specific, tenant-specific, etc.):
+
+  ```js
+  app.use(cors({
+    origin: function (origin, callback) {
+      const allowlist = process.env.ALLOWED_ORIGINS.split(',');
+      if (!origin || allowlist.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true
+  }));
+  ```
 * `maxAge`: Configures the **Access-Control-Max-Age** CORS header. Set to an integer to pass the header, otherwise it is omitted.
 * `preflightContinue`: Pass the CORS preflight response to the next handler.
 * `optionsSuccessStatus`: Provides a status code to use for successful `OPTIONS` requests, since some legacy browsers (IE11, various SmartTVs) choke on `204`.
