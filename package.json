@@ -38,5 +38,9 @@
     "test": "npm run lint && npm run test-ci",
     "test-ci": "nyc --reporter=lcov --reporter=text mocha --require test/support/env",
     "lint": "eslint lib test"
+  },
+  "homepage": "https://github.com/expressjs/cors",
+  "bugs": {
+    "url": "https://github.com/expressjs/cors/issues"
   }
 }
