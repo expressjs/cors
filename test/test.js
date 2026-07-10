@@ -258,7 +258,7 @@ var util = require('util')
         cors(options)(req, res, next);
       });
 
-      it('includes Vary header for specific origins', function (done) {
+      it('does not include Vary header for static origins', function (done) {
         // arrange
         var req, res, next, options;
         options = {
@@ -268,7 +268,7 @@ var util = require('util')
         res = fakeResponse();
         next = function () {
           // assert
-          assert.equal(res.getHeader('Vary'), 'Origin')
+          assert.equal(res.getHeader('Vary'), undefined)
           done();
         };
 
@@ -276,7 +276,7 @@ var util = require('util')
         cors(options)(req, res, next);
       });
 
-      it('appends to an existing Vary header', function (done) {
+      it('does not append Origin to an existing Vary header for static origins', function (done) {
         // arrange
         var req, res, next, options;
         options = {
@@ -287,7 +287,7 @@ var util = require('util')
         res.setHeader('Vary', 'Foo');
         next = function () {
           // assert
-          assert.equal(res.getHeader('Vary'), 'Foo, Origin')
+          assert.equal(res.getHeader('Vary'), 'Foo')
           done();
         };
 
@@ -339,6 +339,24 @@ var util = require('util')
         res = fakeResponse();
         next = function () {
           assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
+          done();
+        };
+
+        cors(options)(req, res, next);
+      });
+
+      it('includes Vary header when origin callback returns a specific origin', function (done) {
+        var req, res, next, options;
+        options = {
+          origin: function (sentOrigin, cb) {
+            cb(null, sentOrigin);
+          }
+        };
+        req = fakeRequest('GET');
+        res = fakeResponse();
+        next = function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), 'http://example.com')
+          assert.equal(res.getHeader('Vary'), 'Origin')
           done();
         };
 
