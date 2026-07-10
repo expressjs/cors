@@ -85,7 +85,7 @@ var corsOptions = {
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
-// Adds headers: Access-Control-Allow-Origin: http://example.com, Vary: Origin
+// Adds headers: Access-Control-Allow-Origin: http://example.com
 app.get('/products/:id', cors(corsOptions), function (req, res, next) {
   res.json({msg: 'Hello'})
 })
@@ -189,7 +189,7 @@ Here’s an example that handles both public routes and restricted, credential-s
 var dynamicCorsOptions = function(req, callback) {
   var corsOptions;
   if (req.path.startsWith('/auth/connect/')) {
-    // Access-Control-Allow-Origin: http://mydomain.com, Access-Control-Allow-Credentials: true, Vary: Origin
+    // Access-Control-Allow-Origin: http://mydomain.com, Access-Control-Allow-Credentials: true
     corsOptions = {
       origin: 'http://mydomain.com',
       credentials: true
@@ -226,6 +226,8 @@ app.listen(80, function () {
   - `RegExp` - set `origin` to a regular expression pattern which will be used to test the request origin. If it's a match, the request origin will be reflected. For example the pattern `/example\.com$/` will reflect any request that is coming from an origin ending with "example.com".
   - `Array` - set `origin` to an array of valid origins. Each origin can be a `String` or a `RegExp`. For example `["http://example1.com", /\.example2\.com$/]` will accept any request from "http://example1.com" or from a subdomain of "example2.com".
   - `Function` - set `origin` to a function implementing some custom logic. The function takes the request origin as the first parameter and a callback (called as `callback(err, origin)`, where `origin` is a non-function value of the `origin` option) as the second.
+
+  `Vary: Origin` is added when the allowed origin is reflected from the request origin, such as with `origin: true`, a `RegExp`, an `Array`, or an origin callback. It is not added for `origin: "*"`, `origin: false`, or a static string origin.
 * `methods`: Configures the **Access-Control-Allow-Methods** CORS header. Expects a comma-delimited string (ex: 'GET,PUT,POST') or an array (ex: `['GET', 'PUT', 'POST']`).
 * `allowedHeaders`: Configures the **Access-Control-Allow-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Type,Authorization') or an array (ex: `['Content-Type', 'Authorization']`). If not specified, defaults to reflecting the headers specified in the request's **Access-Control-Request-Headers** header.
 * `exposedHeaders`: Configures the **Access-Control-Expose-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Range,X-Content-Range') or an array (ex: `['Content-Range', 'X-Content-Range']`). If not specified, no custom headers are exposed.
