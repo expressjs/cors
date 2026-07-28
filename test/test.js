@@ -295,6 +295,24 @@ var util = require('util')
         cors(options)(req, res, next);
       });
 
+      it('sets Vary Origin even when Origin request header is missing', function (done) {
+        // arrange
+        var req, res, next, options;
+        options = {
+          origin: 'http://example.com'
+        };
+        req = fakeRequest('GET', {});  // no Origin header
+        res = fakeResponse();
+        next = function () {
+          // assert
+          assert.equal(res.getHeader('Vary'), 'Origin')
+          done();
+        };
+
+        // act
+        cors(options)(req, res, next);
+      });
+
       it('origin defaults to *', function (done) {
         // arrange
         var req, res, next;
@@ -442,7 +460,7 @@ var util = require('util')
 
         res.on('finish', function () {
           assert.strictEqual(res.getHeader('Access-Control-Allow-Headers'), 'header1,header2')
-          assert.equal(res.getHeader('Vary'), undefined)
+          assert.equal(res.getHeader('Vary'), 'Origin')
           cb()
         })
 
@@ -458,7 +476,7 @@ var util = require('util')
 
         res.on('finish', function () {
           assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'header1,header2')
-          assert.equal(res.getHeader('Vary'), undefined)
+          assert.equal(res.getHeader('Vary'), 'Origin')
           cb()
         })
 
@@ -478,7 +496,7 @@ var util = require('util')
         next = function () {
           // assert
           assert.equal(res.getHeader('Access-Control-Allow-Headers'), undefined)
-          assert.equal(res.getHeader('Vary'), undefined)
+          assert.equal(res.getHeader('Vary'), 'Origin')
           done();
         };
 
@@ -493,7 +511,7 @@ var util = require('util')
 
         res.on('finish', function () {
           assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'x-header-1, x-header-2')
-          assert.equal(res.getHeader('Vary'), 'Access-Control-Request-Headers')
+          assert.equal(res.getHeader('Vary'), 'Origin, Access-Control-Request-Headers')
           cb()
         })
 
