@@ -133,6 +133,15 @@ var util = require('util')
       cors()(req, res, next);
     });
 
+    it('always sets Vary: Origin header even when Origin request header is missing', function (done) {
+      var req = fakeRequest('GET');
+      var res = fakeResponse();
+      cors()(req, res, function () {
+        assert.strictEqual(res.getHeader('Vary'), 'Origin');
+        done();
+      });
+    });
+
     it('OPTION call with no options enables default CORS to all origins and methods', function (done) {
       var cb = after(1, done)
       var req = new FakeRequest('OPTIONS')
