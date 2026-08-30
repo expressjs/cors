@@ -223,13 +223,17 @@ app.listen(80, function () {
   - `String` - set `origin` to a specific origin. For example, if you set it to
     - `"http://example.com"` only requests from "http://example.com" will be allowed.
     - `"*"` for all domains to be allowed. 
-  - `RegExp` - set `origin` to a regular expression pattern which will be used to test the request origin. If it's a match, the request origin will be reflected. For example the pattern `/example\.com$/` will reflect any request that is coming from an origin ending with "example.com".
-  - `Array` - set `origin` to an array of valid origins. Each origin can be a `String` or a `RegExp`. For example `["http://example1.com", /\.example2\.com$/]` will accept any request from "http://example1.com" or from a subdomain of "example2.com".
+  - `RegExp` - set `origin` to a regular expression pattern which will be used to test the request origin. If it's a match, the request origin will be reflected. For example, the pattern `/^https?:\/\/(.+\.)?example\.com$/` (or `/:\/\/(.+\.)?example\.com$/`) will reflect any request that is coming from "example.com" or any of its subdomains.
+    > [!WARNING]
+    > **Security Note:** When using a `RegExp` for `origin`, ensure that domain boundaries, scheme delimiters, and literal dots are properly escaped and anchored (e.g. `/^https?:\/\/(.+\.)?example\.com$/` or `/:\/\/(.+\.)?example\.com$/`). An unanchored pattern such as `/example\.com$/` is vulnerable to CORS bypass because it will match unintended domains like `https://evil-example.com` or `https://notexample.com`.
+  - `Array` - set `origin` to an array of valid origins. Each origin can be a `String` or a `RegExp`. For example `["http://example1.com", /^https?:\/\/(.+\.)?example2\.com$/]` will accept any request from "http://example1.com" or from "example2.com" and its subdomains.
   - `Function` - set `origin` to a function implementing some custom logic. The function takes the request origin as the first parameter and a callback (called as `callback(err, origin)`, where `origin` is a non-function value of the `origin` option) as the second.
 * `methods`: Configures the **Access-Control-Allow-Methods** CORS header. Expects a comma-delimited string (ex: 'GET,PUT,POST') or an array (ex: `['GET', 'PUT', 'POST']`).
 * `allowedHeaders`: Configures the **Access-Control-Allow-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Type,Authorization') or an array (ex: `['Content-Type', 'Authorization']`). If not specified, defaults to reflecting the headers specified in the request's **Access-Control-Request-Headers** header.
 * `exposedHeaders`: Configures the **Access-Control-Expose-Headers** CORS header. Expects a comma-delimited string (ex: 'Content-Range,X-Content-Range') or an array (ex: `['Content-Range', 'X-Content-Range']`). If not specified, no custom headers are exposed.
 * `credentials`: Configures the **Access-Control-Allow-Credentials** CORS header. Set to `true` to pass the header, otherwise it is omitted.
+  > [!WARNING]
+  > **Security Note on `origin: true` with `credentials: true`:** Combining `credentials: true` with `origin: true` (or unanchored/overly permissive origin patterns) is dangerous. Because browsers disallow `Access-Control-Allow-Credentials: true` with wildcard origins (`*`), `origin: true` dynamically reflects *any* requesting origin into `Access-Control-Allow-Origin`. This allows malicious websites on arbitrary origins to make authenticated (cookie- or credential-bearing) cross-origin requests and read sensitive response data. Only enable `credentials: true` with explicitly trusted, specific origins or strict origin validation.
 * `maxAge`: Configures the **Access-Control-Max-Age** CORS header. Set to an integer to pass the header, otherwise it is omitted.
 * `preflightContinue`: Pass the CORS preflight response to the next handler.
 * `optionsSuccessStatus`: Provides a status code to use for successful `OPTIONS` requests, since some legacy browsers (IE11, various SmartTVs) choke on `204`.
@@ -258,6 +262,10 @@ The default configuration is the equivalent of:
 ### "Setting `origin: 'http://example.com'` means only that domain can access my server"
 
 **No.** It means browsers will only let JavaScript from that origin read responses. The server still responds to all requests.
+
+### "Using `origin: true` with `credentials: true` is safe because `origin: '*'` is disallowed with credentials"
+
+**No.** Setting `origin: true` causes `cors` to reflect the requesting `Origin` header value directly in `Access-Control-Allow-Origin`. Combined with `credentials: true`, any website can issue authenticated requests on behalf of users and read the server's response. Always validate against an allowlist of trusted origins when enabling credentials.
 
 ## License
 

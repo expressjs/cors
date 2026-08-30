@@ -181,11 +181,23 @@ var util = require('util')
       it('matches request origin against regexp', function(done) {
         var req = fakeRequest('GET');
         var res = fakeResponse();
-        var options = { origin: /:\/\/(.+\.)?example.com$/ }
+        var options = { origin: /:\/\/(.+\.)?example\.com$/ };
         cors(options)(req, res, function(err) {
-          assert.ifError(err)
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), req.headers.origin)
-          assert.equal(res.getHeader('Vary'), 'Origin')
+          assert.ifError(err);
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), req.headers.origin);
+          assert.equal(res.getHeader('Vary'), 'Origin');
+          return done();
+        });
+      });
+
+      it('doesn\'t match unintended request origin against anchored regexp', function(done) {
+        var req = fakeRequest('GET', { origin: 'http://evil-example.com' });
+        var res = fakeResponse();
+        var options = { origin: /:\/\/(.+\.)?example\.com$/ };
+        cors(options)(req, res, function(err) {
+          assert.ifError(err);
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined);
+          assert.equal(res.getHeader('Vary'), 'Origin');
           return done();
         });
       });
@@ -193,11 +205,11 @@ var util = require('util')
       it('matches request origin against array of origin checks', function(done) {
         var req = fakeRequest('GET');
         var res = fakeResponse();
-        var options = { origin: [ /foo\.com$/, 'http://example.com' ] }
+        var options = { origin: [ /^https?:\/\/(.+\.)?foo\.com$/, 'http://example.com' ] };
         cors(options)(req, res, function(err) {
-          assert.ifError(err)
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), req.headers.origin)
-          assert.equal(res.getHeader('Vary'), 'Origin')
+          assert.ifError(err);
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), req.headers.origin);
+          assert.equal(res.getHeader('Vary'), 'Origin');
           return done();
         });
       });
@@ -205,11 +217,11 @@ var util = require('util')
       it('doesn\'t match request origin against array of invalid origin checks', function(done) {
         var req = fakeRequest('GET');
         var res = fakeResponse();
-        var options = { origin: [ /foo\.com$/, 'bar.com' ] };
+        var options = { origin: [ /^https?:\/\/(.+\.)?foo\.com$/, 'bar.com' ] };
         cors(options)(req, res, function(err) {
-          assert.ifError(err)
-          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined)
-          assert.equal(res.getHeader('Vary'), 'Origin')
+          assert.ifError(err);
+          assert.equal(res.getHeader('Access-Control-Allow-Origin'), undefined);
+          assert.equal(res.getHeader('Vary'), 'Origin');
           return done();
         });
       });
