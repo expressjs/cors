@@ -486,6 +486,63 @@ var util = require('util')
         cors(options)(req, res, next);
       });
 
+      it('matches requested headers against a regular expression', function (done) {
+        var cb = after(1, done)
+        var req = new FakeRequest('OPTIONS', {
+          'origin': 'http://example.com',
+          'access-control-request-headers': 'apollo-foo, authorization, x-custom-app-header-bar'
+        })
+        var res = new FakeResponse()
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'Accept,Content-Type,apollo-foo,x-custom-app-header-bar')
+          assert.equal(res.getHeader('Vary'), 'Access-Control-Request-Headers')
+          cb()
+        })
+
+        cors({
+          allowedHeaders: [/^apollo-/i, /^x-custom-app-header-/i, 'Accept', 'Content-Type']
+        })(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      });
+
+      it('matches every requested header when the regular expression is global', function (done) {
+        var cb = after(1, done)
+        var req = new FakeRequest('OPTIONS', {
+          'origin': 'http://example.com',
+          'access-control-request-headers': 'x-one, x-two'
+        })
+        var res = new FakeResponse()
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Headers'), 'x-one,x-two')
+          cb()
+        })
+
+        cors({ allowedHeaders: /^x-/gi })(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      });
+
+      it('omits allowed headers when no requested header matches the regular expression', function (done) {
+        var cb = after(1, done)
+        var req = new FakeRequest('OPTIONS', {
+          'origin': 'http://example.com',
+          'access-control-request-headers': 'authorization'
+        })
+        var res = new FakeResponse()
+
+        res.on('finish', function () {
+          assert.equal(res.getHeader('Access-Control-Allow-Headers'), undefined)
+          cb()
+        })
+
+        cors({ allowedHeaders: [/^apollo-/] })(req, res, function (err) {
+          cb(err || new Error('should not be called'))
+        })
+      });
+
       it('if no allowed headers are specified, defaults to requested allowed headers', function (done) {
         var cb = after(1, done)
         var req = new FakeRequest('OPTIONS')
