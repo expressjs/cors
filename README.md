@@ -261,7 +261,7 @@ The default configuration is the equivalent of:
 
 ## License
 
-[MIT License](http://www.opensource.org/licenses/mit-license.php)
+[MIT License](LICENSE)
 
 ## Original Author
 
