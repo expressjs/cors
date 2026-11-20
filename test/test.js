@@ -102,6 +102,36 @@ var util = require('util')
       })
     });
 
+    it('includes Allow response header', function (done) {
+      var cb = after(1, done)
+      var req = new FakeRequest('OPTIONS')
+      var res = new FakeResponse()
+
+      res.on('finish', function () {
+        assert.equal(res.getHeader('Allow'), 'GET,HEAD,PUT,PATCH,POST,DELETE')
+        cb()
+      })
+
+      cors()(req, res, function (err) {
+        cb(err || new Error('should not be called'))
+      })
+    });
+
+    it('Allow response header matches configured methods', function (done) {
+      var cb = after(1, done)
+      var req = new FakeRequest('OPTIONS')
+      var res = new FakeResponse()
+
+      res.on('finish', function () {
+        assert.equal(res.getHeader('Allow'), 'GET,POST')
+        cb()
+      })
+
+      cors({ methods: ['GET', 'POST'] })(req, res, function (err) {
+        cb(err || new Error('should not be called'))
+      })
+    });
+
     it('includes Content-Length response header', function (done) {
       var cb = after(1, done)
       var req = new FakeRequest('OPTIONS')
